@@ -1,0 +1,454 @@
+[
+    {
+        "model": "iPhone 15 Pro",
+        "category": "smartphones",
+        "specs": {
+            "display": "6.1-inch Super Retina XDR display footnote ¹ featuring ProMotion, Always-On, and Dynamic Island",
+            "processor": "A17 Pro chip delivers a massive leap in graphics performance, transforming mobile gaming",
+            "camera": "48MP Main camera for super-high-resolution photos and 3x Telephoto camera",
+            "storage": "128GB, 256GB, 512GB, 1TB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15pro-digitalmat-gallery-1-202309_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1693346851451",
+        "colors": ["Black Titanium", "White Titanium", "Blue Titanium,", "Natural Titanium"],
+        "price": "$999",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15pro-digitalmat-gallery-2-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081541434",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15pro-digitalmat-gallery-3-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081542150",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15pro-digitalmat-gallery-4-202309?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1693081542280",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15pro-digitalmat-gallery-5-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081541860"
+        },
+        "video": "https://www.apple.com/105/media/us/iphone-15-pro/2023/2f337511-a940-4b57-b89c-1512b7507777/anim/hero/large.mp4"
+    },
+    {
+        "model": "iPhone 15 Pro Max",
+        "category": "smartphones",
+        "specs": {
+            "display": "6.7-inch Super Retina XDR display footnote ¹ featuring ProMotion, Always-On, and Dynamic Island",
+            "processor": "A17 Pro chip delivers a massive leap in graphics performance, transforming mobile gaming",
+            "camera": "48MP Main camera for super-high-resolution photos and 5x Telephoto camera, the longest optical zoom in iPhone ever",
+            "storage": "256GB, 512GB, 1TB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15promax-digitalmat-gallery-1-202309_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1693346851426",
+        "colors": ["Black Titanium", "White Titanium", "Blue Titanium,", "Natural Titanium"],
+        "price": "$1199",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15promax-digitalmat-gallery-2-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081545196",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15promax-digitalmat-gallery-3-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081545199",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15promax-digitalmat-gallery-4-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081545196",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15promax-digitalmat-gallery-5-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081544863"
+        },
+        "video": "https://www.apple.com/105/media/us/iphone-15-pro/2023/2f337511-a940-4b57-b89c-1512b7507777/anim/hero/large.mp4"
+    },
+    {
+        "model": "iPhone 15 Plus",
+        "category": "smartphones",
+        "specs": {
+            "display": "6.7-inch durable color-infused glass and aluminum design footnote ◊ with Ceramic Shield front",
+            "processor": "A16 Bionic powers computational photography and smooth gaming performance with great efficiency for all-day battery life",
+            "camera": "48MP Main camera with 2x Telephoto captures breathtaking detail up close or far away",
+            "storage": "128GB, 256GB, 512GB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15plus-digitalmat-gallery-1-202309_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1693346853276",
+        "colors": ["Black", "Blue", "Green", "Yellow", "Pink"],
+        "price": "$899",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15plus-digitalmat-gallery-2-202309?wid=364&hei=333&fmt=png-alpha&.v=1693011172365",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15plus-digitalmat-gallery-3-202309?wid=364&hei=333&fmt=png-alpha&.v=1695316290154",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15plus-digitalmat-gallery-4-202309?wid=364&hei=333&fmt=png-alpha&.v=1693011173707",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15plus-digitalmat-gallery-5-202309?wid=364&hei=333&fmt=png-alpha&.v=1693011171952"
+        },
+        "video": "https://www.apple.com/105/media/us/iphone-15/2023/434c1226-dcdc-47be-ae28-6cb67a3a5a7c/anim/hero/large.mp4"
+    },
+    {
+        "model": "iPhone 15",
+        "category": "smartphones",
+        "specs": {
+            "display": "6.1-inch durable color-infused glass and aluminum design footnote ◊ with Ceramic Shield front",
+            "processor": "A16 Bionic powers computational photography and smooth gaming performance with great efficiency for all-day battery life",
+            "camera": "48MP Main camera with 2x Telephoto captures breathtaking detail up close or far away",
+            "storage": "128GB, 256GB, 512GB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15-digitalmat-gallery-1-202309_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1693346853617",
+        "colors": ["Black", "Blue", "Green", "Yellow", "Pink"],
+        "price": "$799",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15-digitalmat-gallery-2-202309?wid=364&hei=333&fmt=png-alpha&.v=1693011169058",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15-digitalmat-gallery-3-202309?wid=364&hei=333&fmt=png-alpha&.v=1694112697687",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15-digitalmat-gallery-4-202309?wid=364&hei=333&fmt=png-alpha&.v=1693011169045",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15-digitalmat-gallery-5-202309?wid=364&hei=333&fmt=png-alpha&.v=1693011169178"
+        },
+        "video": "https://www.apple.com/105/media/us/iphone-15/2023/434c1226-dcdc-47be-ae28-6cb67a3a5a7c/anim/hero/large.mp4"
+    },
+    {
+        "model": "iPhone 14 Plus",
+        "category": "smartphones",
+        "specs": {
+            "display": "6.7-inch durable design footnote ¹ with Ceramic Shield and water and dust resistance",
+            "processor": "A15 Bionic, the same superspeedy chip that’s in iPhone 13 Pro",
+            "camera": "A Pro-level Main camera and advanced image processing for sensational shots in all kinds of light",
+            "storage": "128GB, 256GB, 512GB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14plus-digitalmat-gallery-1-202303_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1676510300461",
+        "colors": ["Black", "Green", "Yellow", "Purple", "Red", "White"],
+        "price": "$799",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14plus-digitalmat-gallery-2-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055813701",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14plus-digitalmat-gallery-3-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055814336",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14plus-digitalmat-gallery-4-202303?wid=364&hei=333&fmt=png-alpha&.v=1676510300912",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14plus-digitalmat-gallery-5-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055808782"
+        }
+    },
+    {
+        "model": "iPhone 14",
+        "category": "smartphones",
+        "specs": {
+            "display": "6.1-inch durable design footnote ¹ with Ceramic Shield and water and dust resistance",
+            "processor": "A15 Bionic, the same superspeedy chip that’s in iPhone 13 Pro",
+            "camera": "A Pro-level Main camera and advanced image processing for sensational shots in all kinds of light",
+            "storage": "128GB, 256GB, 512GB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-digitalmat-gallery-1-202303_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1679072735070",
+        "colors": ["Black", "White", "Blue", "Yellow", "Coral", "Red"],
+        "price": "$699",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-digitalmat-gallery-2-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055814304",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-digitalmat-gallery-3-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055813794",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-digitalmat-gallery-4-202303?wid=364&hei=333&fmt=png-alpha&.v=1677109421553",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-digitalmat-gallery-5-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055808737"
+        }
+    },
+    {
+        "model": "iPhone 13",
+        "category": "smartphones",
+        "specs": {
+            "display": "6.1-inch Super Retina XDR display footnote",
+            "processor": "A15 Bionic with 4-core GPU for lightning-fast performance",
+            "camera": "Dual-camera system for incredible low-light photos and videos",
+            "storage": "128GB, 256GB, 512GB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone13-digitalmat-gallery-1-202203_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1677662648569",
+        "colors": ["Blue", "Pink", "Midnight", "Starlight", "Green"],
+        "price": "$599",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone13-digitalmat-gallery-2-202203?wid=364&hei=333&fmt=png-alpha&.v=1644988764167",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone13-digitalmat-gallery-3-202203?wid=364&hei=333&fmt=png-alpha&.v=1644988765122",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone13-digitalmat-gallery-4-202203?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1644988764203",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone13-digitalmat-gallery-5-202203?wid=364&hei=333&fmt=png-alpha&.v=1644988764132"
+        }
+    },
+    {
+        "model": "iPhone SE",
+        "category": "smartphones",
+        "specs": {
+            "display": "4.7-inch Retina HD display footnote ¹ that’s bright, colorful, and sharp",
+            "processor": "A15 Bionic, the same superpowerful chip that’s in iPhone 13",
+            "camera": "Smarter camera makes automatic adjustments so faces, places, everything looks fabulous",
+            "storage": "64GB, 128GB, 256GB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphonese-digitalmat-gallery-1-202203?wid=364&hei=333&fmt=png-alpha&.v=1644987579596",
+        "colors": ["Starlight", "Midnight"],
+        "price": "$429",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphonese-digitalmat-gallery-2-202203?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1646075827246",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphonese-digitalmat-gallery-3-202203?wid=364&hei=333&fmt=png-alpha&.v=1644987579761",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphonese-digitalmat-gallery-4-202203?wid=364&hei=333&fmt=png-alpha&.v=1644987579760",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphonese-digitalmat-gallery-5-202203?wid=364&hei=333&fmt=png-alpha&.v=1644987579701"
+        }
+    },
+
+    {
+        "model": "iPad Pro 12.9-inch (6th generation)",
+        "category": "tablets",
+        "specs": {
+            "display": "12.9-inch Liquid Retina XDR display footnote ² with ProMotion, True Tone, and P3 wide color",
+            "processor": "The Apple M2 chip powers a massive leap in performance for pro workflows and all-day battery life",
+            "storage": "128GB, 256GB, 512GB, 1TB, 2TB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro12-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477069672",
+        "colors": ["Silver", "Space Gray"],
+        "price": "$1099",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro12-digitalmat-gallery-2-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477069877",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro12-digitalmat-gallery-3-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477069963",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro12-digitalmat-gallery-4-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477069947",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro12-digitalmat-gallery-5-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477069876"
+        },
+        "video": "https://www.apple.com/105/media/us/ipad-pro/2022/08087f4b-7539-4b1e-ae8a-adc18f4242ae/anim/hero/large_2x.mp4"
+    },
+    {
+        "model": "iPad Pro 11-inch (6th generation)",
+        "category": "tablets",
+        "specs": {
+            "display": "11-inch Liquid Retina display footnote ² with ProMotion, True Tone, and P3 wide color",
+            "processor": "The Apple M2 chip powers a massive leap in performance for pro workflows and all-day battery life¹",
+            "storage": "128GB, 256GB, 512GB, 1TB, 2TB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro11-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477161220",
+        "colors": ["Silver", "Space Gray"],
+        "price": "$799",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro11-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477161220",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro11-digitalmat-gallery-3-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477161231",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro11-digitalmat-gallery-4-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477161238",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro11-digitalmat-gallery-5-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477161177"
+        },
+        "video": "https://www.apple.com/105/media/us/ipad-pro/2022/08087f4b-7539-4b1e-ae8a-adc18f4242ae/anim/hero/large_2x.mp4"
+    },
+    {
+        "model": "iPad Air (5th generation)",
+        "category": "tablets",
+        "specs": {
+            "display": "10.9-inch Liquid Retina display delivers an immersive viewing experience footnote",
+            "processor": "Apple M1 chip powers next-level performance and all-day battery life footnote",
+            "storage": "64GB, 256GB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadair-digitalmat-gallery-1-202203?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1644962768135",
+        "colors": ["Startlight", "Space Gray", "Pink", "Purple", "Blue"],
+        "price": "$599",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadair-digitalmat-gallery-2-202203_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1645724601636",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadair-digitalmat-gallery-3-202203?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1644962768498",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadair-digitalmat-gallery-4-202203?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1644962768511",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadair-digitalmat-gallery-5-202203?wid=364&hei=333&fmt=png-alpha&.v=1644962768260"
+        },
+        "video": ""
+    },
+    {
+        "model": "iPad (10th generation)",
+        "category": "tablets",
+        "specs": {
+            "display": "All-screen design with 10.9-inch Liquid Retina display¹ delivers an amazing viewing experience",
+            "processor": "The A14 Bionic chip lets you run multiple apps and work smoothly between them",
+            "storage": "64GB, 256GB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664392871297",
+        "colors": ["Silver", "Blue", "Pink", "Yellow"],
+        "price": "$499",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664392871297",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-digitalmat-gallery-3-202210?wid=364&hei=333&fmt=png-alpha&.v=1664392871324",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-digitalmat-gallery-4-202210?wid=364&hei=333&fmt=png-alpha&.v=1664392871337",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-digitalmat-gallery-5-202210?wid=364&hei=333&fmt=png-alpha&.v=1664392871595"
+        },
+        "video": ""
+    },
+    {
+        "model": "iPad Mini",
+        "category": "tablets",
+        "specs": {
+            "display": "Stunning 8.3-inch Liquid Retina display with True Tone and P3 wide color footnote",
+            "processor": "A15 Bionic chip for incredible performance and all-day battery life footnote ¹",
+            "storage": "64GB, 256GB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-digitalmat-gallery-1-202111?wid=365&hei=333&fmt=png-alpha&.v=1635183174000",
+        "colors": ["Purple", "Pink", "Starlight", "Space Gray"],
+        "price": "$499",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-digitalmat-gallery-1-202111?wid=365&hei=333&fmt=png-alpha&.v=1635183174000",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-digitalmat-gallery-3-202111?wid=365&hei=333&fmt=png-alpha&.v=1635183176000",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-digitalmat-gallery-4-202111?wid=365&hei=333&fmt=jpeg&qlt=95&.v=1635183177000",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-digitalmat-gallery-4-202111?wid=365&hei=333&fmt=jpeg&qlt=95&.v=1635183177000"
+        },
+        "video": ""
+    },
+
+
+
+    {
+        "model": "MacBook Pro 16-inch",
+        "category": "laptops",
+        "specs": {
+            "display": "Liquid Retina XDR display is the best ever in a laptop, with Extreme Dynamic Range, incredible contrast, and true-to-life colors",
+            "processor": "With M3 Pro or M3 Max, our most advanced chips for personal computers, MacBook Pro empowers you to take on the most demanding projects",
+            "memory": "Up to 64GB unified memory",
+            "storage": "512GB, 1TB, 2TB, 4TB, 8TB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-16-digitalmat-gallery-1-202310?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1696971483270",
+        "colors": ["Silver", "Space Gray"],
+        "price": "$2499",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-16-digitalmat-gallery-2-202310?wid=364&hei=333&fmt=png-alpha&.v=1697917474258",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-16-digitalmat-gallery-3-202310?wid=364&hei=333&fmt=png-alpha&.v=1696971483097",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-16-digitalmat-gallery-4-202310?wid=364&hei=333&fmt=png-alpha&.v=1696971485125",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-16-digitalmat-gallery-6-202310?wid=364&hei=333&fmt=png-alpha&.v=1696971485782"
+        },
+        "video": "https://www.apple.com/105/media/us/macbook-pro/2023/232a2dbf-5898-4fd1-a350-6a7c5c2e31c9/anim/welcome-hero/large.mp4"
+    },
+    {
+        "model": "MacBook Pro 14-inch",
+        "category": "laptops",
+        "specs": {
+            "display": "Liquid Retina XDR display is the best ever in a laptop, with Extreme Dynamic Range, incredible contrast, and true-to-life colors",
+            "processor": "With M3, M3 Pro, or M3 Max, our most advanced chips for personal computers, MacBook Pro empowers you to take on the most demanding projects",
+            "memory": "Up to 64GB unified memory",
+            "storage": "512GB, 1TB, 2TB, 4TB, 8TB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-14-digitalmat-gallery-1-202310?wid=364&hei=333&fmt=png-alpha&.v=1696971522628",
+        "colors": ["Silver", "Space Gray"],
+        "price": "$1599",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-14-digitalmat-gallery-2-202310?wid=364&hei=333&fmt=png-alpha&.v=1697915602337",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-14-digitalmat-gallery-3-202310?wid=364&hei=333&fmt=png-alpha&.v=1696971522864",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-14-digitalmat-gallery-4-202310?wid=364&hei=333&fmt=png-alpha&.v=1699397079698",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-14-digitalmat-gallery-7-202310?wid=364&hei=333&fmt=png-alpha&.v=1696971527085   "
+        },
+        "video": "https://www.apple.com/105/media/us/macbook-pro/2023/232a2dbf-5898-4fd1-a350-6a7c5c2e31c9/anim/welcome-hero/large.mp4"
+    },
+    {
+        "model": "MacBook Air (M1)",
+        "category": "laptops",
+        "specs": {
+            "display": "13.3-inch Retina display",
+            "processor": "M1 chip",
+            "memory": "Up to 16GB unified memory",
+            "storage": "256GB, 512GB, 1TB, 2TB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-1-202111?wid=364&hei=333&fmt=png-alpha&.v=1636156517000",
+        "colors": ["Gold", "Silver", "Space Gray"],
+        "price": "$999",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-2-202111?wid=364&hei=333&fmt=png-alpha&.v=1664581580690",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-3-202111?wid=364&hei=333&fmt=png-alpha&.v=1635187293000",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-4-202111?wid=364&hei=333&fmt=png-alpha&.v=1665185957075",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-5-202111?wid=364&hei=333&fmt=png-alpha&.v=1635187292000"
+        },
+        "video": "https://www.apple.com/105/media/us/macbook-air-m1/2022/648bb92f-0bb4-452c-bfbc-2898641b22f5/anim/hero/large.mp4"
+    },
+    {
+        "model": "MacBook Air 13-inch (M2)",
+        "category": "laptops",
+        "specs": {
+            "display": "The brilliant 13.6-inch Liquid Retina display features 500 nits of brightness, P3 wide color, and support for one billion colors²",
+            "processor": "Get more done faster with the blazing-fast Apple M2 chip",
+            "memory": "Up to 24GB DDR4 memory",
+            "storage": "512GB, 1TB, 2TB, 4TB, 8TB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-digitalmat-gallery-1-202206?wid=364&hei=333&fmt=png-alpha&.v=1652827325377",
+        "colors": ["Silver", "Space Gray", "Starlight", "Midnight"],
+        "price": "$1099",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-digitalmat-gallery-2-202206?wid=364&hei=333&fmt=png-alpha&.v=1652827325363",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-digitalmat-gallery-3-202206?wid=364&hei=333&fmt=png-alpha&.v=1652827325419",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-digitalmat-gallery-4-202206?wid=364&hei=333&fmt=png-alpha&.v=1652827325434",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-digitalmat-gallery-5-202206?wid=364&hei=333&fmt=png-alpha&.v=1652827325475"
+        },
+        "video": ""
+    },
+    {
+        "model": "MacBook Air 15-inch (M2)",
+        "category": "laptops",
+        "specs": {
+            "display": "The brilliant 15.3-inch Liquid Retina display features 500 nits of brightness, P3 wide color, and support for one billion colors Footnote",
+            "processor": "Get more done faster with the blazing-fast Apple M2 chip",
+            "memory": "Up to 24GB DDR4 memory",
+            "storage": "512GB, 1TB, 2TB"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-1-202306?wid=364&hei=333&fmt=png-alpha&.v=1683914347188",
+        "colors": ["Silver", "Space Gray", "Starlight", "Midnight"],
+        "price": "$1299",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-2-202306?wid=364&hei=333&fmt=png-alpha&.v=1683914347552",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-3-202306?wid=364&hei=333&fmt=png-alpha&.v=1683914347165",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-4-202306?wid=364&hei=333&fmt=png-alpha&.v=1683914347514",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-6-202306?wid=364&hei=333&fmt=png-alpha&.v=1683914347539"
+        },
+        "video": ""
+    },
+    
+
+    {
+        "model": "Mac Pro",
+        "category": "desktops",
+        "specs": {
+            "processor": "Supercharged by M2 Ultra, our most powerful and capable chip",
+            "memory": "Up to 192GB DDR4 ECC memory",
+            "storage": "Up to 8TB SSD storage",
+            "graphics": "Up to AMD Radeon Pro Vega II Duo"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-digitalmat-gallery-1-202306?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1683842315753",
+        "price": "$6999",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-digitalmat-gallery-2-202306?wid=364&hei=333&fmt=png-alpha&.v=1683842315746",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-digitalmat-gallery-3-202306?wid=364&hei=333&fmt=png-alpha&.v=1683842315830",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-digitalmat-gallery-4-202306?wid=364&hei=333&fmt=png-alpha&.v=1683842315671",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-digitalmat-gallery-5-202306?wid=364&hei=333&fmt=png-alpha&.v=1683842315754"
+        },
+        "video": ""
+    },
+    {
+        "model": "iMac",
+        "category": "desktops",
+        "specs": {
+            "display": "Immersive 24-inch 4.5K Retina display Footnote¹",
+            "processor": "Supercharged by the Apple M3 chip, so everything you do on your iMac is incredibly fast and responsive",
+            "memory": "Up to 24GB DDR4 ECC memory",
+            "storage": "Up to 2TB SSD storage",
+            "graphics": "Radeon Pro Vega 56 or Vega 64"
+        },
+        "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac24-digitalmat-gallery-1-202310?wid=364&hei=333&fmt=png-alpha&.v=1697559004117",
+        "price": "$1299",
+        "img_carrusel": {
+            "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac24-digitalmat-gallery-2-202310?wid=364&hei=333&fmt=png-alpha&.v=1697559004207",
+            "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac24-digitalmat-gallery-3-202310?wid=364&hei=333&fmt=png-alpha&.v=1697559004001",
+            "img3":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac24-digitalmat-gallery-4-202310?wid=364&hei=333&fmt=png-alpha&.v=1697559005165",
+            "img4":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac24-digitalmat-gallery-5-202310?wid=364&hei=333&fmt=png-alpha&.v=1697559006051"
+        },
+        "video": ""
+    },
+
+    {
+        "model": "Adobe Photoshop",
+        "category": "software",
+        "specs":{
+            "description": "Professional photo editing software with advanced tools and features for graphics design.",
+            "platform": "Windows, macOS"
+        },
+        "img_url":"/img/Adobe_Photoshop_CC_icon.svg.png",
+        "price": "$20.99/month",
+        "website": "https://www.adobe.com/products/photoshop.html"
+    },
+    {
+        "model": "Microsoft Office 365",
+        "category": "software",
+        "specs":{
+            "description": "Productivity suite including Word, Excel, PowerPoint, and more, with cloud services.",
+            "platform": "Windows, macOS, iOS, Android"
+        },
+        "img_url":"/img/Microsoft Office 365.jpg",
+        "price": "$69.99/year",
+        "website": "https://www.microsoft.com/en-us/microsoft-365"
+    },
+    {
+        "model": "AutoCAD",
+        "category": "software",
+        "specs":{
+            "description": "Computer-aided design software for creating 2D and 3D models and drawings.",
+            "platform": "Windows, macOS"
+        },
+        "img_url":"/img/AutoCAD-logо.png",
+        "price": "$1,690/year",
+        "website": "https://www.autodesk.com/products/autocad/overview"
+    },
+    {
+        "model": "Adobe Premiere Pro",
+        "category": "software",
+        "specs":{
+            "description": "Video editing software with creative tools and integration with other Adobe apps.",
+            "platform": "Windows, macOS"
+        },
+        "img_url":"/img/Adobe_Premiere_Pro_CC_icon.svg.png",
+        "price": "$20.99/month",
+        "website": "https://www.adobe.com/products/premiere.html"
+    },
+    {
+        "model": "Sketch",
+        "category": "software",
+        "specs":{
+            "description": "Digital design tool for UI/UX designers to create user interfaces and prototypes.",
+            "platform": "macOS"
+        },
+        "img_url":"/img/Sketch.jpg",
+        "price": "$99/year",
+        "website": "https://www.sketch.com/"
+    }
+]
