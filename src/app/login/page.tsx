@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react"
-import { InputInterface, LoginInterface } from "../lib/definitions";
 import FormInput from "@/components/form/FormInput";
+import { InputInterface, LoginInterface } from "../interface/users/usersInterface";
 
 export default function Login() {
     const [email, setEmail] = useState("");

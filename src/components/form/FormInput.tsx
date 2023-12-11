@@ -1,5 +1,6 @@
 "use client";
-import { InputInterface } from "@/app/lib/definitions";
+
+import { InputInterface } from "@/app/interface/users/usersInterface";
 import React, { useEffect } from "react";
 
 export default function FormInput({
