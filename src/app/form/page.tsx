@@ -4,6 +4,21 @@ import Products from '@/app/product/page';
 import { sql } from '@vercel/postgres';
 import { useState } from 'react';
 
+import { query } from '@vercel/postgres';  // Reemplaza 'tu-biblioteca-sql' con la biblioteca que estás utilizando
+
+const insertProduct = async (model, category, platform, description, image, price, website) => {
+  const sql = await query` 
+    INSERT INTO products (model, category, platform, description, image, price, website)
+    VALUES (${model}, ${category}, ${platform}, ${description}, ${image}, ${price}, ${website})
+  `;
+
+
+
+  return sql;
+};
+
+// Luego puedes llamar a la función insertProduct con los valores correspondientes
+const result = await insertProduct('modelo', 'categoria', 'plataforma', 'descripción', 'imagen', 10.99, 'sitio web');
 
 interface Form {
   model: string;
@@ -126,7 +141,7 @@ const CreateProduct: React.FC = () => {
 
   return (
     <>
-      <div className="mt-5 w-1/2 mx-auto p-5 bg-yellow-300 rounded-md shadow-md flex flex-col items-center gap-5 mb-10">
+      <div className="flex min-h-screen flex-col items-center justify-between p-24">
         <h1 className="text-green-500">Crear Producto</h1>
         <form onSubmit={handleFormSubmit}>
           <div>
@@ -141,7 +156,7 @@ const CreateProduct: React.FC = () => {
             />
             <span>
               {errors.model ? (
-                <p className="bg-yellow-300 text-red-500">{errors.model}</p>
+                <p className="bg-white-300 text-red-500">{errors.model}</p>
               ) : (
                 <p >No hay errores</p>
               )}
@@ -159,7 +174,7 @@ const CreateProduct: React.FC = () => {
             />
             <span>
               {errors.category ? (
-                <p className="bg-yellow-300 text-red-500">{errors.category}</p>
+                <p className="bg-white-300 text-red-500">{errors.category}</p>
               ) : (
                 <p >No hay errores</p>
               )}
@@ -177,7 +192,7 @@ const CreateProduct: React.FC = () => {
             />
             <span>
               {errors.platform ? (
-                <p className="bg-yellow-300 text-red-500">{errors.platform}</p>
+                <p className="bg-white-300 text-red-500">{errors.platform}</p>
               ) : (
                 <p>No hay errores</p>
               )}
