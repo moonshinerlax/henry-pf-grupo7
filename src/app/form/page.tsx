@@ -3,7 +3,6 @@ import { postProducts } from '@/app/lib/post';
 import Products from '@/app/product/page';
 import { sql } from '@vercel/postgres';
 import { useState } from 'react';
-
 import { query } from '@vercel/postgres';  // Reemplaza 'tu-biblioteca-sql' con la biblioteca que estás utilizando
 
 const insertProduct = async (model, category, platform, description, image, price, website) => {
