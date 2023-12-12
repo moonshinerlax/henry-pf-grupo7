@@ -50,13 +50,13 @@ export default async function Detail({params}:{params: {id: any}}) {
           <section>
             {productDetail.website ? <a href={productDetail.website}>Website: {productDetail.website}</a> : null}
             <h1 className="text-2xl font-bold">Specs:</h1>
-            {Object.entries(productDetail.specs).map(([key, value]) =>( 
+            {productDetail.specs ? Object.entries(productDetail.specs).map(([key, value]) =>( 
               <div key={key}>
               <h1 className="font-bold">{key}:</h1>
               <h1>{value}:</h1>
               </div>
             )
-            )}
+            ) : null}
           </section>
         </section>
       </section>

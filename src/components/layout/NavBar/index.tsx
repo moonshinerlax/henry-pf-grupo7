@@ -35,6 +35,12 @@ export default function Navbar() {
           <div className="hidden justify-center md:flex md:w-1/3">
             <SearchBar/>
           </div>
+          <div>
+            <Link
+            href='/form'>
+            <h1>Create Product</h1>
+            </Link>
+          </div>
         </div>
       </nav>
     );
