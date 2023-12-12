@@ -16,10 +16,9 @@ async function clearProductsTable() {
 async function seedProducts(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-    // Create the "users" table if it doesn't exist
+    
     const createTable = await client.sql`
       CREATE TABLE IF NOT EXISTS products (
-        
         model VARCHAR(255) NOT NULL,
         category VARCHAR(255) NOT NULL,
         specs JSONB,
@@ -36,7 +35,7 @@ async function seedProducts(client) {
 
    await clearProductsTable()
 
-    // Insert data into the "users" table
+    // Insert data into the table
     const insertedProducts = await Promise.all(
       appledb.map(async (product) => {
         return client.sql`

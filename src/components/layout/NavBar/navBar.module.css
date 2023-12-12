@@ -1,0 +1,41 @@
+@keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+.carousel{
+    animation: marquee 60s linear infinite;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: rgb(57, 57, 57);
+}
+.carousel::-webkit-scrollbar-thumb {
+    background-color: rgb(41, 41, 41);
+}
+.input{
+  background-color: transparent;
+  border-radius: 5px;
+  width: 300px;
+  border: solid 1px;
+  border-width: thin;
+  border-color: #7f7f7fc4;
+  font-size: small;
+  height: 35px;
+  padding: 10px;
+}
+
+
+
+.searchBar{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
