@@ -5,7 +5,7 @@ import Link from "next/link";
 import SearchBar from "./SearchBar";
 
 export default function Navbar() {
-    const menu = ["All", "Phones", "Tablets", "laptops", "Desktops", "Softwares"]
+    const menu = ["All", "Phones", "Tablets", "laptops", "Desktops", "Software"]
 
     return (
       <nav className="relative flex items-center justify-between p-4 lg:px-6">
@@ -22,7 +22,7 @@ export default function Navbar() {
                 {menu.map((item) => (
                   <li key={item}>
                     <Link
-                      href={`/home/category/${item}`}
+                      href={item === 'All' ? `/product` : `/product?category=${item}`}
                       className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
                     >
                       {item}
@@ -35,11 +35,6 @@ export default function Navbar() {
           <div className="hidden justify-center md:flex md:w-1/3">
             <SearchBar/>
           </div>
-          {/* <div className="flex justify-end md:w-1/3">
-            <Suspense fallback={<OpenCart />}>
-              <Cart />
-            </Suspense>
-          </div> */}
         </div>
       </nav>
     );

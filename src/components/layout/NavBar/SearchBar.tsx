@@ -11,24 +11,26 @@ export default function SearchBar (){
     const searchParams = useSearchParams()
     const pathName = usePathname()
     const { replace } = useRouter()
+    const params = new URLSearchParams(searchParams)
 
     function handleSearch (term: string){
         const params = new URLSearchParams(searchParams)
+        
         if (term) {
-            params.set('query',term)
+            params.set('model',term)
         } else {
-            params.delete('query')
+            params.delete('model')
         }
-        setQuerypath(`/home?${params.toString()}`)
+        setQuerypath(`/product?${params.toString()}`)
     }
-
+    
     function handleKeyDown (event: React.KeyboardEvent<HTMLInputElement>){
         if (event.key === 'Enter'){
             event.preventDefault()
             replace(querypath)
         }
     }
-
+    
     return(
         <div className={style.searchBar}>
             <input

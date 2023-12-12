@@ -1,12 +1,10 @@
-import { fetchProduct } from "../../lib/data";
+import { fetchDetailProduct } from "../../lib/data";
 import Image from "next/image";
-export default async function Detail({ params }) {
-  type params = {
-    id: string;
-  };
-  const { id } = params;
-  const products = await fetchProduct();
-  const productDetail = products.find((product) => product.id === id);
+
+
+export default async function Detail({params}:{params: {id: any}}) {
+  const product = await fetchDetailProduct(params.id);
+  const productDetail = product[0] 
 
   if (!productDetail) {
     return <div>Producto no encontrado</div>;
@@ -16,27 +14,49 @@ export default async function Detail({ params }) {
     <main className="flex justify-center py-20 " >
       <section className=" flex justify-center  p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
         <section className=" p-16">
-          <div className="w-80 h-80 relative p-10">
+          <div 
+          className="w-80 h-80 relative p-10">
             <Image
               src={productDetail.image}
               alt={productDetail.model}
-              layout="fill"
+              width={900}
+                height={900}
               className="rounded-lg"
             />
+            <div className="flex flex-row m-2 gap-2">
+            {productDetail.carrusel ? 
+              Object.entries(productDetail.carrusel).map(([key, value]) =>( 
+              <div key={key} >
+              <Image
+                className=" rounded-md"
+                src={value}
+                width={100}
+                height={100}
+                alt={key}/>
+              </div>
+            )
+            ) : null}
+          </div>
           </div>
         </section>
         <section className="flex-col p-16">
           <section className="flex-col ">
-            <h1 className="text-2xl">{productDetail.model}</h1>
+            <h1 className="text-2xl font-bold">{productDetail.model}</h1>
             <h2>{productDetail.category}</h2>
             <section className=" my-24 ">
               <p className="flex justify-center text-xl text-white bg-blue-500 w-min p-2 rounded-2xl">{productDetail.price}</p>
             </section>
           </section>
           <section>
-            <a href={productDetail.website}>Website</a>
-            {productDetail.specs && <h3>{productDetail.specs.platform}</h3>}
-            {productDetail.specs && <p>{productDetail.specs.description}</p>}
+            {productDetail.website ? <a href={productDetail.website}>Website: {productDetail.website}</a> : null}
+            <h1 className="text-2xl font-bold">Specs:</h1>
+            {Object.entries(productDetail.specs).map(([key, value]) =>( 
+              <div key={key}>
+              <h1 className="font-bold">{key}:</h1>
+              <h1>{value}:</h1>
+              </div>
+            )
+            )}
           </section>
         </section>
       </section>
