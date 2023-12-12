@@ -1,3 +1,4 @@
+'use client'
 import { postProducts } from '@/app/lib/post';
 import Products from '@/app/product/page';
 import { sql } from '@vercel/postgres';
