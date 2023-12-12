@@ -1,6 +1,14 @@
 import { fetchProduct } from "../../lib/data";
 import Image from "next/image";
-export default async function Detail({ params }) {
+
+type DetailProps = {
+  params: {
+    id: string;
+    // Agrega cualquier otra propiedad que esperes recibir en params
+  };
+};
+
+export default async function Detail({ params }: DetailProps) {
   type params = {
     id: string;
   };

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
-
+import CreateProduct from "@/app/form/page";
 export default function Navbar() {
     const menu = ["All", "Phones", "Tablets", "laptops", "Desktops", "Softwares"]
 
@@ -34,6 +34,11 @@ export default function Navbar() {
           </div>
           <div className="hidden justify-center md:flex md:w-1/3">
             <SearchBar/>
+          </div>
+          <div  className="hidden justify-center md:flex md:w-1/3"> 
+          <Link href={`/form`}>
+            Crear Productos
+          </Link>
           </div>
           {/* <div className="flex justify-end md:w-1/3">
             <Suspense fallback={<OpenCart />}>
