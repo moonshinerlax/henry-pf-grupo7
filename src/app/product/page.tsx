@@ -2,10 +2,10 @@ import { sql } from '@vercel/postgres';
 import { Products } from '../lib/definitions';
 import Image from 'next/image';
 import Link from 'next/link';
+export const fetchCache = 'force-no-store';
+
 
 export default async function Product({ searchParams }: { searchParams: { model: string; category?:string } }) {
-  
-
   
     async function fetchData() {
         let data;

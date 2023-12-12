@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { fetchProduct } from './lib/data'
 import { ThreeItemGrid } from '@/components/grid/threeItemGrid';
 import { Carousel } from '@/components/Carousel';

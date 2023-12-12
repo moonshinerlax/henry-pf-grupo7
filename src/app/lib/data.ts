@@ -1,6 +1,6 @@
 import { sql } from '@vercel/postgres';
 import {Products} from './definitions'
-import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
+export const fetchCache = 'force-no-store';
 
 export async function fetchProduct() {
     
