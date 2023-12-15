@@ -2,27 +2,30 @@ import { sql } from '@vercel/postgres';
 import { Products } from '../lib/definitions';
 import Image from 'next/image';
 import Link from 'next/link';
+import OrderButtons from '@/components/orderButtons';
 export const fetchCache = 'force-no-store';
 
 
-export default async function Product({ searchParams }: { searchParams: { model: string; category?:string } }) {
+export default async function Product({ searchParams }: { searchParams: { model: string; category?:string; ordByPrice:string } }) {
   
     async function fetchData() {
         let data;
-        let query
+        let list = []
         try {
-            if (searchParams.model && searchParams.category) {
-                query = sql<Products>`
-                  SELECT * FROM products 
-                  WHERE model ILIKE '%' || ${searchParams.model} || '%' 
-                  AND category ILIKE '%' || ${searchParams.category} || '%'
-                `;}
-            else if(searchParams.model)
-          {query = await sql<Products>`SELECT * FROM products WHERE model ILIKE '%' || ${searchParams.model} || '%'`}
-          else if(searchParams.category)
-          {query = await sql<Products>`SELECT * FROM products WHERE category ILIKE '%' || ${searchParams.category} || '%'`}
-          else {query = sql<Products>`SELECT * FROM products`;}
-            data = await query;
+          let query = 'SELECT * FROM products';
+          if(searchParams.model){
+            list.push(searchParams.model)
+            query += ` WHERE model ILIKE '%' || $${list.length} || '%' AND`
+          };
+          if(searchParams.category){
+            list.push(searchParams.category)
+            query += ` ${searchParams.model ? '' : 'WHERE'} category ILIKE '%' || $${list.length} || '%'`
+          }
+          if(searchParams.ordByPrice){
+            query += ` ORDER BY CAST(Price AS DECIMAL) ${searchParams.ordByPrice === 'max' ? 'DESC' : 'ASC'}`
+          }
+          query = query.replace(/ AND$/, "")
+          data = await sql.query(query, list)
             return data.rows
           } catch (error) {
             console.error('Error fetching products:', error);
@@ -32,16 +35,21 @@ export default async function Product({ searchParams }: { searchParams: { model:
 const data = await fetchData();
 
   return (
-    <main>
+    <main className="flex flex-wrap flex-col content-center items-start mx-5">
+      <div className='w-full inline-flex justify-between'>
         {searchParams.category ? 
-        <div className='flex flex-nowrap'><h2>Categoria: {searchParams.category}</h2>
+        <div className='gap-2 flex flex-row items-center'><h2>Categoria: {searchParams.category}</h2>
+        
         <Link href='/product'>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="red" className="w-5 h-5">
   <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg>
-        </Link></div>
-        : null}
-      <div className="flex flex-wrap justify-center my-8 w-3/4">
+        </Link>
+        </div>
+        : <div></div>}
+        <OrderButtons/>
+        </div> 
+      <div className="flex flex-wrap justify-center my-8">
             {data?.length ? data.map((product) => (
                 <Link 
                 key={product.id}
@@ -55,12 +63,12 @@ const data = await fetchData();
                     />
                     <div className="flex bg-white text-center justify-center mb-4 border-solid border-2 border-gray rounded-2xl w-3/4 mx-5 my-2 p-2 text-xs font-bold items-center">
                         <p className='text-black'>{product.model}</p>
-                        <p className="bg-blue-600 mx-2 p-1 rounded-2xl text-white">{product.price} USD</p>
+                        <p className="bg-blue-600 mx-2 p-1 rounded-2xl text-white">${product.price} USD</p>
                     </div>
                 </div>
                 </Link>
             ))
-        : <Link href='/product'><h1>Prodcuto no Existente</h1>
+        : <Link href='/product'><h1>Product not found!</h1>
             </Link>}
         </div>
     </main>

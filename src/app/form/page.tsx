@@ -18,10 +18,10 @@ interface Errors {
 
 const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<Errors>>) => {
   let newErrors: Errors = {
-    model: form.model ? '' : 'Este campo es requerido',
-    category: form.category !== 'All' ? '' : 'Seleccione una categoría',
-    price: form.price ? '' : 'Este campo es requerido',
-    website: form.website ? '' : 'Este campo es requerido',
+    model: form.model ? '' : 'Name required',
+    category: form.category !== 'All' ? '' : 'Select a Category',
+    price: form.price ? '' : 'Price required',
+    website: form.website ? '' : 'Website required',
   };}
 
 const CreateProduct: React.FC = () => {
@@ -72,47 +72,47 @@ const CreateProduct: React.FC = () => {
             website: '',
           });
         resetForm();
-        window.alert("producto agregado exitosamente")
+        window.alert("Product succesfully added!")
       } catch (error) {
-        window.alert("error al agregar producto")
+        window.alert("Error! Product not added")
       }
     } else {
       console.log(errors);
-      alert('Por favor, corrige los errores antes de enviar el formulario.');
+      alert('Please correct the information');
     }
   };
 
   return (
     <>
       <div className="mt-5 w-1/2 mx-auto p-5 bg-gray-300 rounded-md shadow-md flex flex-col items-center gap-5 mb-10 text-black">
-        <h1 className="text-blue-500">Crear Producto</h1>
-        <form onSubmit={handleFormSubmit}>
-          <div>
-            <label htmlFor="model">Modelo:</label>
+        <h1 className="text-lg font-bold text-gray-900">New Product</h1>
+        <form onSubmit={handleFormSubmit} className="grid justify-items-start content-evenly gap-y-2">
+          <div className= 'flex justify-around items-center flex-row gap-2'>
+            <label htmlFor="model">Name model:</label>
             <input
               name="model"
               type="text"
               id="model"
               value={form.model}
               onChange={handleChange}
-              className={errors.model ? 'border-red-500' : 'border-gray-500'}
+              className={errors.model ? 'border-red-500 rounded' : 'border-gray-500 rounded'}
             />
             <span>
               {errors.model ? (
                 <p className="bg-yellow-300 text-red-500">{errors.model}</p>
               ) : (
-                <p >No hay errores</p>
+                <p> </p>
               )}
             </span>
           </div>
-          <div>
-            <label htmlFor="category">Categoría:</label>
+          <div className= 'flex justify-around items-center flex-row gap-2'>
+            <label htmlFor="category">Category:</label>
       <select
         name="category"
         id="category"
         value={form.category}
         onChange={handleChange}
-        className={errors.category ? 'border-red-500' : 'border-gray-500'}
+        className={errors.category ? 'border-red-500 rounded' : 'border-gray-500 rounded'}
       >
         <option value="All">All</option>
         <option value="Phones">Phones</option>
@@ -125,48 +125,48 @@ const CreateProduct: React.FC = () => {
               {errors.category ? (
                 <p className="bg-gray-300 text-red-500">{errors.category}</p>
               ) : (
-                <p >No hay errores</p>
+                <p> </p>
               )}
             </span>
           </div>
-          <div>
-            <label htmlFor="price">Precio:</label>
+          <div className= 'flex justify-around items-center flex-row gap-2'>
+            <label htmlFor="price">Price:</label>
             <input
               name="price"
               type="text"
               id="price"
               value={form.price}
               onChange={handleChange}
-              className={errors.price ? 'border-red-500' : 'border-gray-500'}
+              className={errors.price ? 'border-red-500 rounded' : 'border-gray-500 rounded'}
             />
             <span>
               {errors.price ? (
                 <p className="bg-yellow-300 text-red-500">{errors.price}</p>
               ) : (
-                <p >No hay errores</p>
+                <p> </p>
               )}
             </span>
           </div>
-          <div>
-            <label htmlFor="website">Sitio Web:</label>
+          <div className= 'flex justify-around items-center flex-row gap-2'>
+            <label htmlFor="website">Website:</label>
             <input
               name="website"
               type="text"
               id="website"
               value={form.website}
               onChange={handleChange}
-              className={errors.website ? 'border-red-500' : 'border-gray-500'}
+              className={errors.website ? 'border-red-500 rounded' : 'border-gray-500 rounded'}
             />
             <span>
               {errors.website ? (
                 <p className="bg-yellow-300 text-red-500">{errors.website}</p>
               ) : (
-                <p>No hay errores</p>
+                <p> </p>
               )}
             </span>
           </div>
-          <button type="submit" className="bg-green-500 text-gray-500 p-2 rounded-md cursor-pointer transition duration-300 hover:bg-brown-500">
-            Crear Producto
+          <button type="submit" className="bg-blue-500 text-gray-500 p-2 rounded-md cursor-pointer transition duration-300 hover:bg-brown-500 text-white">
+            Add new product.
           </button>
         </form>
       </div>

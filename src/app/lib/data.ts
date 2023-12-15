@@ -12,7 +12,7 @@ export async function fetchProduct() {
     }
 }
 
-export async function fetchDetailProduct(id) {
+export async function fetchDetailProduct(id:{id: string}) {
     try {
       const data = await sql<Products>`SELECT * FROM products WHERE id = ${id}`;
       return data.rows;

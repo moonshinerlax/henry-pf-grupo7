@@ -1,17 +1,23 @@
 'use client'
 
-import { useSearchParams, usePathname, useRouter } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import style from './navBar.module.css'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 
 export default function SearchBar (){
 
     const [querypath, setQuerypath] = useState('')
     const searchParams = useSearchParams()
-    const pathName = usePathname()
     const { replace } = useRouter()
-    const params = new URLSearchParams(searchParams)
+    const search = searchParams.get('category')
+
+    useEffect(() => {
+        const inputElement = document.getElementById('input') as HTMLInputElement | null;
+            if (inputElement) {
+                inputElement.value = '';
+            };
+    }, [search]);
 
     function handleSearch (term: string){
         const params = new URLSearchParams(searchParams)
@@ -34,6 +40,7 @@ export default function SearchBar (){
     return(
         <div className={style.searchBar}>
             <input
+            id='input'
             className={style.input}
                 placeholder="Search for products..."
                 onChange={(e)=>{
