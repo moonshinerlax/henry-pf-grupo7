@@ -8,7 +8,7 @@ export type Products = {
   };
   image: string;
   colors: [];
-  price: string
+  price: number;
   carrusel: object;
   video: string;
   website: string;

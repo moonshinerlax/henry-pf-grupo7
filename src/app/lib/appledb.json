@@ -10,7 +10,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15pro-digitalmat-gallery-1-202309_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1693346851451",
         "colors": ["Black Titanium", "White Titanium", "Blue Titanium,", "Natural Titanium"],
-        "price": "$999",
+        "price": 999,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15pro-digitalmat-gallery-2-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081541434",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15pro-digitalmat-gallery-3-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081542150",
@@ -30,7 +30,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15promax-digitalmat-gallery-1-202309_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1693346851426",
         "colors": ["Black Titanium", "White Titanium", "Blue Titanium,", "Natural Titanium"],
-        "price": "$1199",
+        "price": 1199,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15promax-digitalmat-gallery-2-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081545196",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15promax-digitalmat-gallery-3-202309?wid=364&hei=333&fmt=png-alpha&.v=1693081545199",
@@ -50,7 +50,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15plus-digitalmat-gallery-1-202309_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1693346853276",
         "colors": ["Black", "Blue", "Green", "Yellow", "Pink"],
-        "price": "$899",
+        "price": 899,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15plus-digitalmat-gallery-2-202309?wid=364&hei=333&fmt=png-alpha&.v=1693011172365",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15plus-digitalmat-gallery-3-202309?wid=364&hei=333&fmt=png-alpha&.v=1695316290154",
@@ -70,7 +70,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15-digitalmat-gallery-1-202309_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1693346853617",
         "colors": ["Black", "Blue", "Green", "Yellow", "Pink"],
-        "price": "$799",
+        "price": 799,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15-digitalmat-gallery-2-202309?wid=364&hei=333&fmt=png-alpha&.v=1693011169058",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone15-digitalmat-gallery-3-202309?wid=364&hei=333&fmt=png-alpha&.v=1694112697687",
@@ -90,7 +90,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14plus-digitalmat-gallery-1-202303_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1676510300461",
         "colors": ["Black", "Green", "Yellow", "Purple", "Red", "White"],
-        "price": "$799",
+        "price": 799,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14plus-digitalmat-gallery-2-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055813701",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14plus-digitalmat-gallery-3-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055814336",
@@ -109,7 +109,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-digitalmat-gallery-1-202303_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1679072735070",
         "colors": ["Black", "White", "Blue", "Yellow", "Coral", "Red"],
-        "price": "$699",
+        "price": 699,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-digitalmat-gallery-2-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055814304",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone14-digitalmat-gallery-3-202209?wid=364&hei=333&fmt=png-alpha&.v=1662055813794",
@@ -128,7 +128,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone13-digitalmat-gallery-1-202203_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1677662648569",
         "colors": ["Blue", "Pink", "Midnight", "Starlight", "Green"],
-        "price": "$599",
+        "price": 599,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone13-digitalmat-gallery-2-202203?wid=364&hei=333&fmt=png-alpha&.v=1644988764167",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone13-digitalmat-gallery-3-202203?wid=364&hei=333&fmt=png-alpha&.v=1644988765122",
@@ -147,7 +147,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphonese-digitalmat-gallery-1-202203?wid=364&hei=333&fmt=png-alpha&.v=1644987579596",
         "colors": ["Starlight", "Midnight"],
-        "price": "$429",
+        "price": 429,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphonese-digitalmat-gallery-2-202203?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1646075827246",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphonese-digitalmat-gallery-3-202203?wid=364&hei=333&fmt=png-alpha&.v=1644987579761",
@@ -166,7 +166,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro12-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477069672",
         "colors": ["Silver", "Space Gray"],
-        "price": "$1099",
+        "price": 1099,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro12-digitalmat-gallery-2-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477069877",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro12-digitalmat-gallery-3-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477069963",
@@ -185,7 +185,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro11-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477161220",
         "colors": ["Silver", "Space Gray"],
-        "price": "$799",
+        "price": 799,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro11-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477161220",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadpro11-digitalmat-gallery-3-202210?wid=364&hei=333&fmt=png-alpha&.v=1664477161231",
@@ -204,7 +204,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadair-digitalmat-gallery-1-202203?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1644962768135",
         "colors": ["Startlight", "Space Gray", "Pink", "Purple", "Blue"],
-        "price": "$599",
+        "price": 599,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadair-digitalmat-gallery-2-202203_GEO_US?wid=364&hei=333&fmt=png-alpha&.v=1645724601636",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipadair-digitalmat-gallery-3-202203?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1644962768498",
@@ -223,7 +223,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664392871297",
         "colors": ["Silver", "Blue", "Pink", "Yellow"],
-        "price": "$499",
+        "price": 499,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-digitalmat-gallery-1-202210?wid=364&hei=333&fmt=png-alpha&.v=1664392871297",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-digitalmat-gallery-3-202210?wid=364&hei=333&fmt=png-alpha&.v=1664392871324",
@@ -242,7 +242,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-digitalmat-gallery-1-202111?wid=365&hei=333&fmt=png-alpha&.v=1635183174000",
         "colors": ["Purple", "Pink", "Starlight", "Space Gray"],
-        "price": "$499",
+        "price": 499,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-digitalmat-gallery-1-202111?wid=365&hei=333&fmt=png-alpha&.v=1635183174000",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-digitalmat-gallery-3-202111?wid=365&hei=333&fmt=png-alpha&.v=1635183176000",
@@ -265,7 +265,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-16-digitalmat-gallery-1-202310?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1696971483270",
         "colors": ["Silver", "Space Gray"],
-        "price": "$2499",
+        "price": 2499,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-16-digitalmat-gallery-2-202310?wid=364&hei=333&fmt=png-alpha&.v=1697917474258",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-16-digitalmat-gallery-3-202310?wid=364&hei=333&fmt=png-alpha&.v=1696971483097",
@@ -285,7 +285,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-14-digitalmat-gallery-1-202310?wid=364&hei=333&fmt=png-alpha&.v=1696971522628",
         "colors": ["Silver", "Space Gray"],
-        "price": "$1599",
+        "price": 1599,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-14-digitalmat-gallery-2-202310?wid=364&hei=333&fmt=png-alpha&.v=1697915602337",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-14-digitalmat-gallery-3-202310?wid=364&hei=333&fmt=png-alpha&.v=1696971522864",
@@ -305,7 +305,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-1-202111?wid=364&hei=333&fmt=png-alpha&.v=1636156517000",
         "colors": ["Gold", "Silver", "Space Gray"],
-        "price": "$999",
+        "price": 999,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-2-202111?wid=364&hei=333&fmt=png-alpha&.v=1664581580690",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-3-202111?wid=364&hei=333&fmt=png-alpha&.v=1635187293000",
@@ -325,7 +325,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-digitalmat-gallery-1-202206?wid=364&hei=333&fmt=png-alpha&.v=1652827325377",
         "colors": ["Silver", "Space Gray", "Starlight", "Midnight"],
-        "price": "$1099",
+        "price": 1099,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-digitalmat-gallery-2-202206?wid=364&hei=333&fmt=png-alpha&.v=1652827325363",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-digitalmat-gallery-3-202206?wid=364&hei=333&fmt=png-alpha&.v=1652827325419",
@@ -345,7 +345,7 @@
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-1-202306?wid=364&hei=333&fmt=png-alpha&.v=1683914347188",
         "colors": ["Silver", "Space Gray", "Starlight", "Midnight"],
-        "price": "$1299",
+        "price": 1299,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-2-202306?wid=364&hei=333&fmt=png-alpha&.v=1683914347552",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mba-digitalmat-gallery-3-202306?wid=364&hei=333&fmt=png-alpha&.v=1683914347165",
@@ -366,7 +366,7 @@
             "graphics": "Up to AMD Radeon Pro Vega II Duo"
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-digitalmat-gallery-1-202306?wid=364&hei=333&fmt=jpeg&qlt=95&.v=1683842315753",
-        "price": "$6999",
+        "price": 6999,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-digitalmat-gallery-2-202306?wid=364&hei=333&fmt=png-alpha&.v=1683842315746",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mac-pro-digitalmat-gallery-3-202306?wid=364&hei=333&fmt=png-alpha&.v=1683842315830",
@@ -386,7 +386,7 @@
             "graphics": "Radeon Pro Vega 56 or Vega 64"
         },
         "img_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac24-digitalmat-gallery-1-202310?wid=364&hei=333&fmt=png-alpha&.v=1697559004117",
-        "price": "$1299",
+        "price": 1299,
         "img_carrusel": {
             "img1":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac24-digitalmat-gallery-2-202310?wid=364&hei=333&fmt=png-alpha&.v=1697559004207",
             "img2":"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac24-digitalmat-gallery-3-202310?wid=364&hei=333&fmt=png-alpha&.v=1697559004001",
@@ -404,7 +404,7 @@
             "platform": "Windows, macOS"
         },
         "img_url":"/img/Adobe_Photoshop_CC_icon.svg.png",
-        "price": "$20.99/month",
+        "price": 20.99,
         "website": "https://www.adobe.com/products/photoshop.html"
     },
     {
@@ -415,7 +415,7 @@
             "platform": "Windows, macOS, iOS, Android"
         },
         "img_url":"/img/Microsoft Office 365.jpg",
-        "price": "$69.99/year",
+        "price": 69.99,
         "website": "https://www.microsoft.com/en-us/microsoft-365"
     },
     {
@@ -426,7 +426,7 @@
             "platform": "Windows, macOS"
         },
         "img_url":"/img/AutoCAD-logо.png",
-        "price": "$1,690/year",
+        "price": 1690,
         "website": "https://www.autodesk.com/products/autocad/overview"
     },
     {
@@ -437,7 +437,7 @@
             "platform": "Windows, macOS"
         },
         "img_url":"/img/Adobe_Premiere_Pro_CC_icon.svg.png",
-        "price": "$20.99/month",
+        "price": 20.99,
         "website": "https://www.adobe.com/products/premiere.html"
     },
     {
@@ -448,7 +448,7 @@
             "platform": "macOS"
         },
         "img_url":"/img/Sketch.jpg",
-        "price": "$99/year",
+        "price": 99,
         "website": "https://www.sketch.com/"
     }
 ]

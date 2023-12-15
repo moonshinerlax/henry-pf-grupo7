@@ -7,12 +7,12 @@ export default async function Detail({params}:{params: {id: any}}) {
   const productDetail = product[0] 
 
   if (!productDetail) {
-    return <div>Producto no encontrado</div>;
+    return <div>Product not found!</div>;
   }
 
   return (
     <main className="flex justify-center py-20 " >
-      <section className=" flex justify-center  p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
+      <section className="w-4/5 flex justify-center  p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
         <section className=" p-16">
           <div 
           className="w-80 h-80 relative p-10">
@@ -44,7 +44,7 @@ export default async function Detail({params}:{params: {id: any}}) {
             <h1 className="text-2xl font-bold">{productDetail.model}</h1>
             <h2>{productDetail.category}</h2>
             <section className=" my-24 ">
-              <p className="flex justify-center text-xl text-white bg-blue-500 w-min p-2 rounded-2xl">{productDetail.price}</p>
+              <p className="flex justify-center text-xl text-white bg-blue-500 p-2 rounded-2xl">${productDetail.price} USD</p>
             </section>
           </section>
           <section>

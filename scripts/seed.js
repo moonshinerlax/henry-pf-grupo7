@@ -24,7 +24,7 @@ async function seedProducts(client) {
         specs JSONB,
         image VARCHAR(255) NOT NULL,
         colors TEXT[],
-        price VARCHAR(255) NOT NULL,
+        price FLOAT NOT NULL,
         carrusel JSONB,
         video VARCHAR(255),
         website VARCHAR(255)

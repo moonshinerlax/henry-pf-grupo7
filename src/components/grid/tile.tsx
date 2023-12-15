@@ -40,7 +40,7 @@ export function GridTileImage({
         <h3 className="mr-4 line-clamp-2 flex-grow pl-2 leading-none tracking-tight">{label?.title}</h3>
         <h3
           className="flex-none rounded-full bg-blue-600 p-2 text-white"
-        >{label?.amount}</h3>
+        >${label?.amount} USD</h3>
       </div>
     </div>
         </div>
