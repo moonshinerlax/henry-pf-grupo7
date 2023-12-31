@@ -28,7 +28,7 @@ export async function Carousel() {
                 alt={product.model}
                 label={{
                   title: product.model,
-                  amount: product.price,
+                  amount: product.price.toString(),
                 }}
                 src={product.carrusel ? (product.carrusel as { img1: string }).img1 : product.image}
                 fill
