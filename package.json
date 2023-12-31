@@ -10,13 +10,20 @@
     "seed": "node -r dotenv/config ./scripts/seed.js"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.28.1",
+    "@reduxjs/toolkit": "^2.0.1",
+    "@types/js-cookie": "^3.0.6",
+    "@types/react-redux": "^7.1.33",
     "@vercel/postgres": "^0.5.1",
     "dotenv": "^16.3.1",
+    "js-cookies": "^1.0.4",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-redux": "^9.0.4",
     "sequelize": "^6.35.1",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "svix": "^1.15.0"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",

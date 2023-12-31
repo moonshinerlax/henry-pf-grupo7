@@ -1,20 +1,60 @@
 'use client'
-
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import Cart from "@/components/Cart";
+import { useDispatch } from "react-redux";
+import { hideLoading } from "@/redux/slices/cartSlice";
 
 export default function Navbar() {
     const menu = ["All", "Phones", "Tablets", "laptops", "Desktops", "Software"]
-    const [page, setPage] = useState('')
+    const [data, setData] = useState({
+      userId: '',
+      userEmail: ''
+    })
     const searchParams = useSearchParams()
     const params = searchParams.get('category')
+    const  user =  useUser().user?.primaryEmailAddress?.emailAddress
+    const id = useUser().user?.id
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+      if (id && user) {
+        setData({
+          userId: id,
+          userEmail: user
+        });
+      }
+    }, [id, user]);
+  
+    useEffect(() => {
+      if (data.userId && data.userEmail) {
+        reg();
+      }
+    }, [data]);
+
+    useEffect(()=>{
+      dispatch(hideLoading())
+    },[dispatch])
     
-    console.log(params)
+    const reg = async () => {
+      try {
+        let res = await fetch("/api/signup", {
+          method: "POST",
+          body: JSON.stringify({data}),
+        });
+        console.log("success")
+      } catch (error) {
+        console.log('Error adding user:', error);
+      }
+    };
 
     return (
+      <header>
       <nav className="relative flex items-center justify-between p-4 lg:px-6">
         <div className="w-full flex justify-around">
           <div className="flex ">
@@ -45,13 +85,13 @@ export default function Navbar() {
             <SearchBar/>
           </div>
           <div>
-            <Link
-            href='/form'>
-            <h1>Create Product</h1>
-            </Link>
+            {data.userId ? <UserButton/>  
+            : <SignInButton/>}
           </div>
+          <Cart/>
         </div>
       </nav>
+      </header>
     );
   }
   

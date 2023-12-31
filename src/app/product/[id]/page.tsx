@@ -1,6 +1,6 @@
 import { fetchDetailProduct } from "../../lib/data";
 import Image from "next/image";
-
+import { AddToCart } from "@/components/AddToCart";
 
 export default async function Detail({params}:{params: {id: any}}) {
   const product = await fetchDetailProduct(params.id);
@@ -43,8 +43,17 @@ export default async function Detail({params}:{params: {id: any}}) {
           <section className="flex-col ">
             <h1 className="text-2xl font-bold">{productDetail.model}</h1>
             <h2>{productDetail.category}</h2>
-            <section className=" my-24 ">
+            <section className=" my-20 ">
               <p className="flex justify-center text-xl text-white bg-blue-500 p-2 rounded-2xl">${productDetail.price} USD</p>
+            </section>
+            <section className="flex flex-col justify-center text-xl p-2 rounded-2xl">  
+              <AddToCart 
+                    stock={40}
+                    productId={productDetail.id}
+                    showQty={false}
+                    product={productDetail}
+                    increasePerClick={true}
+                    redirect={false} />
             </section>
           </section>
           <section>
