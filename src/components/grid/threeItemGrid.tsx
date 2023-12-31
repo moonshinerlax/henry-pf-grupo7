@@ -25,7 +25,7 @@ function ThreeItemGridItem({
                 label={{
                     position: size === 'full' ? 'center' : 'bottom',
                     title: item.model as string,
-                    amount: item.price
+                    amount: item.price.toString()
                   }}
                 />
                 </Link>
