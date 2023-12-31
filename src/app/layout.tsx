@@ -3,6 +3,11 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/layout/NavBar'
 import {Suspense} from "react"
+import { ClerkProvider } from '@clerk/nextjs'
+import { StoreProvider } from '@/redux/storeProvider'
+import CartSideBar from '@/components/CartSideBar'
+import App from '@/components/App'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,13 +22,19 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body className={inter.className}>
+        <StoreProvider>
+          <App>{children}</App>
+      {/* <CartSideBar/>
       <Navbar/>
       <Suspense>
         <main>{children}</main>
-      </Suspense>
+      </Suspense> */}
+      </StoreProvider>
       </body>
     </html>
+    </ClerkProvider>
   )
 }

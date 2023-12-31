@@ -25,3 +25,8 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.cart-badge {
+  @apply absolute ml-4 mt-2 text-center w-5 h-auto bg-red-500 text-white text-xs font-semibold rounded-full px-1 py-0.5;
+}
+
