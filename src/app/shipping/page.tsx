@@ -36,11 +36,11 @@ export default function ShippingAddressPage() {
   const { shippingAddress } = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
-    setValue('fullName', shippingAddress.fullName);
-    setValue('address', shippingAddress.address);
-    setValue('city', shippingAddress.city);
-    setValue('postalCode', shippingAddress.postalCode);
-    setValue('country', shippingAddress.country);
+    setValue('fullName', 'null');
+    setValue('address', 'null');
+    setValue('city', 'null');
+    setValue('postalCode', 'null');
+    setValue('country', 'null');
   }, [setValue, shippingAddress]);
 
   const submitHandler = (data: ShippingAddress) => {
