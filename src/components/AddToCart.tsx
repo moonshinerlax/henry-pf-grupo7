@@ -46,6 +46,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
     dispatch(
       addToCart({
         id: productId, 
+        name: product.model as string,
         image: product.image as string,
         price: product.price as number,
         qty: newQty as number,

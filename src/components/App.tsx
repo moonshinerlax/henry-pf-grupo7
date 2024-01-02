@@ -3,8 +3,11 @@
 import { Suspense, useEffect } from "react"
 import CartSideBar from "./CartSideBar"
 import Navbar from "./layout/NavBar"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { hideLoading } from "@/redux/slices/cartSlice"
+import { usePathname } from 'next/navigation'
+import { RootState } from "@/redux/store"
+
 
 export default function App({children,
 }: {
@@ -13,11 +16,24 @@ export default function App({children,
     useEffect(()=>{
         dispatch(hideLoading())
     },[dispatch])
+
+    const { cartItems, loading } = useSelector((state: RootState) => state.cart)
+    const pathname = usePathname()
+
     return(
         <div>
-            <div className="mr-32">
+            <div
+        className={`${
+          loading
+            ? ''
+            : cartItems.length > 0 &&
+              (pathname === '/' || pathname.indexOf('/product') >= 0)
+            ? 'mr-32'
+            : ''
+        }`}
+      >
                 <Navbar/>
-                <Suspense>
+                <Suspense fallback={<div>Loading...</div>}>
                 <main className="p-4">{children}</main>
                 </Suspense>
             </div>

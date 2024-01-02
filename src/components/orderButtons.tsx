@@ -36,7 +36,7 @@ export default function OrderButtons () {
         
             return (
                 <div>
-                    <select className="text-black text-sm" value={inputValue} onChange={handleSelectChange}>
+                    <select className="bg-transparent rounded-md border-gray-400 border text-sm text-gray-400" value={inputValue} onChange={handleSelectChange}>
                         <option value="" disabled>
                         Sort By: </option>
                         <option value="lowToHigh">Price: Low to High</option>
