@@ -39,7 +39,7 @@ const data = await fetchData();
     <main className="flex flex-wrap flex-col content-center items-start mx-5">
       <div className='w-full inline-flex justify-between'>
         {searchParams.category ? 
-        <div className='gap-2 flex flex-row items-center'><h2>Categoria: {searchParams.category}</h2>
+        <div className='gap-2 flex flex-row items-center border-gray-400 border bg-transparent rounded-md'><h2 className=' text-gray-400'>Category: {searchParams.category}</h2>
         
         <Link href='/product'>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="red" className="w-5 h-5">

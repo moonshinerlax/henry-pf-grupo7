@@ -5,9 +5,10 @@ import { RootState, store } from "@/redux/store"
 
 export default function Cart (){
     const {loading, cartItems, itemsPrice} = useSelector((state: RootState) => state.cart)
+    const totalQuantity = cartItems.reduce((acc, item) => acc + item.qty, 0);
     return(
         <div>
-            {Number(itemsPrice) === 0 ? "" : <span className='cart-badge'>
+            {totalQuantity > 0 && <span className='cart-badge'>
                 {loading ? '' : cartItems.reduce((a, c) => a+ c.qty, 0)}
             </span>}
             <Link href='/cart'>

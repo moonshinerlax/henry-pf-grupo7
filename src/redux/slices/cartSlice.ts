@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 
 interface CartItem {
     id: string;
+    name: string;
     image: string;
     price: number;
     qty: number;
@@ -15,15 +16,24 @@ interface CartState {
     shippingPrice: string;
     taxPrice: string;
     totalPrice: string;
+    showSideBar: boolean;
+    shippingAddress: object;
 }
 
-const initialState: CartState = {
+const storedCart = Cookies.get('cart')
+
+const initialState: CartState = storedCart
+    ? {...JSON.parse(storedCart), 
+    loading: true,
+    showSidebar: false }
+    : {
     loading: true,
     cartItems: [],
     itemsPrice: '0.00',
     shippingPrice: '0.00',
     taxPrice: '0.00',
     totalPrice: '0.00',
+    shippingAddress: {},
 };
 
 const addDecimals = (num: number): string => {
@@ -74,12 +84,15 @@ export const cartSlice = createSlice({
             ).toString();
             Cookies.set('cart', JSON.stringify(state));
         },
+        saveShippingAddress: (state, action: PayloadAction<object>)=>{
+            state.shippingAddress = action.payload
+        },
         hideLoading: (state) => {
             state.loading = false;
         },
     },
 });
 
-export const { addToCart, removeFromCart, hideLoading } = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAddress, hideLoading } = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;
