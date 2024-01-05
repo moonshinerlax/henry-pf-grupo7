@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react';
+import { CldUploadButton } from 'next-cloudinary';
 
 
 interface Form {
@@ -18,11 +19,14 @@ interface Errors {
 
 const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<Errors>>) => {
   let newErrors: Errors = {
-    model: form.model ? '' : 'Name required',
+    model: /^[0-9]+$/.test(form.model) ? 'Model cannot be a number' : '',
     category: form.category !== 'All' ? '' : 'Select a Category',
-    price: form.price ? '' : 'Price required',
-    website: form.website ? '' : 'Website required',
-  };}
+    price: /^[0-9]+$/.test(form.price) ? '' : 'Price must be a number',
+    website: /^(www\.|http:\/\/|https:\/\/)/.test(form.website) ? '' : 'Website must start with www., http://, or https://',
+  };
+
+  setErrors(newErrors);
+}
 
 const CreateProduct: React.FC = () => {
   const [form, setForm] = useState<Form>({
@@ -82,52 +86,51 @@ const CreateProduct: React.FC = () => {
     }
   };
 
-  return (
-    <>
-      <div className="mt-5 w-1/2 mx-auto p-5 bg-gray-300 rounded-md shadow-md flex flex-col items-center gap-5 mb-10 text-black">
+
+return (
+  <>
+    <div className="flex">
+      <div className="mt-5 w-2/3 mx-auto p-6 bg-gray-300 rounded-md shadow-md flex flex-col items-center gap-5 mb-5 text-black">
         <h1 className="text-lg font-bold text-gray-900">New Product</h1>
         <form onSubmit={handleFormSubmit} className="grid justify-items-start content-evenly gap-y-2">
-          <div className= 'flex justify-around items-center flex-row gap-2'>
-            <label htmlFor="model">Name model:</label>
+          <div className= 'flex justify-around items-center flex-column gap-2'>
+            <label htmlFor="model">Name model:</label> 
             <input
               name="model"
               type="text"
               id="model"
               value={form.model}
               onChange={handleChange}
-              className={errors.model ? 'border-red-500 rounded' : 'border-gray-500 rounded'}
-            />
-            <span>
-              {errors.model ? (
-                <p className="bg-yellow-300 text-red-500">{errors.model}</p>
-              ) : (
-                <p> </p>
-              )}
-            </span>
+              className='border-gray-500 rounded'
+            />  
+            <div></div>
+            <div>
+          
+            </div>
+          </div>
+          <div className= 'flex justify-self-center'>
+            <CldUploadButton 
+              className=' border-blue-500 rounded border-2 p-1 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
+              uploadPreset="subir"
+            >Upload Image </CldUploadButton>
           </div>
           <div className= 'flex justify-around items-center flex-row gap-2'>
             <label htmlFor="category">Category:</label>
-      <select
-        name="category"
-        id="category"
-        value={form.category}
-        onChange={handleChange}
-        className={errors.category ? 'border-red-500 rounded' : 'border-gray-500 rounded'}
-      >
-        <option value="All">All</option>
-        <option value="Phones">Phones</option>
-        <option value="Tablets">Tablets</option>
-        <option value="Laptops">Laptops</option>
-        <option value="Desktops">Desktops</option>
-        <option value="Softwares">Softwares</option>
-      </select>
-            <span>
-              {errors.category ? (
-                <p className="bg-gray-300 text-red-500">{errors.category}</p>
-              ) : (
-                <p> </p>
-              )}
-            </span>
+            <select
+              name="category"
+              id="category"
+              value={form.category}
+              onChange={handleChange}
+              className='border-gray-500 rounded'
+            >
+              <option value="All">All</option>
+              <option value="Phones">Phones</option>
+              <option value="Tablets">Tablets</option>
+              <option value="Laptops">Laptops</option>
+              <option value="Desktops">Desktops</option>
+              <option value="Softwares">Softwares</option>
+            </select>
+        
           </div>
           <div className= 'flex justify-around items-center flex-row gap-2'>
             <label htmlFor="price">Price:</label>
@@ -137,15 +140,9 @@ const CreateProduct: React.FC = () => {
               id="price"
               value={form.price}
               onChange={handleChange}
-              className={errors.price ? 'border-red-500 rounded' : 'border-gray-500 rounded'}
+              className='border-gray-500 rounded'
             />
-            <span>
-              {errors.price ? (
-                <p className="bg-yellow-300 text-red-500">{errors.price}</p>
-              ) : (
-                <p> </p>
-              )}
-            </span>
+       
           </div>
           <div className= 'flex justify-around items-center flex-row gap-2'>
             <label htmlFor="website">Website:</label>
@@ -157,21 +154,57 @@ const CreateProduct: React.FC = () => {
               onChange={handleChange}
               className={errors.website ? 'border-red-500 rounded' : 'border-gray-500 rounded'}
             />
-            <span>
-              {errors.website ? (
-                <p className="bg-yellow-300 text-red-500">{errors.website}</p>
-              ) : (
-                <p> </p>
-              )}
-            </span>
+         
           </div>
-          <button type="submit" className="bg-blue-500 text-gray-500 p-2 rounded-md cursor-pointer transition duration-300 hover:bg-brown-500 text-white">
-            Add new product.
-          </button>
+          <button
+  type="submit"
+  className="bg-blue-500 text-gray-500 p-5 rounded-md cursor-pointer transition duration-300 hover:bg-brown-500 text-white"
+  disabled={Object.values(errors).some((error) => error !== '')}
+>
+  {Object.values(errors).some((error) => error !== '') ? 'Cannot Submit - Fix Errors' : 'Add New Product'}
+</button>
         </form>
       </div>
-    </>
-  );
+      
+      <div className="w-1/4 mx-auto p-5 bg-gray-300 rounded-md shadow-md text-black">
+        {/* Columna lateral */}
+
+        {Object.values(errors).some((error) => error !== '') ? (
+  <div className="bg-red-500 text-white p-3 rounded-md">
+    <p>Please correct the following errors:</p>
+    <ul>
+      {Object.entries(errors).map(([key, value]) => (
+        <li key={key}>
+          <span className="text-red-500">❌</span> {value}
+        </li>
+      ))}
+    </ul>
+  </div>
+) : (
+  <div className="bg-green-500 text-white p-3 rounded-md">
+    <p>All requirements met:</p>
+    <ul>
+      <li>
+        <span className="text-green-500">✔</span> Name model: Should not be a number.
+      </li>
+      <li>
+        <span className="text-green-500">✔</span> Category: Select a valid category.
+      </li>
+      <li>
+        <span className="text-green-500">✔</span> Price: Should be a number.
+      </li>
+      <li>
+        <span className="text-green-500">✔</span> Website: Should start with www., http://, or https://.
+      </li>
+    </ul>
+  </div>
+)}
+  </div>
+    </div>
+
+  </>
+);
+
 };
 
 export default CreateProduct;
