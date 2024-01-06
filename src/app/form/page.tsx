@@ -185,16 +185,16 @@ return (
     <p>Requirements:</p>
     <ul>
       <li>
-        <span className="text-green-500">Name model</span>  Model cannot be a number 
+        <span className="text-blue-500">Name model</span>  Model cannot be a number 
       </li>
       <li>
-        <span className="text-green-500">Category</span> Select a Category
+        <span className="text-blue-500">Category</span> Select a Category
       </li>
       <li>
-        <span className="text-green-500">Price </span> must be a number
+        <span className="text-blue-500">Price </span> must be a number
       </li>
       <li>
-        <span className="text-green-500">Website </span> must start with www., http://, or https://
+        <span className="text-blue-500">Website </span> must start with www., http://, or https://
       </li>
     </ul>
   </div>
