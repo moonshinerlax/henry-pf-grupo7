@@ -110,7 +110,7 @@ return (
           </div>
           <div className= 'flex justify-self-center'>
             <CldUploadButton 
-              className=' border-blue-500 rounded border-2 p-1 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
+              className='border-blue-500 rounded border-2 p-1 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
               uploadPreset="subir"
             >Upload Image </CldUploadButton>
           </div>
@@ -152,7 +152,7 @@ return (
               id="website"
               value={form.website}
               onChange={handleChange}
-              className={errors.website ? 'border-red-500 rounded' : 'border-gray-500 rounded'}
+              className= 'border-gray-500 rounded'
             />
          
           </div>
@@ -170,31 +170,31 @@ return (
         {/* Columna lateral */}
 
         {Object.values(errors).some((error) => error !== '') ? (
-  <div className="bg-red-500 text-white p-3 rounded-md">
+  <div className=" text-black p-3 rounded-md">
     <p>Please correct the following errors:</p>
     <ul>
       {Object.entries(errors).map(([key, value]) => (
         <li key={key}>
-          <span className="text-red-500">❌</span> {value}
+          <span className="text-black-500"> {value ?  "❌ "  + value :  "✅ " + key }  </span>
         </li>
       ))}
     </ul>
   </div>
 ) : (
-  <div className="bg-green-500 text-white p-3 rounded-md">
-    <p>All requirements met:</p>
+  <div className="text-black p-3 rounded-md">
+    <p>Requirements:</p>
     <ul>
       <li>
-        <span className="text-green-500">✔</span> Name model: Should not be a number.
+        <span className="text-green-500">Name model</span>  Model cannot be a number 
       </li>
       <li>
-        <span className="text-green-500">✔</span> Category: Select a valid category.
+        <span className="text-green-500">Category</span> Select a Category
       </li>
       <li>
-        <span className="text-green-500">✔</span> Price: Should be a number.
+        <span className="text-green-500">Price </span> must be a number
       </li>
       <li>
-        <span className="text-green-500">✔</span> Website: Should start with www., http://, or https://.
+        <span className="text-green-500">Website </span> must start with www., http://, or https://
       </li>
     </ul>
   </div>
