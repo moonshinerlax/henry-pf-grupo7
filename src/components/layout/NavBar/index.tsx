@@ -10,6 +10,16 @@ import Cart from "@/components/Cart";
 import { useDispatch } from "react-redux";
 import { addToCart, hideLoading } from "@/redux/slices/cartSlice";
 
+interface Item {
+  cart_item_id: number;
+  user_id: string;
+  product_id: string;
+  name: string;
+  image: string;
+  price: number;
+  qty: number;
+}
+
 export default function Navbar() {
     const menu = ["All", "Phones", "Tablets", "laptops", "Desktops", "Software"]
     const [data, setData] = useState({
@@ -35,7 +45,7 @@ export default function Navbar() {
         if (response.ok) {
           const cartData = await response.json();
           // cartData.cartItems.map((item)=> console.log(item))
-         cartData.cartItems.map((item)=>{
+         cartData.cartItems.map((item: Item)=>{
           dispatch(
             addToCart({
               cart_item_id: item.cart_item_id as number,
