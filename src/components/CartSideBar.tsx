@@ -5,8 +5,12 @@ import Image from "next/image"
 import { useDispatch } from "react-redux"
 import { addToCart, removeFromCart } from "@/redux/slices/cartSlice"
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from "react"
+import { useUser } from "@clerk/nextjs";
 
 interface CartItem {
+    cart_item_id: number;
+    userid: string;
     id: string;
     image: string;
     price: number;
@@ -14,10 +18,13 @@ interface CartItem {
   }
   
   interface Product {
+    cart_item_id: number;
+    userid: string;
     id: string;
     name: string;
     image: string;
     price: number;
+    qty: number;
     // Add other properties
   }
   
@@ -29,11 +36,43 @@ export default function CartSideBar(){
     const stock = 20
     const {loading, cartItems, itemsPrice} = useSelector((state: RootState) => state.cart)
     const dispatch = useDispatch()
-    const addToCartHandler = (product: Product, qty: number) => {
-        dispatch(addToCart({...product, qty}))        
+    const [qtyItem, setQtyItem] = useState(0)
+
+    useEffect(()=>{
+      
+    })
+    
+    const addToCartHandler = (product: Product, cart_item_id: number, qty: number) => {
+      const updateQtyDB = async () => {
+        try {
+          let res = await fetch("/api/cart", {
+            method: "PUT",
+            body: JSON.stringify({ cart_item_id, qty }),
+          });
+          return console.log('qty udpaded to', qty)    
+        } catch (error) {
+          console.log('error', error)
+        }       
     }
-    const removeFromCartHandler = (id: string) => {
-        dispatch(removeFromCart(id))
+    updateQtyDB()
+    dispatch(addToCart({...product, qty})) 
+  }
+
+    const removeFromCartHandler = (id: string, cart_item_id: number) => {
+      const removeFromCartDB = async () => {
+        try {
+          let res = await fetch("/api/cart", {
+            method: "DELETE",
+            body: JSON.stringify({ cart_item_id }),
+          });
+          return console.log('deleted', cart_item_id)    
+        } catch (error) {
+          console.log('error', error)
+        }
+      
+    }  
+      removeFromCartDB()
+      dispatch(removeFromCart(id))
     }
 
     const pathname = usePathname()
@@ -79,16 +118,19 @@ export default function CartSideBar(){
                                     <select
                                     className="text-gray-300 bg-transparent border-gray-400 border rounded-md"
                                     value={item.qty}
-                                    onChange={(e) => addToCartHandler(item, Number(e.target.value))}>
+                                    onChange={
+                                      (e) => addToCartHandler(item, item.cart_item_id, Number(e.target.value))
+                                    }>
                                         {[...Array(stock).keys()].map((x)=>(
                                             <option
+                                            className="text-gray-300 bg-gray-900 border-gray-400 border rounded-md"
                                             key={x + 1} value={x + 1}>
                                                 {x + 1}
                                             </option>
                                         ))}
                                     </select>
                                     <button className="default-button mt-2 bg-red-500 text-white rounded-md w-full"
-                                    onClick={()=> removeFromCartHandler(item.id)}>
+                                    onClick={()=> removeFromCartHandler(item.id ,item.cart_item_id)}>
                                         Delete
                                     </button>
                             </div>

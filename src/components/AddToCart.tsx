@@ -3,8 +3,10 @@ import { useUser } from "@clerk/nextjs";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, store } from "@/redux/store";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { addToCart } from "@/redux/slices/cartSlice";
+import { useState, useEffect } from "react";
+import { addToCart, removeFromCart } from "@/redux/slices/cartSlice";
+
+
 
 interface AddToCartProps {
   stock: number;
@@ -30,38 +32,41 @@ export const AddToCart: React.FC<AddToCartProps> = ({
   const [qty, setQty] = useState<number>(1);
   const email = useUser().user?.primaryEmailAddress?.emailAddress;
 
-  const addToCartHandler = () => {
-    let newQty = qty;
-    if (increasePerClick) {
-      const existItem = cartItems.find((x) => x.id === productId);
-      if (existItem) {
-        if (existItem.qty + 1 <= (stock1)) {
-          newQty = existItem.qty + 1;
-        } else {
-          return alert("No more product exists");
+    const addToCartHandler = () => {
+      let newQty = qty;
+      if (increasePerClick) {
+        const existItem = cartItems.find((x) => x.id === productId);
+        if (existItem) {
+          if (existItem.qty + 1 <= (stock1)) {
+            newQty = existItem.qty + qty;
+          } else {
+            return alert("No more product exists");
+          }
         }
       }
-    }
+  
+      const addToCartDB = async () => {
+        const{model, image, price} = product
+      let res = await fetch("/api/cart", {
+        method: "POST",
+        body: JSON.stringify({ productId, model, image, price, qty, email }),
+      });}
+      addToCartDB()
 
-    dispatch(
-      addToCart({
-        id: productId, 
-        name: product.model as string,
-        image: product.image as string,
-        price: product.price as number,
-        qty: newQty as number,
-      })
-    );
-
+      dispatch(
+        addToCart({
+          cart_item_id: product.cart_item_id as number,
+          userid: product.user_id as string,
+          id: productId, 
+          name: product.model as string,
+          image: product.image as string,
+          price: product.price as number,
+          qty: newQty as number,
+        })
+      );
   if (redirect) router.push("/cart");
     }
-  // const addToCartDB = async () => {
-  //   let res = await fetch("/api/cart", {
-  //     method: "POST",
-  //     body: JSON.stringify({ productId, email }),
-  //   });
-  // };
-
+ 
   return (
     <>
     {stock > 0  ? (
