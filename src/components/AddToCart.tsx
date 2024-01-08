@@ -50,7 +50,8 @@ export const AddToCart: React.FC<AddToCartProps> = ({
       let res = await fetch("/api/cart", {
         method: "POST",
         body: JSON.stringify({ productId, model, image, price, qty, email }),
-      });}
+      });
+    }
       addToCartDB()
 
       dispatch(
