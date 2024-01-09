@@ -7,10 +7,13 @@ import Link from "next/link"
 import Image from "next/image"
 
 interface Product {
-    id: string;
-    name: string;
-    image: string;
-    price: number;
+  cart_item_id: number;
+  userid: string;
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+  qty: number;
     // Add other properties
   }
 
@@ -19,11 +22,37 @@ export default function CartPage(){
     const router = useRouter()
     const {loading, cartItems, itemsPrice} = useSelector((state: RootState) => state.cart)
 
-    const removeFromCartHandler = (id: string) => {
-        dispatch(removeFromCart(id))
+    const addToCartHandler = (product: Product, cart_item_id: number, qty: number) => {
+      const updateQtyDB = async () => {
+        try {
+          let res = await fetch("/api/cart", {
+            method: "PUT",
+            body: JSON.stringify({ cart_item_id, qty }),
+          });
+          return console.log('qty udpaded to', qty)    
+        } catch (error) {
+          console.log('error', error)
+        }       
     }
-    const addToCartHandler = (product: Product, qty: number) => {
-        dispatch(addToCart({...product, qty}))        
+    updateQtyDB()
+    dispatch(addToCart({...product, qty})) 
+  }
+
+    const removeFromCartHandler = (id: string, cart_item_id: number) => {
+      const removeFromCartDB = async () => {
+        try {
+          let res = await fetch("/api/cart", {
+            method: "DELETE",
+            body: JSON.stringify({ cart_item_id }),
+          });
+          return console.log('deleted', cart_item_id)    
+        } catch (error) {
+          console.log('error', error)
+        }
+      
+    }  
+      removeFromCartDB()
+      dispatch(removeFromCart(id))
     }
 
     return(
@@ -69,7 +98,7 @@ export default function CartPage(){
                       <select
                         value={item.qty}
                         onChange={(e) =>
-                          addToCartHandler(item, Number(e.target.value))
+                          addToCartHandler(item, item.cart_item_id, Number(e.target.value))
                         }
                       >
                         {[...Array(40).keys()].map((x) => (
@@ -83,7 +112,7 @@ export default function CartPage(){
                     <td className="p-5 text-center">
                       <button
                         className="w-full bg-red-500 rounded-lg text-white"
-                        onClick={() => removeFromCartHandler(item.id)}
+                        onClick={() => removeFromCartHandler(item.id, item.cart_item_id)}
                       >
                         Delete
                       </button>
