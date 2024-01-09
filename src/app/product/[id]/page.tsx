@@ -1,8 +1,10 @@
 import { fetchDetailProduct } from "../../lib/data";
 import Image from "next/image";
 import { AddToCart } from "@/components/AddToCart";
+import ReviewForm from "@/components/RatingForm";
+import Reviews from "@/components/RatingProp";
 
-export default async function Detail({params}:{params: {id: any}}) {
+export default async function Detail({params}:{params: {id: string}}) {
   const product = await fetchDetailProduct(params.id);
   const productDetail = product[0] 
 
@@ -11,7 +13,7 @@ export default async function Detail({params}:{params: {id: any}}) {
   }
 
   return (
-    <main className="flex justify-center py-20 " >
+    <main className="flex-col justify-center py-20 " >
       <section className="w-4/5 flex justify-center  p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
         <section className=" p-16">
           <div 
@@ -69,20 +71,14 @@ export default async function Detail({params}:{params: {id: any}}) {
           </section>
         </section>
       </section>
+        <section className="flex flex-col justify-center p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
+          <h1 className="text-2xl font-bold">Resenas:</h1>
+          <Reviews productId={productDetail.id} userId={1} />
+        </section>
+        <section className="flex flex-col justify-center p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
+        <ReviewForm productId={productDetail.id} userId={1} />
+      </section>
     </main>
   );
 }
 
-// id: '77ffa6b0-9b1b-49bc-8643-43df0b20cc34',
-// model: 'Sketch',
-// category: 'software',
-// specs: {
-//   platform: 'macOS',
-//   description: 'Digital design tool for UI/UX designers to create user interfaces and prototypes.'
-// },
-// image: '/img/Sketch.jpg',
-// colors: null,
-// price: '$99/year',
-// carrusel: null,
-// video: null,
-// website: 'https://www.sketch.com/'
