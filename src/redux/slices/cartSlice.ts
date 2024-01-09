@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
 
 interface CartItem {
+    
     cart_item_id: number;
     userid: string;
     id: string;
@@ -18,6 +19,7 @@ interface CartState {
     shippingPrice: string;
     taxPrice: string;
     totalPrice: string;
+    payment_id: string;
     showSideBar: boolean;
     shippingAddress: object;
 }
@@ -35,6 +37,7 @@ const initialState: CartState = storedCart
     shippingPrice: '0.00',
     taxPrice: '0.00',
     totalPrice: '0.00',
+    payment_id: '',
     shippingAddress: {},
 };
 
@@ -92,9 +95,12 @@ export const cartSlice = createSlice({
         hideLoading: (state) => {
             state.loading = false;
         },
+        savePaymentId: (state, action: PayloadAction<string>)=>{
+            state.payment_id = action.payload
+        }
     },
 });
 
-export const { addToCart, removeFromCart, saveShippingAddress, hideLoading } = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAddress, hideLoading, savePaymentId } = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;

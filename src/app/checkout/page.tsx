@@ -1,39 +1,55 @@
 'use client'
-import React, { useEffect, useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
-import {
-  EmbeddedCheckoutProvider,
-  EmbeddedCheckout,
-  } from '@stripe/react-stripe-js';
+import React, { useEffect, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
+import CheckoutForm from "@/components/PaymentForm/CheckoutForm";
+import AddressForm from "@/components/PaymentForm/AddressForm";
 
+// Make sure to call loadStripe outside of a component’s render to avoid
+// recreating the Stripe object on every render.
+// This is your test publishable API key.
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
-const stripePromise = loadStripe('pk_test_51OTYZkK6mkRrJf7CSblUztBtK0flEj4aNqJyPns1gXnkZwvCkN08v2GQmNsFgjUYXclegdI866PMa98clk2a4Rmb00PhnXPSTu');
+interface CheckoutProps {
+  clientSecret: string;
+}
 
-const CheckOut: React.FC = () => {
-  const [clientSecret, setClientSecret] = useState<string>('');
+const Checkout: React.FC<CheckoutProps> = ({ clientSecret }) => {
+  const appearance = {
+    theme: 'night',
+  };
 
-  useEffect(() => {
-    fetch('/create-checkout-session', {
-      method: 'POST',
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
-  }, []);
-
-  const options = { clientSecret };
+  const options = {
+    clientSecret,
+    appearance,
+  };
 
   return (
-    <div id="checkout">
+    <div className="flex flex-row justify-around items-center w-90p p-5 border-0 border-solid border-gray-300">
       {clientSecret && (
-        <EmbeddedCheckoutProvider 
-        stripe={stripePromise} 
-        options={options}>
-          <EmbeddedCheckout />
-        </EmbeddedCheckoutProvider>
+        <Elements options={options} stripe={stripePromise}>
+          <AddressForm/>
+          <CheckoutForm />
+        </Elements>
       )}
     </div>
   );
 };
 
-export default CheckOut;
+export default function CheckOutWrapper() {
+  const [clientSecret, setClientSecret] = useState('pi_3OWaElK6mkRrJf7C02F9iEk1_secret_ApoNnEyGo6HqIebboyHkhbGuC');
+
+  // useEffect(() => {
+  //   // Create PaymentIntent as soon as the page loads
+  //   fetch("/api/create-payment-intent", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setClientSecret(data.clientSecret));
+  // }, []);
+
+  return <Checkout clientSecret={clientSecret} />;
+}

@@ -1,47 +1,59 @@
-"use client";
+import { ElementsConsumer, useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
+import React from 'react';
 
-import { CardElement, useElements, useStripe, PaymentElement } from "@stripe/react-stripe-js";
-import React from "react";
+interface CheckoutFormProps {
+  stripe: any;
+  elements: any;
+  clientSecret: string;
+}
 
-export default function PaymentForm() {
+interface InjectedCheckoutFormProps {
+  clientSecret: string;
+}
+
+const CheckoutForm: React.FC<CheckoutFormProps> = ({ stripe, elements, clientSecret }) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(PaymentElement),
+        billing_details: {
+          name: 'Customer Name', // Replace with the customer's name
+        },
+      },
+    });
+
+    if (result.error) {
+      console.log(result.error.message);
+    } else {
+      console.log('Payment successful');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <PaymentElement />
+      <button disabled={!stripe}>Submit</button>
+    </form>
+  );
+};
+
+const InjectedCheckoutForm: React.FC<InjectedCheckoutFormProps> = ({clientSecret}) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const cardElement = elements?.getElement("card");
-  
-    try {
-      if (!stripe || !cardElement) return null;
-  
-      const response = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ data: { amount: 89 } }),
-      });
-  
-      if (!response.ok) {
-        throw new Error("Failed to create payment intent");
-      }
-  
-      const { clientSecret } = await response.json();
-  
-      await stripe?.confirmCardPayment(clientSecret, {
-        payment_method: { card: cardElement },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  
-
   return (
-    <form onSubmit={onSubmit}>
-        <PaymentElement/>
-      <CardElement />
-      <button type="submit">Submit</button>
-    </form>
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <CheckoutForm stripe={stripe} elements={elements} clientSecret={clientSecret}/>
+      )}
+    </ElementsConsumer>
   );
-}
+};
+
+export default InjectedCheckoutForm;
