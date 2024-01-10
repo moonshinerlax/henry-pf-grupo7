@@ -19,7 +19,6 @@ export default function App({children,
 
     const { cartItems, loading } = useSelector((state: RootState) => state.cart)
     const pathname = usePathname()
-    console.log(pathname)
     return(
         <div>
             <div

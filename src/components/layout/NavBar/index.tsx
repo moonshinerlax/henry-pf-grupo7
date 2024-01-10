@@ -1,14 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import Cart from "@/components/Cart";
 import { useDispatch } from "react-redux";
-import { hideLoading } from "@/redux/slices/cartSlice";
+import { addToCart, hideLoading } from "@/redux/slices/cartSlice";
+
+interface Item {
+  cart_item_id: number;
+  user_id: string;
+  product_id: string;
+  name: string;
+  image: string;
+  price: number;
+  qty: number;
+}
 
 export default function Navbar() {
     const menu = ["All", "Phones", "Tablets", "laptops", "Desktops", "Software"]
@@ -21,6 +32,44 @@ export default function Navbar() {
     const  user =  useUser().user?.primaryEmailAddress?.emailAddress
     const id = useUser().user?.id
     const dispatch = useDispatch()
+    const email = useUser().user?.primaryEmailAddress?.emailAddress;
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        if (!email) {
+          return; // Don't fetch if email is not available
+        }
+
+        const response = await fetch(`/api/cart?email=${email}`);
+
+        if (response.ok) {
+          const cartData = await response.json();
+          // cartData.cartItems.map((item)=> console.log(item))
+         cartData.cartItems.map((item: Item)=>{
+          dispatch(
+            addToCart({
+              cart_item_id: item.cart_item_id as number,
+              userid: item.user_id as string,
+              id: item.product_id as string, 
+              name: item.name as string,
+              image: item.image as string,
+              price: item.price as number,
+              qty: item.qty as number,
+            })
+          );
+         })
+          
+        } else {
+          throw new Error("Failed to fetch cart data");
+        }
+      } catch (error) {
+        console.error("Error fetching cart data:", error);
+      }
+    };
+
+    fetchCartData();
+  }, [email]);
 
     useEffect(() => {
       if (id && user) {
