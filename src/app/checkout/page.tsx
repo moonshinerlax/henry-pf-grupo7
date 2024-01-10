@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import React, { useEffect, useState } from "react";
 import { StripeElementsOptions, loadStripe } from "@stripe/stripe-js";
@@ -8,6 +9,7 @@ import AddressForm from "@/components/PaymentForm/AddressForm";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { savePaymentId } from "@/redux/slices/cartSlice";
+import { useSearchParams } from "next/navigation";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -16,9 +18,10 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 
 interface CheckoutProps {
   clientSecret: string;
+  amount: string;
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ clientSecret }) => {
+const Checkout: React.FC<CheckoutProps> = ({ clientSecret, amount }) => {
 
   const stripeElementsOptions: StripeElementsOptions = {
     clientSecret: clientSecret,
@@ -33,6 +36,8 @@ const Checkout: React.FC<CheckoutProps> = ({ clientSecret }) => {
         <Elements options={stripeElementsOptions} stripe={stripePromise}>
           <AddressForm/>
           <CheckoutForm />
+          <p>{amount}</p>
+          <p>{clientSecret}</p>
         </Elements>
       )}
     </div>
@@ -40,31 +45,47 @@ const Checkout: React.FC<CheckoutProps> = ({ clientSecret }) => {
 };
 
 export default function CheckOutWrapper() {
-  const [clientSecret, setClientSecret] = useState("");
-  const { payment_id, cartItems, totalPrice } = useSelector((state: RootState) => state.cart);
+  const [clientSecret, setClientSecret] = useState<string>('');
+  const [paymentid, setPaymentid] = useState<string | null>(null)
+  const [amount, setAmount] = useState('')
+  const { payment_id, user_id, itemsPrice, payment_intent } = useSelector((state: RootState) => state.cart);
   const dispatch = useDispatch()
-  const { userid } =cartItems[0]
+  const searchParams = useSearchParams()
+  const status = searchParams.get('redirect_status')
+  const prevPay = searchParams.get('payment_intent_client_secret')
 
   useEffect(() => {
   //   // Create PaymentIntent as soon as the page loads
-  if(payment_id){
-    setClientSecret(payment_id)
-  }
+  // if(payment_intent){setPaymentid(payment_intent);
+  //                     setClientSecret(payment_id)}
+  if(!status && !prevPay){
     fetch("/api/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({totalPrice, clientSecret}),
+      body: JSON.stringify({itemsPrice, payment_intent}),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data.clientSecret));
-    
+      .then((data) => {
+        setClientSecret(data.PaymentIntent.client_secret);
+        setPaymentid(data.PaymentIntent.id);
+        setAmount(data.PaymentIntent.amount)
+        console.log(data)
+      });}
+    }, []);
+
+  useEffect(()=>{
+    if(!status){
     fetch("/api/create-payment-intent", {
       method: "PUT",
-      body: JSON.stringify({clientSecret, userid })
+      body: JSON.stringify({clientSecret, user_id, paymentid})
     })
+    .then((res) => res.json())
+      .then((data) => {
+        console.log(data);})
+  }},[paymentid])
 
-    dispatch(savePaymentId(clientSecret))
-  }, [clientSecret]);
+  useEffect(()=>{if(prevPay){setClientSecret(prevPay)}},[])
+  
 
-  return <Checkout clientSecret={clientSecret} />;
+  return <Checkout clientSecret={clientSecret} amount={amount} />;
 }

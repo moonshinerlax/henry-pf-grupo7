@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { RootState } from "@/redux/store";
+import { useSelector } from "react-redux";
 import {
   PaymentElement,
   useStripe,
@@ -6,10 +8,16 @@ import {
 } from "@stripe/react-stripe-js";
 import { StripePaymentElementOptions } from "@stripe/stripe-js";
 import { set } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { addClientSecret, addPaymentIntent } from "@/redux/slices/cartSlice";
 
 const CheckoutForm: React.FC = () => {
   const stripe = useStripe();
   const elements = useElements();
+  const { user_id } = useSelector((state: RootState) => state.cart);
+  const emptypayment = null
+  const emptypaymentid = null
+  const dispatch = useDispatch()
 
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -62,7 +70,7 @@ const CheckoutForm: React.FC = () => {
           return_url: "http://localhost:3000/checkout",
         },
       });
-
+      
       if (error && (error.type === "card_error" || error.type === "validation_error")) {
         setMessage(error.message as string);
       } else {
@@ -81,8 +89,16 @@ const CheckoutForm: React.FC = () => {
 
   const handlePopupClick = () => {
     if(message === 'Payment succeeded! Thank you for your Purchase!'){
+      fetch("/api/create-payment-intent", {
+        method: "PUT",
+        body: JSON.stringify({emptypayment, user_id, emptypaymentid})
+      })
+      fetch("/api/clear-cart", {
+        method: "DELETE",
+        body: JSON.stringify({user_id})
+      })
+      dispatch(addClientSecret(''), addPaymentIntent(''))
       setMessage(null); // Hide the message
-
     window.location.href = "http://localhost:3000"; // Redirect to localhost
     }
     setMessage(null)

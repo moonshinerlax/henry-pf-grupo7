@@ -13,6 +13,7 @@ export default function App({children,
 }: {
   children: React.ReactNode}) {
     const dispatch = useDispatch()
+    
     useEffect(()=>{
         dispatch(hideLoading())
     },[dispatch])

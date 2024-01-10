@@ -37,10 +37,6 @@ export default function CartSideBar(){
     const {loading, cartItems, itemsPrice} = useSelector((state: RootState) => state.cart)
     const dispatch = useDispatch()
     const [qtyItem, setQtyItem] = useState(0)
-
-    useEffect(()=>{
-      
-    })
     
     const addToCartHandler = (product: Product, cart_item_id: number, qty: number) => {
       const updateQtyDB = async () => {

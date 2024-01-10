@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
         SELECT * FROM cart_items WHERE user_id = ${user_id};
       `;
 
-      return NextResponse.json({ cartItems });
+      return NextResponse.json({ cartItems, users });
     } catch (error) {
       console.error('Error fetching cart items:', error);
       return NextResponse.json({ message: 'Error fetching cart items' }, { status: 500 });

@@ -5,29 +5,35 @@ import Stripe from "stripe";
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY!)
 
 export async function POST(req: NextRequest) {
-  const { amount, clientSecret } = await req.json();
-  if(clientSecret){
+  const { itemsPrice, payment_intent } = await req.json();
+  if(payment_intent){
     try {
-     const paymentIntent = await stripe.paymentIntents.retreive(clientSecret)
-     const updatePaymentIntent = await stripe.paymentIntents.update(
-      paymentIntent.id,
+     const PaymentIntent = await stripe.paymentIntents.update(
+      payment_intent,
       {
-        amount: Number(amount) * 100,
+        amount: Number(itemsPrice) * 100,
       });
-      return NextResponse.json({paymentIntent});
+      return new NextResponse(JSON.stringify({ PaymentIntent }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
      } catch (error: any) {
-      return new NextResponse(error, {
-        status: 400,
-      });
-    } 
+      return new NextResponse(JSON.stringify({ error: error.message }), {
+        status: 410,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });}
     }else{
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: Number(amount) * 100,
+    const PaymentIntent = await stripe.paymentIntents.create({
+      amount: Number(itemsPrice) * 100,
       currency: "USD",
     });
 
-    return NextResponse.json({paymentIntent});
+    return NextResponse.json({PaymentIntent});
   } catch (error: any) {
     return new NextResponse(error, {
       status: 400,
@@ -35,21 +41,24 @@ export async function POST(req: NextRequest) {
   }
 }}
 
-export async function PUT(req: NextRequest) {
-  const { clientSecret, user_id } = await req.json();
+export async function PUT(req: Request) {
+  const { clientSecret, user_id, paymentid } = await req.json();
+
   try {
     const { rowCount } = await sql`
-          UPDATE users
-          SET clientsecret = ${clientSecret}
-          WHERE id = ${user_id}
+    UPDATE users
+    SET clientsecret = ${clientSecret}, paymentid = ${paymentid}
+    WHERE id = ${user_id}
         `;
 
         if (rowCount > 0) {
-          return NextResponse.json({ message: "clientSecret updated", result: true });
+          return NextResponse.json({ message: `clientSecret updated ${clientSecret}, ${user_id}, ${paymentid}`, result: true });
         } else {
-          return NextResponse.json({ message: "Failed to update clientSecret", result: false });
+          return NextResponse.json({ message: `Failed to update clientSecret ${clientSecret}, ${user_id}`, result: false });
         }
-      } catch (e) {
-        return NextResponse.json({ message: "Failed to update clientSecret", result: false });
+      } catch (error: any) {
+        return new NextResponse(error, {
+          status: 400,
+        });
       }
-}
+      }

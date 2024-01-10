@@ -15,11 +15,13 @@ interface CartItem {
 interface CartState {
     loading: boolean;
     cartItems: CartItem[];
+    user_id: string
     itemsPrice: string; 
     shippingPrice: string;
     taxPrice: string;
     totalPrice: string;
     payment_id: string;
+    payment_intent: string;
     showSideBar: boolean;
     shippingAddress: object;
 }
@@ -33,11 +35,13 @@ const initialState: CartState = storedCart
     : {
     loading: true,
     cartItems: [],
+    user_id: '',
     itemsPrice: '0.00',
     shippingPrice: '0.00',
     taxPrice: '0.00',
     totalPrice: '0.00',
     payment_id: '',
+    payment_intent:'',
     shippingAddress: {},
 };
 
@@ -49,6 +53,25 @@ export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
+        addPaymentIntent: (state, action: PayloadAction<string>)=>{
+            state.payment_intent = action.payload
+        },
+        addClientSecret: (state, action: PayloadAction<string>)=>{
+            state.payment_id = action.payload;
+        },
+        addUserID: (state, action: PayloadAction<string>)=>{
+            state.user_id = action.payload
+        }
+        ,
+        saveShippingAddress: (state, action: PayloadAction<object>)=>{
+            state.shippingAddress = action.payload
+        },
+        hideLoading: (state) => {
+            state.loading = false;
+        },
+        savePaymentId: (state, action: PayloadAction<string>)=>{
+            state.payment_id = action.payload
+        },
         addToCart: (state, action: PayloadAction<CartItem>) => {
             const item = action.payload;
             const existItem = state.cartItems.find((x) => x.id === item.id);
@@ -89,18 +112,10 @@ export const cartSlice = createSlice({
             ).toString();
             // Cookies.set('cart', JSON.stringify(state));
         },
-        saveShippingAddress: (state, action: PayloadAction<object>)=>{
-            state.shippingAddress = action.payload
-        },
-        hideLoading: (state) => {
-            state.loading = false;
-        },
-        savePaymentId: (state, action: PayloadAction<string>)=>{
-            state.payment_id = action.payload
-        }
+        
     },
 });
 
-export const { addToCart, removeFromCart, saveShippingAddress, hideLoading, savePaymentId } = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAddress, hideLoading, savePaymentId, addUserID, addClientSecret, addPaymentIntent } = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;
