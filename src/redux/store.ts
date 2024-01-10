@@ -5,6 +5,7 @@ type CartState = ReturnType<typeof cartSlice.reducer>
 
 export type RootState = {
     cart: CartState
+    
 }
 
 export const store = configureStore({

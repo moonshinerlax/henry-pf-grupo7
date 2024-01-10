@@ -37,10 +37,6 @@ export default function CartSideBar(){
     const {loading, cartItems, itemsPrice} = useSelector((state: RootState) => state.cart)
     const dispatch = useDispatch()
     const [qtyItem, setQtyItem] = useState(0)
-
-    useEffect(()=>{
-      
-    })
     
     const addToCartHandler = (product: Product, cart_item_id: number, qty: number) => {
       const updateQtyDB = async () => {
@@ -82,7 +78,7 @@ export default function CartSideBar(){
     className={
         loading
           ? ''
-          : cartItems.length > 0 && (pathname === '/' || pathname.indexOf('/product/') >= 0)
+          : cartItems.length > 0 && (pathname === '/' || pathname === '/payment' || pathname === '/shipping' || pathname.indexOf('/product' ) >= 0)
           ? 'fixed top-0 right-0 w-32 h-full shadow-lg border-l border-l-gray-700 overflow-scroll'
           : 'hidden'
       }

@@ -13,6 +13,7 @@ export default function App({children,
 }: {
   children: React.ReactNode}) {
     const dispatch = useDispatch()
+    
     useEffect(()=>{
         dispatch(hideLoading())
     },[dispatch])
@@ -26,7 +27,7 @@ export default function App({children,
           loading
             ? ''
             : cartItems.length > 0 &&
-              (pathname === '/' || pathname.indexOf('/product') >= 0)
+            (pathname === '/' || pathname === '/payment' || pathname === '/shipping' || pathname.indexOf('/product' ) >= 0)
             ? 'mr-32'
             : ''
         }`}

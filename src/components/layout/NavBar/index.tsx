@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import Cart from "@/components/Cart";
 import { useDispatch } from "react-redux";
-import { addToCart, hideLoading } from "@/redux/slices/cartSlice";
+import { addClientSecret, addPaymentIntent, addToCart, addUserID, hideLoading } from "@/redux/slices/cartSlice";
 
 interface Item {
   cart_item_id: number;
@@ -34,6 +34,37 @@ export default function Navbar() {
     const dispatch = useDispatch()
     const email = useUser().user?.primaryEmailAddress?.emailAddress;
 
+    useEffect(()=>{
+      dispatch(hideLoading())
+    },[dispatch])
+    
+    const reg = async () => {
+      try {
+        let res = await fetch("/api/signup", {
+          method: "POST",
+          body: JSON.stringify({data}),
+        });
+        console.log("success")
+      } catch (error) {
+        console.log('Error adding user:', error);
+      }
+    };
+
+    useEffect(() => {
+      if (id && user) {
+        setData({
+          userId: id,
+          userEmail: user
+        });
+      }
+    }, [id, user]);
+  
+    useEffect(() => {
+      if (data.userId && data.userEmail) {
+        reg();
+      }
+    }, [data]);
+
   useEffect(() => {
     const fetchCartData = async () => {
       try {
@@ -56,10 +87,11 @@ export default function Navbar() {
               image: item.image as string,
               price: item.price as number,
               qty: item.qty as number,
-            })
+            }),
           );
          })
-          
+         dispatch(addClientSecret(cartData.users[0].clientsecret))
+         dispatch(addPaymentIntent(cartData.users[0].paymentid)) 
         } else {
           throw new Error("Failed to fetch cart data");
         }
@@ -67,40 +99,9 @@ export default function Navbar() {
         console.error("Error fetching cart data:", error);
       }
     };
-
+    dispatch(addUserID(id as string))
     fetchCartData();
   }, [email]);
-
-    useEffect(() => {
-      if (id && user) {
-        setData({
-          userId: id,
-          userEmail: user
-        });
-      }
-    }, [id, user]);
-  
-    useEffect(() => {
-      if (data.userId && data.userEmail) {
-        reg();
-      }
-    }, [data]);
-
-    useEffect(()=>{
-      dispatch(hideLoading())
-    },[dispatch])
-    
-    const reg = async () => {
-      try {
-        let res = await fetch("/api/signup", {
-          method: "POST",
-          body: JSON.stringify({data}),
-        });
-        console.log("success")
-      } catch (error) {
-        console.log('Error adding user:', error);
-      }
-    };
 
     return (
       <header>
