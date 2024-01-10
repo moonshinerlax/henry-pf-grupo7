@@ -5,7 +5,7 @@ import Link from 'next/link';
 import OrderButtons from '@/components/orderButtons';
 import {AddToCart} from '@/components/AddToCart';
 export const fetchCache = 'force-no-store';
-import FilterbyPriceRange from '@/components/FilterbyPriceRange';
+import FilterbyPriceRange from '@/components/filterPriceRange';
 import { parse } from 'path';
 
 
