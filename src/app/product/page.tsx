@@ -5,27 +5,49 @@ import Link from 'next/link';
 import OrderButtons from '@/components/orderButtons';
 import {AddToCart} from '@/components/AddToCart';
 export const fetchCache = 'force-no-store';
+import FilterbyPriceRange from '@/components/FilterbyPriceRange';
+import { parse } from 'path';
 
 
-export default async function Product({ searchParams }: { searchParams: { model: string; category?:string; ordByPrice:string } }) {
-  
+export default async function Product({ searchParams }: 
+  { searchParams: 
+    { model: string; 
+      category?:string; 
+      ordByPrice:string;  
+      minPrice:string; 
+      maxPrice:string;} 
+    }) {
+  parseInt(searchParams.minPrice)
+  parseInt(searchParams.maxPrice)
     async function fetchData() {
         let data;
         let list = []
         try {
-          let query = 'SELECT * FROM products';
+          let query = 'SELECT * FROM products WHERE';
           if(searchParams.model){
             list.push(searchParams.model)
-            query += ` WHERE model ILIKE '%' || $${list.length} || '%' AND`
+            query += ` model ILIKE '%' || $${list.length} || '%' AND`
           };
           if(searchParams.category){
             list.push(searchParams.category)
-            query += ` ${searchParams.model ? '' : 'WHERE'} category ILIKE '%' || $${list.length} || '%'`
+            query += ` category ILIKE '%' || $${list.length} || '%' AND`
+          }
+
+          if(searchParams.minPrice){
+            list.push(searchParams.minPrice)
+            query += ` price >= $${list.length} AND`
+          }  
+
+          if(searchParams.maxPrice){
+            list.push(searchParams.maxPrice)
+            query += ` price <= $${list.length}`
           }
           if(searchParams.ordByPrice){
             query += ` ORDER BY CAST(Price AS DECIMAL) ${searchParams.ordByPrice === 'max' ? 'DESC' : 'ASC'}`
           }
+         
           query = query.replace(/ AND$/, "")
+          query = query.replace(/ WHERE$/, "")
           data = await sql.query(query, list)
             return data.rows
           } catch (error) {
@@ -48,6 +70,7 @@ const data = await fetchData();
         </Link>
         </div>
         : <div></div>}
+        <FilterbyPriceRange />
         <OrderButtons/>
         </div> 
       <div className="flex flex-wrap justify-center my-8">
@@ -79,6 +102,7 @@ const data = await fetchData();
         : <Link href='/product'><h1>Product not found!</h1>
             </Link>}
         </div>
+       
     </main>
   );
 }
