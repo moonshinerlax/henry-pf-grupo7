@@ -133,7 +133,7 @@ export default function CartPage(){
                 </li>
                 <li>
                   <button
-                    onClick={() => router.push('/shipping')}
+                    onClick={() => router.push('/checkout')}
                     className="primary-button w-full bg-blue-500 text-white rounded-lg"
                   >
                     Proceed to checkout
