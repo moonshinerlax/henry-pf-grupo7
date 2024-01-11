@@ -18,7 +18,7 @@ const FilterbyPriceRange: React.FC = () => {
 
   return (
      <>      
-     <h3 className="bg-transparent justify-end text-center rounded-md border-gray-400 border text-sm text-gray-400 " onClick={() => setRangePriceClicked(!rangePriceClicked)}>Range Price
+     <h3 className= "z-100 bg-transparent justify-end text-center rounded-md border-gray-400 border text-sm text-gray-400 " onClick={() => setRangePriceClicked(!rangePriceClicked)}>Range Price
        {rangePriceClicked && (
         
           <ul  onClick={(e) => e.stopPropagation()}>
@@ -31,7 +31,7 @@ const FilterbyPriceRange: React.FC = () => {
                   <div className="">
                     <input
                       name="Minimum"
-                      placeholder="Mínimo"
+                      placeholder="Min"
                       value={minPrice}
                       onChange={(e) => setMinPrice(e.target.value)}
                     />
@@ -41,7 +41,7 @@ const FilterbyPriceRange: React.FC = () => {
                   <div className="">
                     <input
                       name="Maximum"
-                      placeholder="Máximo"
+                      placeholder="Max"
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
                     />
