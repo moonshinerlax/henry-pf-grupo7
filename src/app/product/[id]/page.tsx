@@ -2,7 +2,8 @@ import { fetchDetailProduct } from "../../lib/data";
 import Image from "next/image";
 import { AddToCart } from "@/components/AddToCart";
 import ReviewForm from "@/components/RatingReview/ReviewForm";
-
+import ReviewsList from "@/components/RatingReview/Rating";
+import AverageRatingStars from "@/components/RatingReview/AverageRating"
 export default async function Detail({ params }: { params: { id: string } }) {
   const product = await fetchDetailProduct(params.id);
   const productDetail = product[0];
@@ -44,6 +45,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
           <section className="flex-col ">
             <h1 className="text-2xl font-bold">{productDetail.model}</h1>
             <h2>{productDetail.category}</h2>
+            <AverageRatingStars/>
             <section className=" my-20 ">
               <p className="flex justify-center text-xl text-white bg-blue-500 p-2 rounded-2xl">
                 ${productDetail.price} USD
@@ -81,6 +83,10 @@ export default async function Detail({ params }: { params: { id: string } }) {
       <section className="w-4/5 flex-col p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
         <p>Escriba una Resena</p>
         <ReviewForm productId={productDetail.id} />
+      </section>
+      <section className="w-4/5 flex-col p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
+        <p>Resenas de productos</p>
+        <ReviewsList/>
       </section>
     </main>
   );

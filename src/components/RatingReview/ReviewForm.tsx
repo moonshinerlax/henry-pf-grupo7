@@ -5,7 +5,7 @@ interface ReviewFormProps {
   productId: string;
 }
 interface Review {
-  id: string;
+  id: number;
   productId: string;
   rating: number;
   review: string;
@@ -34,15 +34,31 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
     setErrors(errors);
   }, [rating, review, touched]);
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     // Si no hay errores, procesa el formulario
     if (!errors.rating && !errors.review) {
-      console.log(productId, rating, review);
+      const response = await fetch('http://localhost:3000/api/review', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          productId,
+          rating,
+          review
+        })
+      });
 
-      // Resetea el formulario
-      resetForm();
+      if (response.ok) {
+        console.log('Reseña enviada');
+
+        // Resetea el formulario
+        resetForm();
+      } else {
+        console.error('Error enviando la reseña');
+      }
     }
   }
 
