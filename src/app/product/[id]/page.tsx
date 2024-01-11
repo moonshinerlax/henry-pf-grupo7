@@ -13,16 +13,16 @@ export default async function Detail({ params }: { params: { id: string } }) {
   }
 
   return (
-    <main className="flex-col justify-center py-20 ">
-      <section className="w-4/5 flex justify-center  p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
+    <main className="mx-auto max-w-screen-2xl px-4">
+      <section className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
         <section className=" p-16">
-          <div className="w-80 h-80 relative p-10">
+          <div className="h-full w-full basis-full lg:basis-4/6">
             <Image
               src={productDetail.image}
               alt={productDetail.model}
-              width={900}
-              height={900}
-              className="rounded-lg"
+              width={600}
+              height={600}
+              className="rounded"
             />
             <div className="flex flex-row m-2 gap-2">
               {productDetail.carrusel
@@ -41,13 +41,13 @@ export default async function Detail({ params }: { params: { id: string } }) {
             </div>
           </div>
         </section>
-        <section className="flex-col p-16">
-          <section className="flex-col ">
-            <h1 className="text-2xl font-bold">{productDetail.model}</h1>
+        <section className="basis-full lg:basis-2/6">
+          <section className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
+            <h1 className="mb-2 text-5xl font-medium">{productDetail.model}</h1>
             <h2>{productDetail.category}</h2>
             <AverageRatingStars/>
-            <section className=" my-20 ">
-              <p className="flex justify-center text-xl text-white bg-blue-500 p-2 rounded-2xl">
+            <section className="my-6 mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
+              <p >
                 ${productDetail.price} USD
               </p>
             </section>
@@ -59,6 +59,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
                 product={productDetail}
                 increasePerClick={true}
                 redirect={false}
+                
               />
             </section>
           </section>
@@ -80,11 +81,11 @@ export default async function Detail({ params }: { params: { id: string } }) {
           </section>
         </section>
       </section>
-      <section className="w-4/5 flex-col p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
+      <section className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
         <p>Escriba una Resena</p>
         <ReviewForm productId={productDetail.id} />
       </section>
-      <section className="w-4/5 flex-col p-16 bg-white text-gray-900 bg-opacity-70 rounded-2xl">
+      <section className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
         <p>Resenas de productos</p>
         <ReviewsList/>
       </section>

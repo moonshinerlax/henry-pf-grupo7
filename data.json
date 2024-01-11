@@ -70,5 +70,17 @@
     "productId": "583f7406-91ec-4793-89ce-5b98b8d22a96",
     "rating": 3,
     "review": "3 estrellas!"
+  },
+  {
+    "id": "576654ec-7f16-445a-a634-3c8435a9143c",
+    "productId": "a0008895-65b6-480e-bc4b-40fb81a0a08b",
+    "rating": 4,
+    "review": "4 estrellas!"
+  },
+  {
+    "id": "8f3505c2-81dc-4471-a9e3-11c7a106846d",
+    "productId": "8a77b1dd-364e-4ada-8583-07bd7da31d49",
+    "rating": 1,
+    "review": "1 estrella!"
   }
 ]

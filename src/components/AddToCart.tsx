@@ -71,7 +71,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
   return (
     <>
     {stock > 0  ? (
-      <div className="mb-2 flex justify-between text-black">
+      <div className="my-6 flex justify-between ">
         <div>Qty</div>
         <div>
           <select
@@ -88,7 +88,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
       </div>
     ) : ''}
     <div>
-        <button className="bg-blue-500 p-1 rounded-2xl text-white" onClick={addToCartHandler}>
+        <button className="relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white my-6 " onClick={addToCartHandler}>
           Add to cart
         </button>
     </div>
