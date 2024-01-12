@@ -3,7 +3,7 @@ import Image from "next/image";
 import { AddToCart } from "@/components/AddToCart";
 import ReviewForm from "@/components/RatingReview/ReviewForm";
 import ReviewsList from "@/components/RatingReview/Rating";
-import AverageRatingStars from "@/components/RatingReview/AverageRating"
+import AverageRatingStars from "@/components/RatingReview/AverageRating";
 export default async function Detail({ params }: { params: { id: string } }) {
   const product = await fetchDetailProduct(params.id);
   const productDetail = product[0];
@@ -15,7 +15,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
   return (
     <main className="mx-auto max-w-screen-2xl px-4">
       <section className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
-        <section className=" p-16">
+        <div className=" p-16">
           <div className="h-full w-full basis-full lg:basis-4/6">
             <Image
               src={productDetail.image}
@@ -40,18 +40,16 @@ export default async function Detail({ params }: { params: { id: string } }) {
                 : null}
             </div>
           </div>
-        </section>
-        <section className="basis-full lg:basis-2/6">
-          <section className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
+        </div>
+        <div className="basis-full lg:basis-2/6">
+          <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
             <h1 className="mb-2 text-5xl font-medium">{productDetail.model}</h1>
             <h2>{productDetail.category}</h2>
-            <AverageRatingStars/>
-            <section className="my-6 mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
-              <p >
-                ${productDetail.price} USD
-              </p>
-            </section>
-            <section className="flex flex-col justify-center text-xl p-2 rounded-2xl">
+            <AverageRatingStars />
+            <div className="my-6 mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
+              <p>${productDetail.price} USD</p>
+            </div>
+            <div className="flex flex-col justify-center text-xl p-2 rounded-2xl">
               <AddToCart
                 stock={40}
                 productId={productDetail.id}
@@ -59,11 +57,10 @@ export default async function Detail({ params }: { params: { id: string } }) {
                 product={productDetail}
                 increasePerClick={true}
                 redirect={false}
-                
               />
-            </section>
-          </section>
-          <section>
+            </div>
+          </div>
+          <div>
             {productDetail.website ? (
               <a href={productDetail.website}>
                 Website: {productDetail.website}
@@ -78,16 +75,18 @@ export default async function Detail({ params }: { params: { id: string } }) {
                   </div>
                 ))
               : null}
-          </section>
-        </section>
+          </div>
+        </div>
       </section>
-      <section className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
-        <p>Escriba una Resena</p>
-        <ReviewForm productId={productDetail.id} />
-      </section>
-      <section className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
-        <p>Resenas de productos</p>
-        <ReviewsList/>
+      <section>
+        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
+          <p>Resenas de productos</p>
+          <ReviewsList />
+        </div>
+        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
+          <p>Escriba una Resena</p>
+          <ReviewForm productId={productDetail.id} />
+        </div>
       </section>
     </main>
   );

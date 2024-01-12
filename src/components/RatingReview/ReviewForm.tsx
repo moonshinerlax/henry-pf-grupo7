@@ -70,13 +70,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="flex space-x-2">
+      <div className="rating flex space-x-2">
         {[...Array(5)].map((star, i) => {
           const ratingValue = i + 1;
           return (
             <label key={i} className="cursor-pointer">
               <input
-                className="hidden"
+                className={`mask mask-star-2 ${rating > i ? "bg-orange-400" : "bg-gray-400"}`}
                 type="radio"
                 value={ratingValue}
                 onClick={() => {
@@ -84,16 +84,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
                   setTouched({...touched, rating: true});
                 }}
               />
-              <svg
-                className={`h-6 w-6 ${
-                  ratingValue <= rating ? "text-yellow-400" : "text-gray-400"
-                }`}
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M10 15.27L16.18 21l-1.64-7.03L22 9.24l-7.19-.61L10 2 7.19 8.63 0 9.24l5.46 4.73L3.82 21z"></path>
-              </svg>
+              
             </label>
           );
         })}
