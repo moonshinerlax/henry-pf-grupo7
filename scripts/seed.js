@@ -13,6 +13,8 @@ async function clearProductsTable() {
     }
   }
 
+
+
 async function seedProducts(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -30,6 +32,25 @@ async function seedProducts(client) {
         website VARCHAR(255)
       );
     `;
+
+    const createUsersTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS users (
+        id VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        clientsecret VARCHAR(255),
+        paymentid VARCHAR(255)
+      );`;
+
+    const createCartItemTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS cart_items (
+        cart_item_id INT NOT NULL,
+        product_id VARCHAR(255) NOT NULL,
+        user_id VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        image VARCHAR(255) NOT NULL,
+        price INT NOT NULL,
+        qty INT NOT NULL
+      );`;
 
     console.log(`Created "products" table`);
 
@@ -51,6 +72,8 @@ async function seedProducts(client) {
     return {
       createTable,
       products: insertedProducts,
+      createUsersTable,
+      createCartItemTable,
     };
   } catch (error) {
     console.error('Error seeding products:', error);
