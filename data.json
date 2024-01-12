@@ -1,0 +1,98 @@
+[
+  {
+    "id": "6bfc1793-7651-491c-b9e8-63629c59542f",
+    "productId": "530b543a-a51b-4d79-b6da-093fe4eeb2a4",
+    "rating": 5,
+    "review": "ooooo"
+  },
+  {
+    "id": "665d9758-16eb-4c50-bb0c-1444008556ef",
+    "productId": "530b543a-a51b-4d79-b6da-093fe4eeb2a4",
+    "rating": 5,
+    "review": "aaaaaa"
+  },
+  {
+    "id": "283c9f20-b0b5-4a56-aead-de36046cd4d0",
+    "productId": "530b543a-a51b-4d79-b6da-093fe4eeb2a4",
+    "rating": 5,
+    "review": "boooo"
+  },
+  {
+    "id": "8ef240c3-7558-492a-9b74-74b541ce838d",
+    "productId": "8a77b1dd-364e-4ada-8583-07bd7da31d49",
+    "rating": 5,
+    "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  },
+  {
+    "id": "f6e22f79-3e25-4786-942d-33d2b0f6f205",
+    "productId": "8a77b1dd-364e-4ada-8583-07bd7da31d49",
+    "rating": 5,
+    "review": "aaaaaa"
+  },
+  {
+    "id": "372d5f87-56c5-48c5-bf4e-1e4fbf6f9a6b",
+    "productId": "8a77b1dd-364e-4ada-8583-07bd7da31d49",
+    "rating": 5,
+    "review": "aaaaaaaaa"
+  },
+  {
+    "id": "b6789b8b-502a-446d-aa2b-e51921d713a1",
+    "productId": "8a77b1dd-364e-4ada-8583-07bd7da31d49",
+    "rating": 4,
+    "review": "4 estrellas"
+  },
+  {
+    "id": "5ddc5374-2003-4762-90c4-a0447b259f6f",
+    "productId": "ab58b35b-1909-4b41-a86f-f3f75a73d03b",
+    "rating": 5,
+    "review": "5 estrellas !"
+  },
+  {
+    "id": "26355ba2-a073-4685-9459-a06f26ac981b",
+    "productId": "ab58b35b-1909-4b41-a86f-f3f75a73d03b",
+    "rating": 4,
+    "review": "4 estrellas!"
+  },
+  {
+    "id": "3a583cbf-4e75-4179-b6dd-b94338de9bb0",
+    "productId": "45a98d90-3208-4826-b876-560d3d401a40",
+    "rating": 1,
+    "review": "1 estrella !"
+  },
+  {
+    "id": "c9164ccc-1373-430c-832f-e665b8e68bdf",
+    "productId": "376fdd7f-1c01-4bb1-b022-602106d18b81",
+    "rating": 2,
+    "review": "2 estrellas !"
+  },
+  {
+    "id": "b017f4d1-17ea-4d5f-93f2-d5bd494ba2a5",
+    "productId": "583f7406-91ec-4793-89ce-5b98b8d22a96",
+    "rating": 3,
+    "review": "3 estrellas!"
+  },
+  {
+    "id": "576654ec-7f16-445a-a634-3c8435a9143c",
+    "productId": "a0008895-65b6-480e-bc4b-40fb81a0a08b",
+    "rating": 4,
+    "review": "4 estrellas!"
+  },
+  {
+    "id": "8f3505c2-81dc-4471-a9e3-11c7a106846d",
+    "productId": "8a77b1dd-364e-4ada-8583-07bd7da31d49",
+    "rating": 1,
+    "review": "1 estrella!"
+  },
+  {
+    "id": "38fc9cf2-585d-45ae-a727-432df37b061f",
+    "productId": "8a77b1dd-364e-4ada-8583-07bd7da31d49",
+    "rating": 2,
+    "review": "2 estrellas!"
+  },
+  {
+    "id": "0113e32b-12ab-45c9-ae21-4083d3eea22d",
+    "productId": "388a0607-3c47-44ab-b6c7-8efd4fdefe30",
+    "rating": 4,
+    "review": "4 estrellas !"
+  }
+]
