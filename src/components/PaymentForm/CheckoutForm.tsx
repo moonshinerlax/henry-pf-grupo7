@@ -82,7 +82,7 @@ const CheckoutForm: React.FC = () => {
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: "http://localhost:3000/checkout",
+          return_url: `${window.location.origin}/checkout`,
         },
       });
       
@@ -118,7 +118,7 @@ const CheckoutForm: React.FC = () => {
       })
       dispatch(addClientSecret(''), addPaymentIntent(''))
       setMessage(null); // Hide the message
-    window.location.href = "http://localhost:3000"; // Redirect to localhost
+    window.location.href = window.location.origin; // Redirect to localhost
     }
     setMessage(null)
   };
