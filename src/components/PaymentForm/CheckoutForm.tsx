@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactDOMServer from 'react-dom/server';
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 import {
@@ -10,15 +11,29 @@ import { StripePaymentElementOptions } from "@stripe/stripe-js";
 import { set } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addClientSecret, addPaymentIntent } from "@/redux/slices/cartSlice";
+import { useUser } from "@clerk/nextjs";
+import { compilePurchaseEmail } from "../siteEmails/PurchaseEmail";
+
 
 const CheckoutForm: React.FC = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const { user_id } = useSelector((state: RootState) => state.cart);
+  const { user_id, cartItems, itemsPrice } = useSelector((state: RootState) => state.cart);
   const emptypayment = null
   const emptypaymentid = null
   const dispatch = useDispatch()
+  const user = useUser()
+  const email = user.user?.primaryEmailAddress?.emailAddress
+  const name = user.user?.firstName ?? ''
+  const url = '/'
+  const emailmessage = compilePurchaseEmail(name, itemsPrice, cartItems)
 
+  const emailData = {
+    subject: 'CodeWave Central Purchase Confirmation',
+    emailTo: email,
+    message: emailmessage,
+  }
+ 
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -96,6 +111,10 @@ const CheckoutForm: React.FC = () => {
       fetch("/api/clear-cart", {
         method: "DELETE",
         body: JSON.stringify({user_id})
+      })
+      fetch("/api/mailcarrier", {
+        method: "POST",
+        body: JSON.stringify(emailData)
       })
       dispatch(addClientSecret(''), addPaymentIntent(''))
       setMessage(null); // Hide the message
