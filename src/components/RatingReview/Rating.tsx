@@ -40,18 +40,19 @@ const ReviewsList: React.FC = () => {
                   className={`mask mask-star-2 ${
                     review.rating > i ? "bg-orange-400" : "bg-gray-400"
                   }`}
+                  disabled={true}
                 />
               ))}
             </div>
             <div>
-              <p className="block text-sm font-medium text-gray-700">
+              <p className="block text-sm font-medium">
                 {review.review}
               </p>
             </div>
           </div>
         ))
       ) : (
-        <p className="text-sm font-medium text-gray-700">
+        <p className="text-sm font-medium ">
           Este producto todavía no tiene reseñas.
         </p>
       )}
