@@ -90,7 +90,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
         })}
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium ">
           Reseña
         </label>
         <textarea
@@ -99,7 +99,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
             setReview(event.target.value);
             setTouched({...touched, review: true});
           }}
-          className="mt-1 block w-full rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300"
+          className="mt-1 block w-full  shadow-sm    sm:text-sm"
         />
       </div>
       {errors.rating && <p>{errors.rating}</p>}

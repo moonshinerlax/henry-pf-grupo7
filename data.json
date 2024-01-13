@@ -94,5 +94,11 @@
     "productId": "388a0607-3c47-44ab-b6c7-8efd4fdefe30",
     "rating": 4,
     "review": "4 estrellas !"
+  },
+  {
+    "id": "e3f307bb-6390-43cf-9029-159c9c5ec060",
+    "productId": "ab58b35b-1909-4b41-a86f-f3f75a73d03b",
+    "rating": 3,
+    "review": "3 estrellas!"
   }
 ]

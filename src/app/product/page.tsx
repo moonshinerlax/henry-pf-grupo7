@@ -92,6 +92,7 @@ const data = await fetchData();
                     </div> 
                     </Link>               
                     <AddToCart 
+                    buttonStyle="p-2 text-sm w-36"
                     stock={0}
                     productId={product.id}
                     showQty={false}

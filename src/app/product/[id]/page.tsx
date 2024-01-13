@@ -51,6 +51,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
             </div>
             <div className="flex flex-col justify-center text-xl p-2 rounded-2xl">
               <AddToCart
+                buttonStyle="p-4 text-base"
                 stock={40}
                 productId={productDetail.id}
                 showQty={false}

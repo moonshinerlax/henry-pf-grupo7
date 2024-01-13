@@ -15,6 +15,7 @@ interface AddToCartProps {
   showQty?: boolean;
   redirect?: boolean;
   increasePerClick?: boolean;
+  buttonStyle?: string;
 }
 
 export const AddToCart: React.FC<AddToCartProps> = ({
@@ -24,6 +25,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
   showQty = true,
   redirect = false,
   increasePerClick = false,
+  buttonStyle = ""
 }) => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state: RootState) => state.cart);
@@ -91,10 +93,10 @@ export const AddToCart: React.FC<AddToCartProps> = ({
       )}
       <div>
         <button
-          className="relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white my-6 "
+          className={`relative flex w-full items-center justify-center rounded-full bg-blue-600  tracking-wide text-white ${buttonStyle}`}
           onClick={addToCartHandler}
         >
-          <div className="absolute left-0 ml-4">
+          {/* <div className="absolute left-0 ml-3 mr-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -110,7 +112,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
                 d="M12 4.5v15m7.5-7.5h-15"
               ></path>
             </svg>
-          </div>
+          </div> */}
           Add to cart
         </button>
       </div>
