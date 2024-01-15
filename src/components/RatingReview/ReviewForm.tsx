@@ -1,23 +1,34 @@
 "use client";
+import { useUser } from "@clerk/nextjs";
 import { useState, useEffect, FormEvent } from "react";
 
 interface ReviewFormProps {
   productId: string;
 }
+
 interface Review {
-  id: number;
+  userId: string;
   productId: string;
   rating: number;
   review: string;
 }
+
 const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>("");
-  const [errors, setErrors] = useState<{rating: string, review: string}>({rating: "", review: ""});
-  const [touched, setTouched] = useState<{rating: boolean, review: boolean}>({rating: false, review: false});
+  const [errors, setErrors] = useState<{ rating: string; review: string }>({
+    rating: "",
+    review: "",
+  });
+  const [touched, setTouched] = useState<{ rating: boolean; review: boolean }>({
+    rating: false,
+    review: false,
+  });
+  const user = useUser();
+  const userId = user.user?.id;
 
   useEffect(() => {
-    let errors = {rating: "", review: ""};
+    let errors = { rating: "", review: "" };
     if (touched.rating && rating > 0 && review.length < 5) {
       errors.review = "La reseña debe tener al menos 5 caracteres.";
     }
@@ -34,40 +45,54 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
     setErrors(errors);
   }, [rating, review, touched]);
 
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-
-    // Si no hay errores, procesa el formulario
-    if (!errors.rating && !errors.review) {
-      const response = await fetch('http://localhost:3000/api/review', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          productId,
-          rating,
-          review
-        })
-      });
-
-      if (response.ok) {
-        console.log('Reseña enviada');
-
-        // Resetea el formulario
-        resetForm();
-      } else {
-        console.error('Error enviando la reseña');
-      }
-    }
-  }
-
   const resetForm = () => {
     setRating(0);
     setReview("");
-    setTouched({rating: false, review: false});
-  }
+    setTouched({ rating: false, review: false });
+    setErrors({ rating: "", review: "" }); // Reinicia los errores
+  };
+  
 
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    
+
+    if (!userId) {
+      console.error("El usuario no está autenticado");
+      return;
+    }
+    // Si no hay errores, procesa el formulario
+    if (!errors.rating && !errors.review) {
+      try {
+        const response = await fetch("/api/review", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId,
+            productId,
+            rating,
+            review,
+          }),
+        });
+
+        if (response.ok) {
+          console.log("Reseña enviada");
+
+          // Resetea el formulario
+          resetForm();
+        } else {
+          console.error("Error enviando la reseña");
+        }
+      } catch (error) {
+        console.error("Error de red:", error);
+      }
+    }
+  };
+
+  
+  const isSubmitDisabled = !!errors.rating || !!errors.review;
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="rating flex space-x-2">
@@ -107,6 +132,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
       <div className="flex space-x-4">
         <button
           type="submit"
+          disabled={isSubmitDisabled}
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Enviar reseña
@@ -124,3 +150,4 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
 };
 
 export default ReviewForm;
+

@@ -1,69 +1,21 @@
-// import { v4 as uuidv4 } from 'uuid';
-// import { NextResponse } from "next/server";
 
-// export async function POST(req: Request) {
-//   try {
-//     const requestBody = await req.json();
-//     console.log(requestBody); // Imprime el cuerpo de la solicitud
-
-//     const { productId, rating, review} = requestBody;
-
-//     // Genera un ID único para la reseña
-//     const id = uuidv4();
-
-//     // Guarda los datos en la base de datos
-//     console.log({id, productId, rating, review}); //  agregar la lógica para guardar los datos en la base de datos o realizar alguna acción adicional.
-
-//     return NextResponse.json({ status: "success", message: "Reseña guardada" });
-//   } catch (error) {
-//     console.error(error);
-//     return NextResponse.json({ status: "error", message: "Ocurrió un error al procesar la solicitud" });
-//   }
-// }
-import { v4 as uuidv4 } from 'uuid';
-import { NextResponse, NextRequest } from "next/server";
-import fs from 'fs';
 import path from 'path';
+import { sql } from "@vercel/postgres";
+import { NextResponse , NextRequest} from "next/server";
+import fs from "fs";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const requestBody = await req.json();
-    console.log(requestBody); // Imprime el cuerpo de la solicitud
+    const { userId, productId, rating, review  } = await req.json();
 
-// de aca para adelante es prueba
-    const { productId, rating, review} = requestBody;
+    await sql`INSERT INTO Ratings ( user_id, product_id, rating, review)
+      VALUES ( ${userId}, ${productId}, ${rating}, ${review})`;
 
-    // Genera un ID único para la reseña
-    const id = uuidv4();
-
-    // Guarda los datos en la base de datos
-    console.log({id, productId, rating, review}); //  agregar la lógica para guardar los datos en la base de datos o realizar alguna acción adicional.
-
-    // Define la ruta del archivo
-    const filePath = path.join(process.cwd(), 'data.json'); // Cambia 'data.json' por la ruta donde quieres guardar el archivo
-
-    let data = [];
-
-    // Comprueba si el archivo existe antes de intentar leerlo
-    if (fs.existsSync(filePath)) {
-      // Si el archivo existe, lee el archivo JSON existente
-      const rawData = fs.readFileSync(filePath).toString();
-      if (rawData) {
-        data = JSON.parse(rawData);
-      }
-    }
-
-    // Agrega los nuevos datos al final del archivo
-    data.push({id, productId, rating, review});
-
-    // Vuelve a escribir el archivo con los nuevos datos
-    const jsonData = JSON.stringify(data, null, 2);
-    fs.writeFileSync(filePath, jsonData);
-
-    return NextResponse.json({ status: "success", message: "Reseña guardada" });
+    console.log('Reseña agregada exitosamente');
+    return NextResponse.json({ message: "Reseña Agregada", result: true });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ status: "error", message: "Ocurrió un error al procesar la solicitud" });
+    console.log('Error al agregar reseña', error);
+    return NextResponse.json({ message: "Error al Agregar Reseña", result: false });
   }
 }
 
@@ -104,3 +56,4 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ status: "error", message: "Ocurrió un error al procesar la solicitud" });
   }
 }
+
