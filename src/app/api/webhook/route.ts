@@ -1,27 +1,4 @@
-// import { sql } from "@vercel/postgres";
-// import { NextResponse } from "next/server";
-// import { Webhook } from 'svix'
-// import { headers } from 'next/headers'
-// import { WebhookEvent } from '@clerk/nextjs/server'
-
-// export async function POST(req: Request) {
- 
-
-
-
-    // try {
-    //     const {data}= await req.json();
-      
-    //   await sql`INSERT INTO users (id, email)
-    //   VALUES (${data.id}, ${data.email_addresses[0].email_address})`
-    //   console.log('User added')
-    //   return NextResponse.json({ message: "User Added", result: true });
-    //   } catch (error) {
-    //     console.log('error adding user',error)
-    //     return NextResponse.json({ message: "error adding user", result: false });
-    //   }
-    // }
-    import { Webhook } from 'svix'
+import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
  
@@ -79,3 +56,4 @@ export async function POST(req: Request) {
  
   return new Response('', { status: 200 })
 }
+ 
