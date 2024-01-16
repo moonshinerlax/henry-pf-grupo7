@@ -1,6 +1,9 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CldUploadButton } from 'next-cloudinary';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import Image from 'next/image';
 
 
 interface Form {
@@ -9,8 +12,7 @@ interface Form {
   image: string;
   price: string;
   website: string;
-  
-}
+  }
 
 interface Errors {
   model: string;
@@ -19,6 +21,7 @@ interface Errors {
   price: string;
   website: string;
 }
+
 const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<Errors>>) => {
   let newErrors: Errors = {
     model: form.model.trim() === '' ? 'Model cannot be empty' : '',
@@ -107,142 +110,155 @@ const CreateProduct: React.FC = () => {
       alert('Please correct the information');
     }
   };
-  
-   
+  useEffect(() => {
+    AOS.init();
+  }, []);
 
 return (
   <>
-    <div className="flex">
-      <div className="mt-5 w-2/3 mx-auto p-6 bg-gray-300 rounded-md shadow-md flex flex-col items-center gap-5 mb-5 text-black">
-        <h1 className="text-lg font-bold text-gray-900">New Product</h1>
-        <form onSubmit={handleFormSubmit} className="grid justify-items-start content-evenly gap-y-2">
-          <div className= 'flex justify-around items-center flex-column gap-2'>
-            <label htmlFor="model">Name model:</label> 
-            <input
-              name="model"
-              type="text"
-              id="model"
-              value={form.model}
-              onChange={handleChange}
-              className='border-gray-500 rounded'
-            />  
-                      <div>
-          
+  <div className="flex bg-gray-600 ">
+  <div className="mt-5 text-white w-2/3 mx-auto p-6 bg-gray-800 rounded-md shadow-md flex flex-col items-center gap-5 mb-5 text-black">
+  <h1 data-aos="flip-right" className="text-6xl text-gray-100 p-8">New Product</h1>
+    <form onSubmit={handleFormSubmit} className="grid justify-items-start content-evenly gap-y-20">
+      <div data-aos="flip-right" className='flex justify-around items-center flex-column gap-8'>
+        <label htmlFor="model">Name model:</label> 
+        <input
+          name="model"
+          type="text"
+          id="model"
+          value={form.model}
+          onChange={handleChange}
+          className='m-14 text-4x1 text-black  p-22 w-96 border-gray-500 w-full rounded border-blue-500'
+        />  
             </div>
-          </div>
-          <div className= 'flex justify-self-center'>
-          <CldUploadButton 
-  className='border-blue-500 rounded border-2 p-1 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
-   uploadPreset="zwtk1tj5"
-  onUpload={handleImageUpload }>
-  Upload Image
-</CldUploadButton>
+      <div data-aos="flip-right" className='flex justify-self-center'>
+        <CldUploadButton 
+          className='w-3/3 border-blue-500 text-40 rounded border-2 p-8 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
+          uploadPreset="zwtk1tj5"
+          onUpload={handleImageUpload }
+        >
+          Upload Image
+        </CldUploadButton>
+      </div>
+      {form.image? (<div><Image 
+        src={form.image}
+        alt='imagen' 
+        width={200}
+        height={200}
+             className="transition-transform ml-40 self-center hover:scale-110" 
+        data-aos="flip-right" 
+        />
 
-          </div>
-          <div className= 'flex justify-around items-center flex-row gap-2'>
-            <label htmlFor="category">Category:</label>
-            <select
-              name="category"
-              id="category"
-              value={form.category}
-              onChange={handleChange}
-              className='border-gray-500 rounded'
-            >
-              <option value="All">All</option>
-              <option value="Phones">Phones</option>
-              <option value="Tablets">Tablets</option>
-              <option value="Laptops">Laptops</option>
-              <option value="Desktops">Desktops</option>
-              <option value="Softwares">Softwares</option>
-            </select>
-        
-          </div>
-          <div className= 'flex justify-around items-center flex-row gap-2'>
-            <label htmlFor="price">Price:</label>
-            <input
-              name="price"
-              type="text"
-              id="price"
-              value={form.price}
-              onChange={handleChange}
-              className='border-gray-500 rounded'
-            />
-       
-          </div>
-          <div className= 'flex justify-around items-center flex-row gap-2'>
-            <label htmlFor="website">Website:</label>
-            <input
-              name="website"
-              type="text"
-              id="website"
-              value={form.website}
-              onChange={handleChange}
-              className= 'border-gray-500 rounded'
-            />
-         
-          </div>
-          <button
-  type="submit"
-  className="bg-blue-500 text-gray-500 p-5 rounded-md cursor-pointer transition duration-300 hover:bg-brown-500 text-white"
-  disabled={Object.values(errors).some((error) => error !== '')}
->
-  {Object.values(errors).some((error) => error !== '') ? 'Cannot Submit - Fix Errors' : 'Add New Product'}
-</button>
-        </form>
+      </div>): <div> </div>} 
+      <div data-aos="flip-right" className='flex justify-center items-center flex-row gap-2'>
+  <label htmlFor="category">Category:</label>
+  <select
+    name="category"
+    id="category"
+    value={form.category}
+    onChange={handleChange}
+    className='m-14 text-20 text-black  p-22 w-96 border-gray-500 w-full rounded border-blue-500'
+  >
+          <option value="All">All</option>
+          <option value="Phones">Phones</option>
+          <option value="Tablets">Tablets</option>
+          <option value="Laptops">Laptops</option>
+          <option value="Desktops">Desktops</option>
+          <option value="Softwares">Softwares</option>
+        </select>
       </div>
+      <div data-aos="flip-right" className='flex justify-center items-center flex-row gap-2'>
+  <label htmlFor="price">Price:</label>
+  <input
+    name="price"
+    type="text"
+    id="price"
+    value={form.price}
+    onChange={handleChange}
+    className='m-14 text-20 text-black  p-22 w-96 border-gray-500 w-full rounded border-blue-500'
+  />
+</div>
+<div data-aos="flip-right" className='flex justify-center items-center flex-row gap-2'>
+  <label htmlFor="website">Website:</label>
+  <input
+    name="website"
+    type="text"
+    id="website"
+    value={form.website}
+    onChange={handleChange}
+    className='m-14 text-20 text-black  p-22 w-96 border-gray-500 w-full rounded border-blue-500'
+  />
+</div>
+<div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center ml-60 ounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500">
+  <button 
+    type="submit"
+    disabled={ Object.values(errors).some((error) => error !== '')}
+    className='border-gray-500 w-full rounded '
+  >
+    {!form.model || Object.values(errors).some((error) => error !== '') ? 'Cannot Submit - Fix Errors' : 'Add New Product'}
+  </button>
       
-      <div className="w-1/4 mx-auto p-5 bg-gray-300 rounded-md shadow-md text-black">
-        {/* Columna lateral */}
-        {formInteracted ? (
-          Object.values(errors).some((error) => error !== '') ? (
-            <div className=" text-black p-3 rounded-md">
-              <p>Please correct the following errors:</p>
-              <ul>
-                {Object.entries(errors).map(([key, value]) => (
-                  <li key={key}>
-                    <span className="text-black-500"> {value ?  "❌ "  + value :  "✅ " + key + ' has been successfully validated' }  </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <div className="text-black p-3 rounded-md">
-            
-                          
-              <ul>
-                {Object.entries(errors).map(([key, value]) => (
-                  <li key={key}>
-                    <span className="text-black-200">✅ {key} has been successfully validated </span>
-                  </li>
-                  
-                ))}
-              </ul> <b>Your product is ready to be loaded!</b>
-              <div className="text-green-400 font-bold text-5xl mb-2 text-center rounded-full border-2 border-green-400"> ✅</div>                      </div>
-          )
-        ) : (
-          <div className="text-black p-3 rounded-md">
-            <p>Requirements:</p>
-            <ul>
-              <li>
-                <span className="text-blue-500">Name model</span>  Model cannot be empty 
-              </li>
-              <li>
-                <span className="text-blue-500">Image</span> Upload an image 
-              </li>
-              <li>
-                <span className="text-blue-500">Category</span> Select a Category
-              </li>
-              <li>
-                <span className="text-blue-500">Price </span> must be a positive number
-              </li>
-              <li>
-                <span className="text-blue-500">Website </span> must be a valid URL
-              </li>
-            </ul>
-          </div>
-        )}
       </div>
-    </div>
+    </form>
+  </div>
+  <div className=" w-2/4 mx-auto p-5 bg-gray-300 shadow-md text-black">
+    {/* Columna lateral */}
+    {formInteracted ? (
+      Object.values(errors).some((error) => error !== '') ? (
+        <div className='sticky top-0  tw-1/4 mx-auto p-5 bg-gray-600 rounded-md shadow-md text-white'>
+          <p>Please correct the following errors:</p>
+          <ul className='sticky top-0 ' >
+            {Object.entries(errors).map(([key, value]) => (
+              <li key={key}>
+                <span className=" p-4 m-4 p-1 rounded-2xl text-white"> {value ?  "❌ "  + value :  "✅ " + key + ' has been successfully validated' }  </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <div className="sticky top-0  text-black p-3 rounded-md">
+          <ul>
+            {Object.entries(errors).map(([key, value]) => (
+              <li key={key}>
+                <span className="text-black-200">✅ {key} has been successfully validated </span>
+              </li>
+            ))}
+          </ul> 
+ 
+          <b>Your product is ready to be loaded!</b>
+          <div className="text-green-400 font-bold text-5xl mb-2 text-center rounded-full border-2 border-green-400"> ✅</div>
+        </div>
+      )
+    ) : (
+      <div className="sticky top-0  tw-1/4 mx-auto p-5 bg-gray-600 rounded-md shadow-md text-white">
+        <p>Requirements:</p>
+        <ul>
+          <li>
+            <span className="text-blue-500">Name model</span>  Model cannot be empty 
+          </li>
+          <li>
+            <span className="text-blue-500">Image</span> Upload an image 
+          </li>
+          <li>
+            <span className="text-blue-500">Category</span> Select a Category
+          </li>
+          <li>
+            <span className="text-blue-500">Price </span> must be a positive number
+          </li>
+          <li>
+            <span className="text-blue-500">Website </span> must be a valid URL
+          </li>
+
+                
+ 
+        </ul>
+
+      </div>
+    )}
+  </div>
+
+        
+</div>
 
   </>
 );

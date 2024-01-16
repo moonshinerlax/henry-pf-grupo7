@@ -18,6 +18,7 @@
     "@types/nodemailer": "^6.4.14",
     "@types/react-redux": "^7.1.33",
     "@vercel/postgres": "^0.5.1",
+    "aos": "^2.3.4",
     "dotenv": "^16.3.1",
     "handlebars": "^4.7.8",
     "js-cookies": "^1.0.4",
@@ -37,6 +38,7 @@
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.10",
+    "@types/aos": "^3.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
