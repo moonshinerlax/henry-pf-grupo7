@@ -63,7 +63,7 @@ const data = await fetchData();
     <main className="flex flex-wrap flex-col content-center items-start mx-5">
       <div className='w-full inline-flex justify-between'>
         {searchParams.category ? 
-        <div className='gap-2 flex flex-row items-center border-gray-400 border bg-transparent rounded-md'><h2 className=' text-gray-400'>Category: {searchParams.category}</h2>
+        <div className='gap-2 flex flex-row h-12 items-center border-gray-400 border bg-transparent rounded-md'><h2 className=' text-gray-400'>Category: {searchParams.category}</h2>
         
         <Link href='/product'>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="red" className="w-5 h-5">
@@ -78,7 +78,7 @@ const data = await fetchData();
       <div className="flex flex-wrap justify-center my-8">
             {data?.length ? data.map((product) => (
                 <div key={product.id} 
-                className="flex flex-col h-80 w-72 cursor-pointer items-center border-solid border-x border-y border-gray-300 rounded m-2 hover:border-blue-600 bg-white justify-center">
+                className="flex flex-col h-96 w-72 cursor-pointer items-center border-solid border-x border-y border-gray-300 rounded m-2 hover:border-blue-600 bg-white justify-center">
                 <Link 
                   href={`/product/${product.id}`}>
                  <Image className="hover:w-52 mt-5"

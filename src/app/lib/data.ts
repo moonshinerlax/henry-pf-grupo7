@@ -5,7 +5,7 @@ export const fetchCache = 'force-no-store';
 export async function fetchProduct() {
     
     try {
-        const data = await sql<Products>`SELECT * FROM products`;
+        const data = await sql<Products>`SELECT * FROM products WHERE disable = false`;
         return data.rows
     } catch (error) {
         console.log("Database Error:", error)
