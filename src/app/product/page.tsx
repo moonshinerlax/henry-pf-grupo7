@@ -24,24 +24,24 @@ export default async function Product({ searchParams }:
         let data;
         let list = []
         try {
-          let query = 'SELECT * FROM products WHERE';
+          let query = 'SELECT * FROM products WHERE disable = false';
           if(searchParams.model){
             list.push(searchParams.model)
-            query += ` model ILIKE '%' || $${list.length} || '%' AND`
+            query += ` AND model ILIKE '%' || $${list.length} || '%'`
           };
           if(searchParams.category){
             list.push(searchParams.category)
-            query += ` category ILIKE '%' || $${list.length} || '%' AND`
+            query += ` AND category ILIKE '%' || $${list.length} || '%'`
           }
 
           if(searchParams.minPrice){
             list.push(searchParams.minPrice)
-            query += ` price >= $${list.length} AND`
+            query += ` AND CAST(Price AS DECIMAL) >= $${list.length}`
           }  
 
           if(searchParams.maxPrice){
             list.push(searchParams.maxPrice)
-            query += ` price <= $${list.length}`
+            query += ` AND CAST(Price AS DECIMAL) <= $${list.length}`
           }
           if(searchParams.ordByPrice){
             query += ` ORDER BY CAST(Price AS DECIMAL) ${searchParams.ordByPrice === 'max' ? 'DESC' : 'ASC'}`
@@ -72,8 +72,7 @@ const data = await fetchData();
         </Link>
         </div>
         : <div></div>}
-        {searchParams.category ? 
-        <FilterbyPriceRange />: <div></div>}
+        <FilterbyPriceRange />
         <OrderButtons/>
         </div> 
       <div className="flex flex-wrap justify-center my-8">

@@ -6,10 +6,11 @@ import Link from "next/link";
 import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignInButton, UserButton, useSession, useUser } from "@clerk/nextjs";
 import Cart from "@/components/Cart";
 import { useDispatch } from "react-redux";
 import { addClientSecret, addPaymentIntent, addToCart, addUserID, hideLoading } from "@/redux/slices/cartSlice";
+import { checkUserRole } from "@/app/lib/utils";
 
 interface Item {
   cart_item_id: number;
@@ -33,7 +34,9 @@ export default function Navbar() {
     const id = useUser().user?.id
     const dispatch = useDispatch()
     const email = useUser().user?.primaryEmailAddress?.emailAddress;
-
+    const { session } = useSession()
+    const userRole = checkUserRole(session)
+    
     useEffect(()=>{
       dispatch(hideLoading())
     },[dispatch])
@@ -133,6 +136,11 @@ export default function Navbar() {
           </div>
           <div className="hidden justify-center md:flex md:w-1/3">
             <SearchBar/>
+          </div>
+          <div>
+          {userRole === 'org:admin' ? <Link href='/admindashboard' className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300">
+              Admin Dashboard
+            </Link> : null}
           </div>
           <div>
             {data.userId ? <UserButton/>  
