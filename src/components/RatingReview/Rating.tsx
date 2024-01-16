@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
 interface Review {
-  id: string;
+  ratingId: number;
+  userId: string;
   productId: string;
   rating: number;
   review: string;
@@ -30,7 +31,7 @@ const ReviewsList: React.FC = () => {
     <div className="space-y-4">
       {reviews.length > 0 ? (
         reviews.map((review) => (
-          <div key={review.id} className="flex flex-col space-y-2">
+          <div key={review.ratingId} className="flex flex-col space-y-2">
             <div className="rating">
               {[...Array(5)].map((_, i) => (
                 <input

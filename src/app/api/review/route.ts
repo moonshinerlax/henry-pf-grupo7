@@ -1,8 +1,11 @@
 
 import path from 'path';
 import { sql } from "@vercel/postgres";
+import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse , NextRequest} from "next/server";
 import fs from "fs";
+
+
 
 export async function POST(req: Request) {
   try {
@@ -28,8 +31,10 @@ export async function POST(req: Request) {
 
 
 
+
+
 interface Review {
-  id: string;
+  ratingId: string;
   productId: string;
   rating: number;
   review: string;
@@ -38,19 +43,14 @@ interface Review {
 export async function GET(req: NextRequest) {
   try {
     // Obtiene el id de la URL de la solicitud
-    const id = req.nextUrl.searchParams.get('id');
+    const productId = req.nextUrl.searchParams.get('id');
+    const result = await sql`SELECT rating_id, user_id, product_id, rating, review 
+                              FROM Ratings 
+                              WHERE product_id = ${productId}`;
 
-    // Define la ruta del archivo
-    const filePath = path.join(process.cwd(), 'data.json'); // Cambia 'data.json' por la ruta donde tienes guardado el archivo
-
-    // Lee el archivo JSON existente
-    const rawData = fs.readFileSync(filePath).toString();
-    const data: Review[] = JSON.parse(rawData);
-
-    // Filtra los objetos que coincidan con el id
-    const matchingObjects = data.filter((item: Review) => item.productId === id);
-    console.log(matchingObjects); // Imprime los objetos coincidentes en la consola
-    return NextResponse.json({ status: "success", data: matchingObjects });
+    console.log('Datos obtenidos exitosamente');
+   
+    return NextResponse.json({ status: "success", data:result });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ status: "error", message: "Ocurrió un error al procesar la solicitud" });
