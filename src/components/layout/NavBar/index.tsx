@@ -143,7 +143,7 @@ export default function Navbar() {
             </Link> : null}
           </div>
           <div>
-            {data.userId ? <UserButton userProfileProps={'Orders'}/>  
+            {data.userId ? <UserButton/>  
             : <SignInButton/>}
           </div>
           <Cart/>
