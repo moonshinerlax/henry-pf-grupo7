@@ -33,14 +33,14 @@ const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<E
 const CreateProduct: React.FC = () => {
   const [form, setForm] = useState<Form>({
     model: '',
-    image: "",
+    image: '',
     category: '',
      price: '',
     website: '',
   });
   const [errors, setErrors] = useState<Errors>({
     model: '',
-    image: "",
+    image: '',
     category: '',
     price: '',
     website: '',
@@ -134,11 +134,7 @@ return (
           <CldUploadButton 
   className='border-blue-500 rounded border-2 p-1 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
    uploadPreset="zwtk1tj5"
-  onUpload={handleImageUpload }
-
-  
- 
->
+  onUpload={handleImageUpload }>
   Upload Image
 </CldUploadButton>
 
