@@ -17,32 +17,32 @@ const FilterbyPriceRange: React.FC = () => {
   params.set("maxPrice", `${maxPrice}`)
 
   return (
-          
-     <div className= "grid grid-cols-3 grid-rows-2 gap-2 bg-transparent justify-end text-center rounded-md border-gray-400 border text-sm text-gray-400 ">
-      <h3 className='col-start-1 col-end-4 row-start-1'>Range Price</h3>                 
-                  <div className="col-start-1 row-start-2">
+          <div className= "flex flex-col items-center bg-transparent justify-center w-72 h-12 text-center rounded-md border-gray-400 border text-sm text-gray-400 ">
+          <div><h3 className=''>Range Price</h3></div>                 
+                  <div className="flex flex-row justify-around items-center">
                     <input
+                      className='w-1/3'
                       name="Minimum"
                       placeholder="Min"
                       value={minPrice}
                       onChange={(e) => setMinPrice(e.target.value)}
-                    />
-                  </div>
+                      />
                 
                 
-                  <div className="col-start-2 row-start-2">
+                  
                     <input
+                      className='w-1/3'
                       name="Maximum"
                       placeholder="Max"
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
                     />
-                  </div>
+                 
                 
-                <div className="col-start-3 row-start-2">
+               
                  <Link href={`/product?${params}`}>
                   <button
-                    className="text-white bg-blue-500 w-1/2 rounded"
+                    className="text-white bg-blue-500 w-14 rounded"
                        >
                     Apply
                   </button>
@@ -50,6 +50,7 @@ const FilterbyPriceRange: React.FC = () => {
                 </div>
                       
       </div>
+     
   );
 };
 

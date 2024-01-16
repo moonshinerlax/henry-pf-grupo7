@@ -23,7 +23,7 @@ interface Item {
 }
 
 export default function Navbar() {
-    const menu = ["All", "Phones", "Tablets", "laptops", "Desktops", "Software"]
+    const menu = ["All", "Phones", "Tablets", "Laptops", "Desktops", "Software"]
     const [data, setData] = useState({
       userId: '',
       userEmail: ''
@@ -143,7 +143,7 @@ export default function Navbar() {
             </Link> : null}
           </div>
           <div>
-            {data.userId ? <UserButton/>  
+            {data.userId ? <UserButton userProfileProps={'Orders'}/>  
             : <SignInButton/>}
           </div>
           <Cart/>
