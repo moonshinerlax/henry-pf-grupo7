@@ -17,18 +17,10 @@ const FilterbyPriceRange: React.FC = () => {
   params.set("maxPrice", `${maxPrice}`)
 
   return (
-     <>      
-     <h3 className= "z-100 bg-transparent justify-end text-center rounded-md border-gray-400 border text-sm text-gray-400 " onClick={() => setRangePriceClicked(!rangePriceClicked)}>Range Price
-       {rangePriceClicked && (
-        
-          <ul  onClick={(e) => e.stopPropagation()}>
-            <li>
-              <a href="/product"> All </a>
-            </li>
-            <li>
-              <div className="" >
-                <div className="">
-                  <div className="">
+          
+     <div className= "grid grid-cols-3 grid-rows-2 gap-2 bg-transparent justify-end text-center rounded-md border-gray-400 border text-sm text-gray-400 ">
+      <h3 className='col-start-1 col-end-4 row-start-1'>Range Price</h3>                 
+                  <div className="col-start-1 row-start-2">
                     <input
                       name="Minimum"
                       placeholder="Min"
@@ -36,9 +28,9 @@ const FilterbyPriceRange: React.FC = () => {
                       onChange={(e) => setMinPrice(e.target.value)}
                     />
                   </div>
-                </div>
-                <div className="">
-                  <div className="">
+                
+                
+                  <div className="col-start-2 row-start-2">
                     <input
                       name="Maximum"
                       placeholder="Max"
@@ -46,24 +38,18 @@ const FilterbyPriceRange: React.FC = () => {
                       onChange={(e) => setMaxPrice(e.target.value)}
                     />
                   </div>
-                </div>
-                <div className="">
+                
+                <div className="col-start-3 row-start-2">
                  <Link href={`/product?${params}`}>
                   <button
-                    className="text-white bg-blue-500 px-4 py-2 rounded"
+                    className="text-white bg-blue-500 w-1/2 rounded"
                        >
                     Apply
                   </button>
                   </Link> 
                 </div>
-              </div>
-            </li>
-          </ul>
-   
- 
-        )}
-      </h3>
-    </>
+                      
+      </div>
   );
 };
 

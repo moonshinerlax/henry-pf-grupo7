@@ -32,7 +32,7 @@ export default function App({children,
             : ''
         }`}
       >
-                <Navbar/>
+                {['/signup', '/signin'].includes(pathname) ? null : <Navbar />}
                 <Suspense fallback={<div>Loading...</div>}>
                 <main className="p-4">{children}</main>
                 </Suspense>

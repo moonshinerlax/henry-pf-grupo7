@@ -35,6 +35,29 @@ export default async function Product({
         list.push(searchParams.category);
         query += ` category ILIKE '%' || $${list.length} || '%' AND`;
       }
+export default async function Product({ searchParams }: 
+  { searchParams: 
+    { model: string; 
+      category?:string; 
+      ordByPrice:string;  
+      minPrice:string; 
+      maxPrice:string;} 
+    }) {
+  parseInt(searchParams.minPrice)
+  parseInt(searchParams.maxPrice)
+    async function fetchData() {
+        let data;
+        let list = []
+        try {
+          let query = 'SELECT * FROM products WHERE disable = false';
+          if(searchParams.model){
+            list.push(searchParams.model)
+            query += ` AND model ILIKE '%' || $${list.length} || '%'`
+          };
+          if(searchParams.category){
+            list.push(searchParams.category)
+            query += ` AND category ILIKE '%' || $${list.length} || '%'`
+          }
 
       if (searchParams.minPrice) {
         list.push(searchParams.minPrice);
