@@ -4,6 +4,8 @@ import { AddToCart } from "@/components/AddToCart";
 import ReviewForm from "@/components/RatingReview/ReviewForm";
 import ReviewsList from "@/components/RatingReview/Rating";
 import AverageRatingStars from "@/components/RatingReview/AverageRating";
+
+
 export default async function Detail({ params }: { params: { id: string } }) {
   const product = await fetchDetailProduct(params.id);
   const productDetail = product[0];
