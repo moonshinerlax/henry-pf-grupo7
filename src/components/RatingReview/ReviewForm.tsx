@@ -1,16 +1,9 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent , ChangeEvent} from "react";
 
 interface ReviewFormProps {
   productId: string;
-}
-
-interface Review {
-  userId: string;
-  productId: string;
-  rating: number;
-  review: string;
 }
 
 const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
@@ -24,8 +17,21 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
     rating: false,
     review: false,
   });
+  const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
+
   const user = useUser();
   const userId = user.user?.id;
+
+  const maxLength = 400; // Establece la longitud máxima permitida
+  const remainingCharacters = maxLength - review.length;
+  const isOverLimit = remainingCharacters < 0;
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const inputValue = event.target.value;
+    if (inputValue.length <= maxLength) {
+      setReview(inputValue);
+      setTouched({ ...touched, review: true });
+    }
+  };
 
   useEffect(() => {
     let errors = { rating: "", review: "" };
@@ -45,17 +51,23 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
     setErrors(errors);
   }, [rating, review, touched]);
 
+  useEffect(() => {
+    if (submitSuccess) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); // Recarga la página después de 2 segundos (ajusta según sea necesario)
+    }
+  }, [submitSuccess]);
+
   const resetForm = () => {
     setRating(0);
     setReview("");
     setTouched({ rating: false, review: false });
     setErrors({ rating: "", review: "" }); // Reinicia los errores
   };
-  
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    
 
     if (!userId) {
       console.error("El usuario no está autenticado");
@@ -69,19 +81,13 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            userId,
-            productId,
-            rating,
-            review,
-          }),
+          body: JSON.stringify({ userId, productId, rating, review }),
         });
 
         if (response.ok) {
           console.log("Reseña enviada");
-
-          // Resetea el formulario
           resetForm();
+          setSubmitSuccess(true);
         } else {
           console.error("Error enviando la reseña");
         }
@@ -90,64 +96,89 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
       }
     }
   };
-
-  
   const isSubmitDisabled = !!errors.rating || !!errors.review;
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="rating flex space-x-2">
-        {[...Array(5)].map((star, i) => {
-          const ratingValue = i + 1;
-          return (
-            <label key={i} className="cursor-pointer">
-              <input
-                className={`mask mask-star-2 ${rating > i ? "bg-orange-400" : "bg-gray-400"}`}
-                type="radio"
-                value={ratingValue}
-                onClick={() => {
-                  setRating(ratingValue);
-                  setTouched({...touched, rating: true});
-                }}
-              />
-              
-            </label>
-          );
-        })}
-      </div>
-      <div>
-        <label className="block text-sm font-medium ">
-          Reseña
-        </label>
-        <textarea
-          value={review}
-          onChange={(event) => {
-            setReview(event.target.value);
-            setTouched({...touched, review: true});
-          }}
-          className="mt-1 block w-full  shadow-sm    sm:text-sm"
-        />
-      </div>
-      {errors.rating && <p>{errors.rating}</p>}
-      {errors.review && <p>{errors.review}</p>}
-      <div className="flex space-x-4">
-        <button
-          type="submit"
-          disabled={isSubmitDisabled}
-          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Enviar reseña
-        </button>
-        <button
-          type="button"
-          onClick={resetForm}
-          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-        >
-          Cancelar
-        </button>
-      </div>
-    </form>
+    <>
+      {submitSuccess && (
+        <div role="alert" className="alert alert-success">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span> Review submitted successfully!</span>
+        </div>
+      )}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="rating flex space-x-2">
+          {[...Array(5)].map((star, i) => {
+            const ratingValue = i + 1;
+            return (
+              <label key={i} className="cursor-pointer">
+                <input
+                  className={`mask mask-star-2 ${
+                    rating > i ? "bg-orange-400" : "bg-gray-400"
+                  }`}
+                  type="radio"
+                  value={ratingValue}
+                  onClick={() => {
+                    setRating(ratingValue);
+                    setTouched({ ...touched, rating: true });
+                  }}
+                />
+              </label>
+            );
+          })}
+        </div>
+        <div>
+          <label className="block text-sm font-medium "></label>
+          <textarea
+            value={review}
+            maxLength={400}
+            onChange={(event) => {
+              const inputValue = event.target.value;
+              if (inputValue.length <= 400) {
+                setReview(inputValue);
+                setTouched({ ...touched, review: true });
+              }
+            }}
+            rows={4}
+            className="mt-1 block w-full shadow-sm bg-gray-200 rounded-md  sm:text-sm"
+            placeholder="Feedback"
+          /></div>
+          <div className="flex text-sm text-right">
+        <span className="mr-auto">{review.length}/{maxLength}</span>
+        </div>
+        {errors.rating && <p>{errors.rating}</p>}
+        {errors.review && <p>{errors.review}</p>}
+        <div className="flex space-x-4">
+          <button
+            type="submit"
+            disabled={isSubmitDisabled}
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Leave Feddback
+          </button>
+          <button
+            type="button"
+            onClick={resetForm}
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 
 export default ReviewForm;
-
