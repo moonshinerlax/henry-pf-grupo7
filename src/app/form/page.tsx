@@ -6,41 +6,46 @@ import { CldUploadButton } from 'next-cloudinary';
 interface Form {
   model: string;
   category: string;
+  image: string;
   price: string;
   website: string;
+  
 }
 
 interface Errors {
   model: string;
   category: string;
+  image: string;
   price: string;
   website: string;
 }
-
 const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<Errors>>) => {
   let newErrors: Errors = {
-    model: /^[0-9]+$/.test(form.model) ? 'Model cannot be a number' : '',
-    category: form.category !== 'All' ? '' : 'Select a Category',
-    price: /^[0-9]+$/.test(form.price) ? '' : 'Price must be a number',
-    website: /^(www\.|http:\/\/|https:\/\/)/.test(form.website) ? '' : 'Website must start with www., http://, or https://',
+    model: form.model.trim() === '' ? 'Model cannot be empty' : '',
+    image: form.image ? '' : "Upload an image",
+    category: form.category ?  '' : 'Select a Category',
+    price: Number(form.price) > 0 ? '' : 'Price must be a positive number',
+    website: /^(http|https):\/\/[^ "]+$/.test(form.website) ? '' : 'Website must be a valid URL',
   };
-
   setErrors(newErrors);
 }
 
 const CreateProduct: React.FC = () => {
   const [form, setForm] = useState<Form>({
     model: '',
+    image: "",
     category: '',
-    price: '',
+     price: '',
     website: '',
   });
   const [errors, setErrors] = useState<Errors>({
     model: '',
+    image: "",
     category: '',
     price: '',
     website: '',
   });
+  const [formInteracted, setFormInteracted] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const property = event.target.name;
@@ -52,7 +57,23 @@ const CreateProduct: React.FC = () => {
     }));
 
     validation({ ...form, [property]: value }, setErrors);
+    setFormInteracted(true);
   };
+
+
+  const handleImageUpload = (data: any) => {
+  
+   const  {info} = data
+    setForm((prevForm) => ({
+          ...prevForm,
+         image: info.secure_url,
+        }))
+
+                validation({ ...form, image: info.secure_url }, setErrors);
+             console.log("url", info.secure_url)
+        setFormInteracted(true); 
+   }
+
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -71,8 +92,9 @@ const CreateProduct: React.FC = () => {
         const resetForm = () =>
           setForm({
             model: '',
+            image: "",
             category: '',
-            price: '',
+             price: '',
             website: '',
           });
         resetForm();
@@ -85,7 +107,8 @@ const CreateProduct: React.FC = () => {
       alert('Please correct the information');
     }
   };
-
+  
+   
 
 return (
   <>
@@ -103,16 +126,22 @@ return (
               onChange={handleChange}
               className='border-gray-500 rounded'
             />  
-            <div></div>
-            <div>
+                      <div>
           
             </div>
           </div>
           <div className= 'flex justify-self-center'>
-            <CldUploadButton 
-              className='border-blue-500 rounded border-2 p-1 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
-              uploadPreset="subir"
-            >Upload Image </CldUploadButton>
+          <CldUploadButton 
+  className='border-blue-500 rounded border-2 p-1 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
+   uploadPreset="zwtk1tj5"
+  onUpload={handleImageUpload }
+
+  
+ 
+>
+  Upload Image
+</CldUploadButton>
+
           </div>
           <div className= 'flex justify-around items-center flex-row gap-2'>
             <label htmlFor="category">Category:</label>
@@ -168,38 +197,55 @@ return (
       
       <div className="w-1/4 mx-auto p-5 bg-gray-300 rounded-md shadow-md text-black">
         {/* Columna lateral */}
-
-        {Object.values(errors).some((error) => error !== '') ? (
-  <div className=" text-black p-3 rounded-md">
-    <p>Please correct the following errors:</p>
-    <ul>
-      {Object.entries(errors).map(([key, value]) => (
-        <li key={key}>
-          <span className="text-black-500"> {value ?  "❌ "  + value :  "✅ " + key }  </span>
-        </li>
-      ))}
-    </ul>
-  </div>
-) : (
-  <div className="text-black p-3 rounded-md">
-    <p>Requirements:</p>
-    <ul>
-      <li>
-        <span className="text-blue-500">Name model</span>  Model cannot be a number 
-      </li>
-      <li>
-        <span className="text-blue-500">Category</span> Select a Category
-      </li>
-      <li>
-        <span className="text-blue-500">Price </span> must be a number
-      </li>
-      <li>
-        <span className="text-blue-500">Website </span> must start with www., http://, or https://
-      </li>
-    </ul>
-  </div>
-)}
-  </div>
+        {formInteracted ? (
+          Object.values(errors).some((error) => error !== '') ? (
+            <div className=" text-black p-3 rounded-md">
+              <p>Please correct the following errors:</p>
+              <ul>
+                {Object.entries(errors).map(([key, value]) => (
+                  <li key={key}>
+                    <span className="text-black-500"> {value ?  "❌ "  + value :  "✅ " + key + ' has been successfully validated' }  </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className="text-black p-3 rounded-md">
+            
+                          
+              <ul>
+                {Object.entries(errors).map(([key, value]) => (
+                  <li key={key}>
+                    <span className="text-black-200">✅ {key} has been successfully validated </span>
+                  </li>
+                  
+                ))}
+              </ul> <b>Your product is ready to be loaded!</b>
+              <div className="text-green-400 font-bold text-5xl mb-2 text-center rounded-full border-2 border-green-400"> ✅</div>                      </div>
+          )
+        ) : (
+          <div className="text-black p-3 rounded-md">
+            <p>Requirements:</p>
+            <ul>
+              <li>
+                <span className="text-blue-500">Name model</span>  Model cannot be empty 
+              </li>
+              <li>
+                <span className="text-blue-500">Image</span> Upload an image 
+              </li>
+              <li>
+                <span className="text-blue-500">Category</span> Select a Category
+              </li>
+              <li>
+                <span className="text-blue-500">Price </span> must be a positive number
+              </li>
+              <li>
+                <span className="text-blue-500">Website </span> must be a valid URL
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
 
   </>
