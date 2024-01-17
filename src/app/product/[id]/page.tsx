@@ -23,6 +23,7 @@ interface Detail{
 export default function Detail({ params }: { params: { id: string } }) {
   const [productDetail, setProductDetail] = useState<any>() 
   const [currentImage, setCurrentImage] = useState<string>('');
+  const [video, setVideo] = useState<boolean>(true);
 
   const fetchDetail = async () =>{
     try {
@@ -30,8 +31,6 @@ export default function Detail({ params }: { params: { id: string } }) {
       if (response.ok) {
         const products = await response.json();
         setProductDetail(products.products[0]);
-        console.log(productDetail.image)
-        setCurrentImage(productDetail.image)
     } 
   } catch (error) {
       console.error('Error fetching product details:', error);
@@ -44,6 +43,7 @@ export default function Detail({ params }: { params: { id: string } }) {
   }, [])
   
   const handleImageChange = (newImage: string) => {
+    setVideo(false)
     setCurrentImage(newImage);
   };
 
@@ -54,24 +54,25 @@ export default function Detail({ params }: { params: { id: string } }) {
   return (
     <main className="mx-auto max-w-screen-2xl px-4">
       <section className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
-        <div className=" p-16">
+        <div className="w-1/2 p-16">
           <div className="h-full w-full basis-full lg:basis-4/6">
-          {productDetail.video ? <video controls width={600} height={400} autoPlay={true}>
+            <div className="h-96 ">
+          {productDetail.video && video ? <video width={600} height={400} autoPlay={true} >
                 <source src={productDetail.video} type="video/mp4" />
                 Your browser does not support the video tag.
               </video> :
                <Image
                src={currentImage ? currentImage : productDetail.image}
                alt={productDetail.model}
-               width={600}
-               height={600}
+               width={400}
+               height={400}
                className="rounded"
              />}
-            
+            </div>
             <div className="flex flex-row m-2 gap-2">
               {productDetail.carrusel
                 ? Object.entries(productDetail.carrusel).map(([key, value]) => (
-                  <div key={key} onClick={() => handleImageChange(String(value))}>
+                  <div className='z-10'key={key} onClick={() => handleImageChange(String(value))}>
                       <Image
                         className={`rounded-md ${value === currentImage ? 'border-2 border-blue-500' : ''}`}
                         src={String(value)}
