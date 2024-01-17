@@ -1,14 +1,51 @@
+'use client'
 import { fetchDetailProduct } from "../../lib/data";
 import Image from "next/image";
 import { AddToCart } from "@/components/AddToCart";
 import ReviewForm from "@/components/RatingReview/ReviewForm";
 import ReviewsList from "@/components/RatingReview/Rating";
 import AverageRatingStars from "@/components/RatingReview/AverageRating";
+import { useEffect, useState } from "react";
 
+interface Detail{
+  id: string;
+  model: string;
+  category: string;
+  specs: any;
+  image: string;
+  colors: string;
+  price: string;
+  carrusel: any;
+  video: string;
+  website: string;
+}
 
-export default async function Detail({ params }: { params: { id: string } }) {
-  const product = await fetchDetailProduct(params.id);
-  const productDetail = product[0];
+export default function Detail({ params }: { params: { id: string } }) {
+  const [productDetail, setProductDetail] = useState<any>() 
+  const [currentImage, setCurrentImage] = useState<string>('');
+
+  const fetchDetail = async () =>{
+    try {
+      const response = await fetch(`/api/detail?id=${params.id}`);
+      if (response.ok) {
+        const products = await response.json();
+        setProductDetail(products.products[0]);
+        console.log(productDetail.image)
+        setCurrentImage(productDetail.image)
+    } 
+  } catch (error) {
+      console.error('Error fetching product details:', error);
+    }
+  };
+  
+  useEffect(()=>{
+    fetchDetail()
+    
+  }, [])
+  
+  const handleImageChange = (newImage: string) => {
+    setCurrentImage(newImage);
+  };
 
   if (!productDetail) {
     return <div>Product not found!</div>;
@@ -19,20 +56,25 @@ export default async function Detail({ params }: { params: { id: string } }) {
       <section className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
         <div className=" p-16">
           <div className="h-full w-full basis-full lg:basis-4/6">
-            <Image
-              src={productDetail.image}
-              alt={productDetail.model}
-              width={600}
-              height={600}
-              className="rounded"
-            />
+          {productDetail.video ? <video controls width={600} height={400} autoPlay={true}>
+                <source src={productDetail.video} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video> :
+               <Image
+               src={currentImage ? currentImage : productDetail.image}
+               alt={productDetail.model}
+               width={600}
+               height={600}
+               className="rounded"
+             />}
+            
             <div className="flex flex-row m-2 gap-2">
               {productDetail.carrusel
                 ? Object.entries(productDetail.carrusel).map(([key, value]) => (
-                    <div key={key}>
+                  <div key={key} onClick={() => handleImageChange(String(value))}>
                       <Image
-                        className=" rounded-md"
-                        src={value}
+                        className={`rounded-md ${value === currentImage ? 'border-2 border-blue-500' : ''}`}
+                        src={String(value)}
                         width={100}
                         height={100}
                         alt={key}
@@ -74,7 +116,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
               ? Object.entries(productDetail.specs).map(([key, value]) => (
                   <div key={key}>
                     <h1 className="font-bold">{key}:</h1>
-                    <h1>{value}:</h1>
+                    <h1>{String(value)}:</h1>
                   </div>
                 ))
               : null}
