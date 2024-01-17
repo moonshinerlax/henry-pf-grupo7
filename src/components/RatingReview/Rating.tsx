@@ -17,7 +17,7 @@ const ReviewsList: React.FC<ReviewFormProps> = ({ productId }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    fetch(`/api/review?id=${productId}`)
+    fetch(`/api/rating?id=${productId}`)
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data.ratings)) {

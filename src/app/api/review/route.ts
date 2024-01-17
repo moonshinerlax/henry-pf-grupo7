@@ -25,21 +25,21 @@ export async function GET(req: NextRequest) {
       const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
       return uuidRegex.test(uuid);}
     // Obtiene el id de la URL de la solicitud
-    const productId = req.nextUrl.searchParams.get("id");
-    if (!productId) {
+    const userId = req.nextUrl.searchParams.get("id");
+    if (!userId) {
       return NextResponse.json({
         status: "error",
-        message: "Product ID not provided in the URL",
+        message: "User ID not provided in the URL",
       });
     }
-    if (!isValidUUID(productId)) {
+    if (!isValidUUID(userId)) {
       return NextResponse.json({
         status: "error",
-        message: "Invalid Product ID format",
+        message: "Invalid User ID format",
       });
     }
     const { rows: ratings } =
-      await sql`SELECT * FROM Ratings WHERE product_id = ${productId}`;
+      await sql`SELECT * FROM Ratings WHERE product_id = ${userId}`;
 
     return NextResponse.json({ ratings });
   } catch (error) {
@@ -50,6 +50,30 @@ export async function GET(req: NextRequest) {
     });
   }
 }
+
+export async function PUT(req: Request) {
+  try {
+    const { buyId, rating, review } = await req.json();
+
+    // Verificar si existe una entrada en Ratings con la buyId dada
+    const existingRating = await sql`SELECT * FROM Ratings WHERE buy_id = ${buyId}`;
+
+    // Actualizar rating y review para la buyId específica
+    await sql`UPDATE Ratings SET rating = ${rating}, review = ${review}
+      WHERE buy_id = ${buyId}`;
+
+    console.log(`Rating y review actualizados para buyId ${buyId}`);
+    return NextResponse.json({ message: "Rating y Review Actualizados", result: true });
+  } catch (error) {
+    console.log("Error al actualizar rating y review", error);
+    return NextResponse.json({
+      message: "Error al Actualizar Rating y Review",
+      result: false,
+    });
+  }
+}
+
+
 
 export async function DELETE(req: NextRequest) {
   try {

@@ -1,6 +1,5 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
 
 interface Review {
   ratingId: number;
@@ -18,7 +17,7 @@ const AverageRatingStars: React.FC<ReviewFormProps> = ({ productId }) => {
   const [averageRating, setAverageRating] = useState<number>(0);
 
   useEffect(() => {
-    fetch(`/api/review?id=${productId}`)
+    fetch(`/api/rating?id=${productId}`)
       .then(response => response.json())
       .then(data => {
         if (Array.isArray(data.ratings) && data.ratings.length > 0) {
