@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { SignInButton, UserButton, useSession, useUser } from "@clerk/nextjs";
 import Cart from "@/components/Cart";
 import { useDispatch } from "react-redux";
@@ -43,7 +43,36 @@ export default function Navbar() {
     const email = useUser().user?.primaryEmailAddress?.emailAddress;
     const { session } = useSession()
     const userRole = checkUserRole(session)
-    
+    const pathnames = usePathname();
+    const router = useRouter()
+
+    const checkUserStatus = (user: any) => {
+      if (user.disable) {
+        router.push('/banned');
+      }
+    };
+
+    useEffect(() => {
+      const fetchUserData = async () => {
+        try {
+          if (!id) {
+            return; 
+          }
+          const response = await fetch(`/api/signup?id=${id}`);
+          if (response.ok) {
+            const user = await response.json();
+            checkUserStatus(user.users[0]);
+          } else {
+            throw new Error("Failed to fetch cart data");
+          }
+        } catch (error) {
+          console.error("Error fetching cart data:", error);
+        }
+      };
+      fetchUserData()
+    }, [pathnames, id]);
+
+
     useEffect(()=>{
       dispatch(hideLoading())
     },[dispatch])
@@ -112,17 +141,6 @@ export default function Navbar() {
     dispatch(addUserID(id as string))
     fetchCartData();
   }, [email]);
-
-  const customPages: CustomPage[] = [
-    {
-      url: "/cart",
-      label: "Orders",
-      mountIcon: (el) => {
-        el.innerHTML = "👋";
-      },
-    },
-    // Add other custom pages as needed
-  ];
 
 
     return (
