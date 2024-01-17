@@ -4,6 +4,8 @@ import { AddToCart } from "@/components/AddToCart";
 import ReviewForm from "@/components/RatingReview/ReviewForm";
 import ReviewsList from "@/components/RatingReview/Rating";
 import AverageRatingStars from "@/components/RatingReview/AverageRating";
+
+
 export default async function Detail({ params }: { params: { id: string } }) {
   const product = await fetchDetailProduct(params.id);
   const productDetail = product[0];
@@ -45,7 +47,7 @@ export default async function Detail({ params }: { params: { id: string } }) {
           <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
             <h1 className="mb-2 text-5xl font-medium">{productDetail.model}</h1>
             <h2>{productDetail.category}</h2>
-            <AverageRatingStars />
+            <AverageRatingStars productId={productDetail.id} />
             <div className="my-6 mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
               <p>${productDetail.price} USD</p>
             </div>
@@ -81,11 +83,11 @@ export default async function Detail({ params }: { params: { id: string } }) {
       </section>
       <section>
         <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
-          <p>Resenas de productos</p>
-          <ReviewsList />
+          <p>Product Ratings</p>
+          <ReviewsList productId={productDetail.id} />
         </div>
         <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
-          <p>Escriba una Resena</p>
+          <p>Leave a Feedback</p>
           <ReviewForm productId={productDetail.id} />
         </div>
       </section>

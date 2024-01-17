@@ -17,53 +17,40 @@ const FilterbyPriceRange: React.FC = () => {
   params.set("maxPrice", `${maxPrice}`)
 
   return (
-     <>      
-     <h3 className= "z-100 bg-transparent justify-end text-center rounded-md border-gray-400 border text-sm text-gray-400 " onClick={() => setRangePriceClicked(!rangePriceClicked)}>Range Price
-       {rangePriceClicked && (
-        
-          <ul  onClick={(e) => e.stopPropagation()}>
-            <li>
-              <a href="/product"> All </a>
-            </li>
-            <li>
-              <div className="" >
-                <div className="">
-                  <div className="">
+          <div className= "flex flex-col items-center bg-transparent justify-center w-72 h-12 text-center rounded-md border-gray-400 border text-sm text-gray-400 ">
+          <div><h3 className=''>Range Price</h3></div>                 
+                  <div className="flex flex-row justify-around items-center">
                     <input
+                      className='w-1/3'
                       name="Minimum"
                       placeholder="Min"
                       value={minPrice}
                       onChange={(e) => setMinPrice(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className="">
-                  <div className="">
+                      />
+                
+                
+                  
                     <input
+                      className='w-1/3'
                       name="Maximum"
                       placeholder="Max"
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
                     />
-                  </div>
-                </div>
-                <div className="">
+                 
+                
+               
                  <Link href={`/product?${params}`}>
                   <button
-                    className="text-white bg-blue-500 px-4 py-2 rounded"
+                    className="text-white bg-blue-500 w-14 rounded"
                        >
                     Apply
                   </button>
                   </Link> 
                 </div>
-              </div>
-            </li>
-          </ul>
-   
- 
-        )}
-      </h3>
-    </>
+                      
+      </div>
+     
   );
 };
 

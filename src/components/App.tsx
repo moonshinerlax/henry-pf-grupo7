@@ -9,17 +9,22 @@ import { usePathname } from 'next/navigation'
 import { RootState } from "@/redux/store"
 
 
+
+
+
 export default function App({children,
 }: {
   children: React.ReactNode}) {
     const dispatch = useDispatch()
-    
+    const pathnames = usePathname();
+
+
     useEffect(()=>{
         dispatch(hideLoading())
     },[dispatch])
 
     const { cartItems, loading } = useSelector((state: RootState) => state.cart)
-    const pathname = usePathname()
+
     return(
         <div>
             <div
@@ -27,12 +32,12 @@ export default function App({children,
           loading
             ? ''
             : cartItems.length > 0 &&
-            (pathname === '/' || pathname === '/payment' || pathname === '/shipping' || pathname.indexOf('/product' ) >= 0)
+            (pathnames === '/' || pathnames === '/payment' || pathnames === '/shipping' || pathnames.indexOf('/product' ) >= 0)
             ? 'mr-32'
             : ''
         }`}
       >
-                <Navbar/>
+                {['/signup', '/signin', '/banned'].includes(pathnames) ? null : <Navbar />}
                 <Suspense fallback={<div>Loading...</div>}>
                 <main className="p-4">{children}</main>
                 </Suspense>

@@ -1,106 +1,72 @@
-// import { v4 as uuidv4 } from 'uuid';
-// import { NextResponse } from "next/server";
-
-// export async function POST(req: Request) {
-//   try {
-//     const requestBody = await req.json();
-//     console.log(requestBody); // Imprime el cuerpo de la solicitud
-
-//     const { productId, rating, review} = requestBody;
-
-//     // Genera un ID único para la reseña
-//     const id = uuidv4();
-
-//     // Guarda los datos en la base de datos
-//     console.log({id, productId, rating, review}); //  agregar la lógica para guardar los datos en la base de datos o realizar alguna acción adicional.
-
-//     return NextResponse.json({ status: "success", message: "Reseña guardada" });
-//   } catch (error) {
-//     console.error(error);
-//     return NextResponse.json({ status: "error", message: "Ocurrió un error al procesar la solicitud" });
-//   }
-// }
-import { v4 as uuidv4 } from 'uuid';
+import { sql } from "@vercel/postgres";
 import { NextResponse, NextRequest } from "next/server";
-import fs from 'fs';
-import path from 'path';
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const requestBody = await req.json();
-    console.log(requestBody); // Imprime el cuerpo de la solicitud
+    const { userId, productId, rating, review } = await req.json();
 
-// de aca para adelante es prueba
-    const { productId, rating, review} = requestBody;
+    await sql`INSERT INTO Ratings ( user_id, product_id, rating, review)
+      VALUES ( ${userId}, ${productId}, ${rating}, ${review})`;
 
-    // Genera un ID único para la reseña
-    const id = uuidv4();
-
-    // Guarda los datos en la base de datos
-    console.log({id, productId, rating, review}); //  agregar la lógica para guardar los datos en la base de datos o realizar alguna acción adicional.
-
-    // Define la ruta del archivo
-    const filePath = path.join(process.cwd(), 'data.json'); // Cambia 'data.json' por la ruta donde quieres guardar el archivo
-
-    let data = [];
-
-    // Comprueba si el archivo existe antes de intentar leerlo
-    if (fs.existsSync(filePath)) {
-      // Si el archivo existe, lee el archivo JSON existente
-      const rawData = fs.readFileSync(filePath).toString();
-      if (rawData) {
-        data = JSON.parse(rawData);
-      }
-    }
-
-    // Agrega los nuevos datos al final del archivo
-    data.push({id, productId, rating, review});
-
-    // Vuelve a escribir el archivo con los nuevos datos
-    const jsonData = JSON.stringify(data, null, 2);
-    fs.writeFileSync(filePath, jsonData);
-
-    return NextResponse.json({ status: "success", message: "Reseña guardada" });
+    console.log("Reseña agregada exitosamente");
+    return NextResponse.json({ message: "Reseña Agregada", result: true });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ status: "error", message: "Ocurrió un error al procesar la solicitud" });
+    console.log("Error al agregar reseña", error);
+    return NextResponse.json({
+      message: "Error al Agregar Reseña",
+      result: false,
+    });
   }
-}
-
-
-
-
-
-
-
-
-
-
-interface Review {
-  id: string;
-  productId: string;
-  rating: number;
-  review: string;
 }
 
 export async function GET(req: NextRequest) {
   try {
+    function isValidUUID(uuid: string): boolean {
+      const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+      return uuidRegex.test(uuid);}
     // Obtiene el id de la URL de la solicitud
-    const id = req.nextUrl.searchParams.get('id');
+    const productId = req.nextUrl.searchParams.get("id");
+    if (!productId) {
+      return NextResponse.json({
+        status: "error",
+        message: "Product ID not provided in the URL",
+      });
+    }
+    if (!isValidUUID(productId)) {
+      return NextResponse.json({
+        status: "error",
+        message: "Invalid Product ID format",
+      });
+    }
+    const { rows: ratings } =
+      await sql`SELECT * FROM Ratings WHERE product_id = ${productId}`;
 
-    // Define la ruta del archivo
-    const filePath = path.join(process.cwd(), 'data.json'); // Cambia 'data.json' por la ruta donde tienes guardado el archivo
-
-    // Lee el archivo JSON existente
-    const rawData = fs.readFileSync(filePath).toString();
-    const data: Review[] = JSON.parse(rawData);
-
-    // Filtra los objetos que coincidan con el id
-    const matchingObjects = data.filter((item: Review) => item.productId === id);
-    console.log(matchingObjects); // Imprime los objetos coincidentes en la consola
-    return NextResponse.json({ status: "success", data: matchingObjects });
+    return NextResponse.json({ ratings });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ status: "error", message: "Ocurrió un error al procesar la solicitud" });
+    return NextResponse.json({
+      status: "error",
+      message: "Ocurrió un error al procesar la solicitud",
+    });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const {searchParams} = new URL(req.url);
+    const ratingId = searchParams.get("ratingId");
+
+    if (!ratingId) {
+      return NextResponse.json({message: "Rating ID not provided", result: false,});
+    }
+    await sql`DELETE FROM Ratings WHERE rating_id = ${ratingId}`;
+
+    console.log(`Reseña con ratingId ${ratingId} eliminada exitosamente`);
+    return NextResponse.json({ message: "Reseña Eliminada", result: true });
+  } catch (error) {
+    return NextResponse.json({
+      message: "Error al Eliminar Reseña",
+      result: false,
+    });
   }
 }
