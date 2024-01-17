@@ -17,6 +17,7 @@ interface Products{
 interface Users{
     id: string;
     email: string;
+    disable: boolean;
 }
 
 export default function admindashboard() {
@@ -61,18 +62,41 @@ export default function admindashboard() {
           }       
       }
       updateDisableStatus() 
-      
-     console.log(disable)
     }
     
+    const toggleCheckboxUser = (id: string, disable: boolean) => {
+      const updateDisableStatus = async () => {
+        try {
+          let res = await fetch("/api/signup", {
+            method: "PUT",
+            body: JSON.stringify({ id, disable }),
+          });
+          setStatus(status + 1) 
+          return console.log('User toogle')  
+           
+        } catch (error) {
+          console.log('error', error)
+        }       
+    }
+    updateDisableStatus()
+  }
     
   return (
     <div>
         {userRole === 'org:admin' ? 
-         <div className="flex flex-col flex-wrap content-center">
-            <h1 className="mb-4 text-xl">Products</h1>
-            
-                    <div className="w-4/5 h-80 grid grid-cols-4 gap-5">
+         <div className="flex flex-row flex-wrap content-end w-full place-content-evenly">
+
+        <div className="rounded-lg h-96 bg-slate-100 shadow-[0_0px_10px_5px_rgba(100,100,100,.5)] m-5 px-5">
+          <Link href={'/form'}>
+          <button className="bg-blue-500 m-5 rounded-md p-2">
+            Add New Product
+          </button>
+          </Link>
+        </div>
+
+
+          <div className="rounded-lg shadow-[0_0px_10px_5px_rgba(100,100,100,.5)] m-5">
+                    <div className="min-w-full h-screen grid grid-cols-3 gap-5">
                         <div className="overflow-y-scroll h-auto md:col-span-3">
             <table className="min-w-full bg-slate-100 rounded-lg">
               <thead className="border-b text-gray-900">
@@ -101,7 +125,7 @@ export default function admindashboard() {
                         {item.model}
                       </Link>
                     </td>
-                    <td className="p-5 text-right">{item.category}</td>
+                    <td className="p-5 text-left">{item.category}</td>
                     <td className="p-5 text-right">${item.price}</td>
                     <td className="p-5 text-center">
                     <input type="checkbox" className="toggle toggle-error" checked={item.disable} onChange={() => toggleCheckbox(item.id, !item.disable)}/>
@@ -112,18 +136,19 @@ export default function admindashboard() {
             </table>
           </div>
         </div>
+        </div>
       
 
-            <h1 className="mb-4 text-xl">Users</h1>
-            
-                    <div className="w-4/5 h-80 grid md:grid-cols-3 md:gap-5">
+           
+           <div className="rounded-lg shadow-[0_0px_10px_5px_rgba(100,100,100,.5)] m-5"> 
+                    <div className="min-w-full h-screen grid md:grid-cols-3 md:gap-5">
                         <div className="overflow-y-scroll h-auto md:col-span-3">
-            <table className="min-w-full bg-slate-100 rounded-lg">
+            <table className="min-w-full h-full bg-slate-100 rounded-lg">
               <thead className="border-b text-gray-900">
                 <tr>
                   <th className="p-5 text-left">User ID</th>
                   <th className="p-5 text-right">Email</th>
-                  <th className="p-5">Action</th>
+                  <th className="p-5">Enable / Disable</th>
                 </tr>
               </thead>
               <tbody>
@@ -134,7 +159,7 @@ export default function admindashboard() {
                     </td>
                     <td className="p-5 text-right">{user.email}</td>
                     <td className="p-5 text-center">
-                        Disable / Delete
+                    <input type="checkbox" className="toggle toggle-error" checked={user.disable} onChange={() => toggleCheckboxUser(user.id, !user.disable)}/>
                     </td>
                   </tr>
                 ))}
@@ -143,8 +168,9 @@ export default function admindashboard() {
           </div>
         </div>
         </div> 
+        </div> 
          : 
          <h1>Access Not Granted!</h1>}
-      </div> 
+      </div>
   );
 }

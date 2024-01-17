@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/layout/NavBar'
 import {Suspense} from "react"
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider, RedirectToSignIn, SignedOut } from '@clerk/nextjs'
 import { StoreProvider } from '@/redux/storeProvider'
 import CartSideBar from '@/components/CartSideBar'
 import App from '@/components/App'
@@ -33,6 +33,11 @@ export default function RootLayout({
         <main>{children}</main>
       </Suspense> */}
       </StoreProvider>
+      <SignedOut>
+            
+            <RedirectToSignIn/>
+            
+          </SignedOut>
       </body>
     </html>
     </ClerkProvider>
