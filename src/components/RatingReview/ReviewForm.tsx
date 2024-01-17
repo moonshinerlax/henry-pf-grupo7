@@ -19,17 +19,17 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
   useEffect(() => {
     let errors = {rating: "", review: ""};
     if (touched.rating && rating > 0 && review.length < 5) {
-      errors.review = "Review needs to be at least 5 characters.";
+      errors.review = "La reseña debe tener al menos 5 caracteres.";
     }
     if (touched.review && review.length < 5) {
-      errors.review = "Review needs to be at least 5 characters.";
+      errors.review = "La reseña debe tener al menos 5 caracteres.";
     }
     if (touched.review && rating < 1 && review.length < 5) {
-      errors.rating = "Lowest rate should be 1.";
-      errors.review = "Review needs to be at least 5 characters.";
+      errors.rating = "El rating mínimo es 1.";
+      errors.review = "La reseña debe tener al menos 5 caracteres.";
     }
     if (touched.review && rating < 1 && review.length > 5) {
-      errors.rating = "Lowest rate should be 1.";
+      errors.rating = "El rating mínimo es 1.";
     }
     setErrors(errors);
   }, [rating, review, touched]);
@@ -91,7 +91,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
       </div>
       <div>
         <label className="block text-sm font-medium ">
-          Review
+          Reseña
         </label>
         <textarea
           value={review}
@@ -109,14 +109,14 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
           type="submit"
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          Post Review
+          Enviar reseña
         </button>
         <button
           type="button"
           onClick={resetForm}
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
         >
-          Cancel
+          Cancelar
         </button>
       </div>
     </form>
