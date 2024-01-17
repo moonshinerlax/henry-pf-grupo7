@@ -53,7 +53,7 @@ const ReviewsList: React.FC = () => {
         ))
       ) : (
         <p className="text-sm font-medium ">
-          Este producto todavía no tiene reseñas.
+          No reviews yet.
         </p>
       )}
     </div>

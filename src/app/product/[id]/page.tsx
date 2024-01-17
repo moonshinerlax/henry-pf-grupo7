@@ -22,15 +22,16 @@ interface Detail{
 
 export default function Detail({ params }: { params: { id: string } }) {
   const [productDetail, setProductDetail] = useState<any>() 
-
+  const [currentImage, setCurrentImage] = useState<string>('');
 
   const fetchDetail = async () =>{
     try {
       const response = await fetch(`/api/detail?id=${params.id}`);
       if (response.ok) {
         const products = await response.json();
-        console.log(products.products[0])
         setProductDetail(products.products[0]);
+        console.log(productDetail.image)
+        setCurrentImage(productDetail.image)
     } 
   } catch (error) {
       console.error('Error fetching product details:', error);
@@ -39,9 +40,12 @@ export default function Detail({ params }: { params: { id: string } }) {
   
   useEffect(()=>{
     fetchDetail()
+    
   }, [])
   
-  
+  const handleImageChange = (newImage: string) => {
+    setCurrentImage(newImage);
+  };
 
   if (!productDetail) {
     return <div>Product not found!</div>;
@@ -57,7 +61,7 @@ export default function Detail({ params }: { params: { id: string } }) {
                 Your browser does not support the video tag.
               </video> :
                <Image
-               src={productDetail.image}
+               src={currentImage ? currentImage : productDetail.image}
                alt={productDetail.model}
                width={600}
                height={600}
@@ -67,9 +71,9 @@ export default function Detail({ params }: { params: { id: string } }) {
             <div className="flex flex-row m-2 gap-2">
               {productDetail.carrusel
                 ? Object.entries(productDetail.carrusel).map(([key, value]) => (
-                    <div key={key}>
+                  <div key={key} onClick={() => handleImageChange(String(value))}>
                       <Image
-                        className=" rounded-md"
+                        className={`rounded-md ${value === currentImage ? 'border-2 border-blue-500' : ''}`}
                         src={String(value)}
                         width={100}
                         height={100}
@@ -121,11 +125,11 @@ export default function Detail({ params }: { params: { id: string } }) {
       </section>
       <section>
         <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
-          <p>Resenas de productos</p>
+          <p>Product Review</p>
           <ReviewsList />
         </div>
         <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
-          <p>Escriba una Resena</p>
+          <p>Write a Review</p>
           <ReviewForm productId={productDetail.id} />
         </div>
       </section>
