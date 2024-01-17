@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 
 interface Review {
-  ratingId: number;
+  rating_id: number;
   userId: string;
   productId: string;
   rating: number;
@@ -30,10 +30,10 @@ const ReviewsList: React.FC<ReviewFormProps> = ({ productId }) => {
   }, [productId]);
 
   return (
-    <div key={1} className="space-y-4" >
+    <div className="space-y-4" >
       {reviews.length > 0 ? (
         reviews.map((review:Review) => (
-          <div key={review.ratingId} className="flex flex-col space-y-2">
+          <div key={review.rating_id} className="flex flex-col space-y-2">
             <div className="rating">
               {[...Array(5)].map((_, i) => (
                 <input
