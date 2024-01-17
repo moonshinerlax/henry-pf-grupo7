@@ -1,36 +1,39 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+
 
 interface Review {
-  id: string;
+  ratingId: number;
+  userId: string;
   productId: string;
   rating: number;
   review: string;
 }
+interface ReviewFormProps {
+  productId: string;
+}
 
-const ReviewsList: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+const ReviewsList: React.FC<ReviewFormProps> = ({ productId }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    fetch(`/api/review?id=${id}`)
+    fetch(`/api/review?id=${productId}`)
       .then((response) => response.json())
       .then((data) => {
-        if (Array.isArray(data.data)) {
-          setReviews(data.data);
+        if (Array.isArray(data.ratings)) {
+          setReviews(data.ratings);
         } else {
           console.error("Los datos devueltos por la API no son un array", data);
         }
       })
       .catch((error) => console.error("Error obteniendo las reseñas", error));
-  }, [id]);
+  }, [productId]);
 
   return (
-    <div className="space-y-4">
+    <div key={1} className="space-y-4" >
       {reviews.length > 0 ? (
-        reviews.map((review) => (
-          <div key={review.id} className="flex flex-col space-y-2">
+        reviews.map((review:Review) => (
+          <div key={review.ratingId} className="flex flex-col space-y-2">
             <div className="rating">
               {[...Array(5)].map((_, i) => (
                 <input
