@@ -114,94 +114,98 @@ const CreateProduct: React.FC = () => {
     AOS.init();
   }, []);
 
-return (
-  <>
-  <div className="flex bg-gray-600 ">
-  <div className="mt-5 text-white w-2/3 mx-auto p-6 bg-gray-800 rounded-md shadow-md flex flex-col items-center gap-5 mb-5 text-black">
-  <h1 data-aos="flip-right" className="text-6xl text-gray-100 p-8">New Product</h1>
-    <form onSubmit={handleFormSubmit} className="grid justify-items-start content-evenly gap-y-20">
-      <div data-aos="flip-right" className='flex justify-around items-center flex-column gap-8'>
-        <label htmlFor="model">Name model:</label> 
-        <input
-          name="model"
-          type="text"
-          id="model"
-          value={form.model}
-          onChange={handleChange}
-          className='m-14 text-4x1 text-black  p-22 w-96 border-gray-500 w-full rounded border-blue-500'
-        />  
+  return (
+    <>
+      <div className="flex justify-center bg-gray-600 w-full">
+        <div className="m-5 text-white w-2/4 p-4 bg-gray-800 rounded-md shadow-md items-center gap-5 mb-5 text-black">
+          <h1 data-aos="flip-right" className="text-6xl text-gray-100 p-8 text-center">New Product</h1>
+          <form onSubmit={handleFormSubmit} className="grid justify-items-center content-evenly gap-y-20">
+            <div data-aos="flip-right" className='flex flex-col items-center gap-8'>
+              <label htmlFor="model">Name model:</label> 
+              <input
+                name="model"
+                type="text"
+                id="model"
+                value={form.model}
+                onChange={handleChange}
+                className='text-4x1 text-black p-2 w-96 border-gray-500 rounded border-blue-500'
+              />  
             </div>
-      <div data-aos="flip-right" className='flex justify-self-center'>
-        <CldUploadButton 
-          className='w-3/3 border-blue-500 text-40 rounded border-2 p-8 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
-          uploadPreset="zwtk1tj5"
-          onUpload={handleImageUpload }
-        >
-          Upload Image
-        </CldUploadButton>
-      </div>
-      {form.image? (<div><Image 
-        src={form.image}
-        alt='imagen' 
-        width={200}
-        height={200}
-             className="transition-transform ml-40 self-center hover:scale-110" 
-        data-aos="flip-right" 
-        />
-
-      </div>): <div> </div>} 
-      <div data-aos="flip-right" className='flex justify-center items-center flex-row gap-2'>
-  <label htmlFor="category">Category:</label>
-  <select
-    name="category"
-    id="category"
-    value={form.category}
-    onChange={handleChange}
-    className='m-14 text-20 text-black  p-22 w-96 border-gray-500 w-full rounded border-blue-500'
-  >
-          <option value="All">All</option>
-          <option value="Phones">Phones</option>
-          <option value="Tablets">Tablets</option>
-          <option value="Laptops">Laptops</option>
-          <option value="Desktops">Desktops</option>
-          <option value="Softwares">Softwares</option>
-        </select>
-      </div>
-      <div data-aos="flip-right" className='flex justify-center items-center flex-row gap-2'>
-  <label htmlFor="price">Price:</label>
-  <input
-    name="price"
-    type="text"
-    id="price"
-    value={form.price}
-    onChange={handleChange}
-    className='m-14 text-20 text-black  p-22 w-96 border-gray-500 w-full rounded border-blue-500'
-  />
-</div>
-<div data-aos="flip-right" className='flex justify-center items-center flex-row gap-2'>
-  <label htmlFor="website">Website:</label>
-  <input
-    name="website"
-    type="text"
-    id="website"
-    value={form.website}
-    onChange={handleChange}
-    className='m-14 text-20 text-black  p-22 w-96 border-gray-500 w-full rounded border-blue-500'
-  />
-</div>
-<div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center ml-60 ounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500">
-  <button 
-    type="submit"
-    disabled={ Object.values(errors).some((error) => error !== '')}
-    className='border-gray-500 w-full rounded '
-  >
-    {!form.model || Object.values(errors).some((error) => error !== '') ? 'Cannot Submit - Fix Errors' : 'Add New Product'}
-  </button>
-      
-      </div>
-    </form>
-  </div>
-  <div className=" w-2/4 mx-auto p-5 bg-gray-300 shadow-md text-black">
+            <div data-aos="flip-right" className='flex justify-center'>
+              <CldUploadButton 
+                className='w-full border-blue-500 text-4xl rounded border-2 p-8 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
+                uploadPreset="zwtk1tj5"
+                onUpload={handleImageUpload}
+              >
+                Upload Image
+              </CldUploadButton>
+            </div>
+            {form.image && (
+              <div className="flex justify-center">
+                <Image 
+                  src={form.image}
+                  alt='imagen' 
+                  width={400}
+                  height={400}
+                  className="w-full h-auto transition-transform hover:scale-110" 
+                  data-aos="flip-right" 
+                />
+              </div>
+            )}
+            <div data-aos="flip-right" className='flex flex-col items-center'>
+              <label htmlFor="category">Category:</label>
+              <br />
+              <select
+                name="category"
+                id="category"
+                value={form.category}
+                onChange={handleChange}
+                className='text-3xl text-black w-full border-blue-500'  
+              >
+                <option value="All">All</option>
+                <option value="Phones">Phones</option>
+                <option value="Tablets">Tablets</option>
+                <option value="Laptops">Laptops</option>
+                <option value="Desktops">Desktops</option>
+                <option value="Softwares">Softwares</option>
+              </select>
+            </div>
+            <div data-aos="flip-right" className='flex flex-col items-center gap-2'>
+              <label htmlFor="price">Price:</label>
+              
+              <input
+                name="price"
+                type="text"
+                id="price"
+                value={form.price}
+                onChange={handleChange}
+                className='m-1 text-2xl text-black p-2 w-96 border-gray-500 rounded border-blue-500'
+              />
+            </div>
+            <div data-aos="flip-right" className='flex flex-col items-center gap-2'>
+              <label htmlFor="website">Website:</label>
+              <input
+                name="website"
+                type="text"
+                id="website"
+                value={form.website}
+                onChange={handleChange}
+                className='m-1 text-2xl text-black p-2 w-96 border-gray-500 rounded border-blue-500'
+              />
+            </div>
+            <div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center rounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500">
+              <button 
+                type="submit"
+                disabled={ Object.values(errors).some((error) => error !== '')}
+                className='border-gray-500 w-full rounded '
+              >
+                {!form.model || Object.values(errors).some((error) => error !== '') ? 'Cannot Submit - Fix Errors' : 'Add New Product'}
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className="w-2/4 mx-auto p-5 bg-gray-300 shadow-md text-black">
+          {/* Columna lateral */}
     {/* Columna lateral */}
     {formInteracted ? (
       Object.values(errors).some((error) => error !== '') ? (
