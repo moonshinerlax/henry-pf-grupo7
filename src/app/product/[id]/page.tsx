@@ -128,10 +128,10 @@ export default function Detail({ params }: { params: { id: string } }) {
           <p>Product Ratings</p>
           <ReviewsList productId={productDetail.id} />
         </div>
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
+        {/* <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
           <p>Leave a Feedback</p>
           <ReviewForm productId={productDetail.id} />
-        </div>
+        </div> */}
       </section>
     </main>
   );

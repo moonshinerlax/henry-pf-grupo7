@@ -1,12 +1,11 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
-import { useState, useEffect, FormEvent , ChangeEvent} from "react";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 
-interface ReviewFormProps {
-  productId: string;
-}
-
-const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
+const ReviewForm: React.FC = () => {
+  const user = useUser();
+  const userId = user.user?.id;
+  
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>("");
   const [errors, setErrors] = useState<{ rating: string; review: string }>({
@@ -18,9 +17,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
     review: false,
   });
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
+  const [buyId, setBuyId] = useState<string>("");
+  const [productId, setProductId] = useState<string>("");
 
-  const user = useUser();
-  const userId = user.user?.id;
+  
+  console.log(userId);
 
   const maxLength = 400; // Establece la longitud máxima permitida
   const remainingCharacters = maxLength - review.length;
@@ -32,6 +33,18 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
       setTouched({ ...touched, review: true });
     }
   };
+  useEffect(() => {
+    fetch(`/api/review?id=${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (Array.isArray(data.ratings)) {
+          setBuyId(data.ratings.buyId);
+          setProductId(data.ratings.productId);
+        }
+      })
+      .catch((error) => console.error("Error obteniendo las reseñas", error));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     let errors = { rating: "", review: "" };
@@ -77,11 +90,11 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
     if (!errors.rating && !errors.review) {
       try {
         const response = await fetch("/api/review", {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userId, productId, rating, review }),
+          body: JSON.stringify({ productId, buyId, rating, review }),
         });
 
         if (response.ok) {
@@ -154,9 +167,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
             rows={4}
             className="mt-1 block w-full shadow-sm bg-gray-200 rounded-md  sm:text-sm"
             placeholder="Feedback"
-          /></div>
-          <div className="flex text-sm text-right">
-        <span className="mr-auto">{review.length}/{maxLength}</span>
+          />
+        </div>
+        <div className="flex text-sm text-right">
+          <span className="mr-auto">
+            {review.length}/{maxLength}
+          </span>
         </div>
         {errors.rating && <p>{errors.rating}</p>}
         {errors.review && <p>{errors.review}</p>}
