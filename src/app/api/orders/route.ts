@@ -21,26 +21,23 @@ export async function GET(req: NextRequest) {
     }}
   
     export async function POST(req: Request) {
-      const { productId, model, image, price, qty, email } = await req.json();
+      const { paymentId, cart_items, user_id } = await req.json();
       
       try {
-        const { rows: users } =
-          await sql`SELECT id FROM users WHERE email=${email}`;
-        const user_id = users[0].id;
-    
+        
         const { rowCount } = await sql`
-          INSERT INTO cart_items (user_id, product_id, name, image, price, qty)
-          VALUES (${user_id}, ${productId}, ${model}, ${image}, ${price}, ${qty})  -- Assuming adding 1 as default quantity
-          ON CONFLICT (user_id, product_id)
-          DO UPDATE SET qty = cart_items.qty + ${qty};`;
+          INSERT INTO purchases (payment_id, user_id, cart)
+          VALUES (${paymentId}, ${user_id}, ${cart_items}
+          ON CONFLICT (paymentId)
+          DO UPDATE SET cart = ${cart_items}`;
     
         if (rowCount > 0) {
-          return NextResponse.json({ message: "Added item to cart", result: true });
+          return NextResponse.json({ message: "Purchase registed", result: true });
         } else {
-          return NextResponse.json({ message: "Failed to add", result: false });
+          return NextResponse.json({ message: "Failed to register purchase", result: false });
         }
       } catch (e) {
-        return NextResponse.json({ message: "Failed to add", result: false });
+        return NextResponse.json({ message: "Failed to register purchase", result: false });
       }
     }
 

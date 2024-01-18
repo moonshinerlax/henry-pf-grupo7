@@ -4,7 +4,7 @@ export default function Signup() {
 
   return (
     <div className="flex justify-center">
-  <SignUp afterSignUpUrl={'/verfied'}/>
+  <SignUp afterSignUpUrl={'/verified'}/>
   </div>
   )
 }

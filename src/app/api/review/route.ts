@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
     // }
     const { searchParams } = new URL(req.url)
     const id = searchParams.get('id')
-    const { rows: ratings } = await sql`SELECT * FROM ratings WHERE user_id = 'user_2asYLvExOuI8rpZiuh9fiVRVPou'`
+    const { rows: ratings } = await sql`SELECT * FROM ratings WHERE user_id = ${id}`
 
     return NextResponse.json({ ratings });
   } catch (error) {
