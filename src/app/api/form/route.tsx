@@ -19,8 +19,8 @@ export async function POST(req: Request) {
     try {
         const {form}= await req.json();
       
-      await sql`INSERT INTO products (model, category, image, price, website)
-      VALUES (${form.model}, ${form.category}, ${form.image}, ${form.price}, ${form.website})`
+      await sql`INSERT INTO products (model, category, image, price, spect)
+      VALUES (${form.model}, ${form.category}, ${form.image}, ${form.price}, ${form.spect})`
       console.log('Producto agregado exitosamente')
       return NextResponse.json({ message: "Producto Agregado", result: true });
       } catch (error) {

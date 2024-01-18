@@ -4,7 +4,8 @@ import { CldUploadButton } from 'next-cloudinary';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Image from 'next/image';
-
+import Swal from 'sweetalert2'
+import Link from 'next/link';
 
 interface Form {
   model: string;
@@ -50,10 +51,15 @@ const CreateProduct: React.FC = () => {
     spect: '',
   });
   const [formInteracted, setFormInteracted] = useState(false);
+  const [alert, setAlert] = useState<React.ReactNode>(null);
 
+
+  
 useEffect(() => {
   console.log(form);
 } , [form])
+
+
 
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
@@ -83,48 +89,79 @@ useEffect(() => {
    }
 
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     validation(form, setErrors);
-
+  
     const hasErrors = Object.values(errors).some((error) => error !== '');
-
+  
     if (!hasErrors) {
       try {
         let res = await fetch("/api/form", {
           method: "POST",
           body: JSON.stringify({ form }),
         }); 
-
+  
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+  
         const resetForm = () =>
           setForm({
             model: '',
             image: "",
             category: '',
-             price: '',
+            price: '',
             spect: '',
           });
         resetForm();
-        window.alert("Product succesfully added!")
+        
+        Swal.fire({
+          title: "Product added successfully!",
+          icon: "success",
+          html: <Link href="/products"><a>Go to products</a></Link>, 
+          showCloseButton: true,
+          showCancelButton: true,
+          focusConfirm: false,
+          confirmButtonText: `
+            <i class="fa fa-thumbs-up"></i> Great!
+          `,
+          confirmButtonAriaLabel: "Thumbs up, great!",
+          
+        });
+        
+        
       } catch (error) {
-        window.alert("Error! Product not added")
+        console.error(error);
+        Swal.fire({
+          title: "Error!",
+          text: "Product not added",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
     } else {
       console.log(errors);
-      alert('Please correct the information');
+      Swal.fire({
+        title: "Error!",
+        text: 'Please correct the information',
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
+  
   useEffect(() => {
     AOS.init();
   }, []);
 
  return (
   <>
-    <div className="flex flex-col sm:flex-row justify-center bg-gray-500 w-full">
+    <div className="flex flex-col sm:flex-row justify-center bg-gray-500 w-full mb-96">
       
-      <div className="m-6 text-white w-4 mx-4 w-auto sm:mx-10 sm:w-2/3 p-4 bg-black rounded-md shadow-md items-center gap-5 mb-5 text-black">
-        <h1 data-aos="flip-right" className="text-2xl text-gray-400 p-60 text-center">New Product</h1>
+      <div className="m-6  mx-4 w-auto sm:mx-10 sm:w-2/3 p-4 bg-black rounded-md shadow-md items-center gap-5 mb-50 text-gray-300 ">
+        <h1 data-aos="flip-right" className="text-2xl text-gray-400 p-20 text-center">New Product</h1>
         <form onSubmit={handleFormSubmit} className="grid justify-items-center content-evenly gap-y-20">
           <div data-aos="flip-right" className='flex flex-col items-center gap-8 w-full'>
             <label htmlFor="model">Name model:</label> 
@@ -134,12 +171,12 @@ useEffect(() => {
               id="model"
               value={form.model}
               onChange={handleChange}
-              className=' text-4x1 text-black p-2 w-full border-gray-500 rounded border-blue-500'
+              className=' text-4x1 text-black p-2 w-full border-gray-500 rounded '
             />  
           </div>
           <div data-aos="flip-right" className='flex justify-center w-full'>
             <CldUploadButton 
-              className='w-full border-blue-500 text-4xl rounded border-2 p-8 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
+              className='w-full border-blue-500 text-normal rounded border-2 p-8 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
               uploadPreset="zwtk1tj5"
               onUpload={handleImageUpload}
             >
@@ -209,51 +246,51 @@ useEffect(() => {
         </form>
       </div>
       <div className="w-full sm:w-2/4 mx-auto p-5 bg-gray-300 shadow-md text-black">
-        {/* Columna lateral */}
     {/* Columna lateral */}
     {formInteracted ? (
       Object.values(errors).some((error) => error !== '') ? (
-        <div className="sticky top-12  h-auto text-4xl  md:tw-1/2 tw-1/4 mx-auto p-8 bg-black rounded-md shadow-md text-gray-200 ">
-         <p>Please correct the following errors:</p>
-          <ul className='sticky top-0 ' >
+        <div className="sticky top-12  h-auto p-12 text-sm text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-15 bg-black rounded-md shadow-md ">
+         <p>Please correct the following requirements:</p>
+          <ul className='sticky top-12 h-auto ' >
             {Object.entries(errors).map(([key, value]) => (
-              <li key={key}>
-                <span className=" p-4 m-4 p-1 rounded-2xl text-white"> {value ?  "❌ "  + value :  "✅ " + key.charAt(0).toUpperCase() + key.slice(1) + ' has been successfully validated' }  </span>
+              <li className= "p-5" key={key}>
+
+                <span className=" rounded-md shadow-md "> {value ?  "❌ "  + value :  "✅ " + key.charAt(0).toUpperCase() + key.slice(1) + ' has been successfully validated' }  </span>
               </li>
             ))}
           </ul>
         </div>
       ) : (
-        <div className="sticky top-12  h-auto text-4xl  md:tw-1/2 tw-1/4 mx-auto p-8 bg-black rounded-md shadow-md text-gray-200 ">
+        <div className="sticky top-12  h-auto text-sm  md:tw-1/2 tw-1/4 mx-auto p-8 bg-black rounded-md shadow-md text-gray-400 ">
 
           <ul>
             {Object.entries(errors).map(([key, value]) => (
-              <li key={key}>
-                <span className="text-black-200">✅ {key.charAt(0).toUpperCase() + key.slice(1)} has been successfully validated </span>
+              <li className="p-5" key={key}>
+                <span className="text-gray-400">✅ {key.charAt(0).toUpperCase() + key.slice(1)} has been successfully validated </span>
               </li>
             ))}
           </ul> 
-            <div className="text-gray-400 text-2xl mt-14 text-center rounded-full "> ✅
+            <div className="text-gray-200 p-5  text-sm rounded-full "> ✅
            <b>Your product is ready to be loaded!</b></div>
           </div>
       )
     ) : (
-      <div className="sticky top-12  h-auto text-4xl  md:tw-1/2 tw-1/4 mx-auto p-8 bg-black rounded-md shadow-md text-gray-200 ">
+      <div className="sticky top-12  h-auto text-base text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-5 bg-black rounded-md shadow-md ">
         <p>Requirements:</p>
         <ul>
-          <li>
-            <span className="text-blue-500">Name model</span>  Model cannot be empty 
+          <li className='p-5 '>
+            <span className="text-blue-500 ">Name model</span>  Model cannot be empty 
           </li>
-          <li>
+          <li className='p-5 '>
             <span className="text-blue-500">Image</span> Upload an image 
           </li>
-          <li>
+          <li className='p-5 '>
             <span className="text-blue-500">Category</span> Select a Category
           </li>
-          <li>
+          <li className='p-5 '>
             <span className="text-blue-500">Price </span> must be a positive number
           </li>
-          <li>
+          <li className='p-5 '>  
             <span className="text-blue-500">Spect</span> must be a valid Spect
           </li>
               
