@@ -11,7 +11,7 @@ interface Form {
   category: string;
   image: string;
   price: string;
-  website: string;
+  spect: string;
   }
 
 interface Errors {
@@ -19,8 +19,9 @@ interface Errors {
   category: string;
   image: string;
   price: string;
-  website: string;
+  spect: string;
 }
+
 
 const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<Errors>>) => {
   let newErrors: Errors = {
@@ -28,7 +29,7 @@ const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<E
     image: form.image ? '' : "Upload an image",
     category: form.category ?  '' : 'Select a Category',
     price: Number(form.price) > 0 ? '' : 'Price must be a positive number',
-    website: /^(http|https):\/\/[^ "]+$/.test(form.website) ? '' : 'Website must be a valid URL',
+    spect: form.spect ? '' : 'Spect must be a valid value',
   };
   setErrors(newErrors);
 }
@@ -39,16 +40,21 @@ const CreateProduct: React.FC = () => {
     image: '',
     category: '',
      price: '',
-    website: '',
+    spect: '',
   });
   const [errors, setErrors] = useState<Errors>({
     model: '',
     image: '',
     category: '',
     price: '',
-    website: '',
+    spect: '',
   });
   const [formInteracted, setFormInteracted] = useState(false);
+
+useEffect(() => {
+  console.log(form);
+} , [form])
+
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const property = event.target.name;
@@ -72,9 +78,8 @@ const CreateProduct: React.FC = () => {
          image: info.secure_url,
         }))
 
-                validation({ ...form, image: info.secure_url }, setErrors);
-             console.log("url", info.secure_url)
-        setFormInteracted(true); 
+      validation({ ...form, image: info.secure_url }, setErrors);
+    setFormInteracted(true); 
    }
 
 
@@ -98,7 +103,7 @@ const CreateProduct: React.FC = () => {
             image: "",
             category: '',
              price: '',
-            website: '',
+            spect: '',
           });
         resetForm();
         window.alert("Product succesfully added!")
@@ -118,8 +123,8 @@ const CreateProduct: React.FC = () => {
   <>
     <div className="flex flex-col sm:flex-row justify-center bg-gray-500 w-full">
       
-      <div className="m-6 text-white w-4 mx-4 w-auto sm:mx-10 sm:w-2/3 p-4 bg-gray-800 rounded-md shadow-md items-center gap-5 mb-5 text-black">
-        <h1 data-aos="flip-right" className="text-6xl text-gray-100 p-8 text-center">New Product</h1>
+      <div className="m-6 text-white w-4 mx-4 w-auto sm:mx-10 sm:w-2/3 p-4 bg-black rounded-md shadow-md items-center gap-5 mb-5 text-black">
+        <h1 data-aos="flip-right" className="text-2xl text-gray-400 p-60 text-center">New Product</h1>
         <form onSubmit={handleFormSubmit} className="grid justify-items-center content-evenly gap-y-20">
           <div data-aos="flip-right" className='flex flex-col items-center gap-8 w-full'>
             <label htmlFor="model">Name model:</label> 
@@ -129,7 +134,7 @@ const CreateProduct: React.FC = () => {
               id="model"
               value={form.model}
               onChange={handleChange}
-              className='text-4x1 text-black p-2 w-full sm:w-96 border-gray-500 rounded border-blue-500'
+              className=' text-4x1 text-black p-2 w-full border-gray-500 rounded border-blue-500'
             />  
           </div>
           <div data-aos="flip-right" className='flex justify-center w-full'>
@@ -178,18 +183,18 @@ const CreateProduct: React.FC = () => {
               id="price"
               value={form.price}
               onChange={handleChange}
-              className='m-1 text-2xl text-black p-2 w-full sm:w-96 border-gray-500 rounded border-blue-500'
+              className='m-1 text-2xl text-black p-2 w-full  border-gray-500 rounded border-blue-500'
             />
           </div>
           <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
-            <label htmlFor="website">Website:</label>
+            <label htmlFor="spect">Spect</label>
             <input
-              name="website"
+              name="spect"
               type="text"
-              id="website"
-              value={form.website}
+              id="spect"
+              value={form.spect}
               onChange={handleChange}
-              className='m-1 text-2xl text-black p-2 w-full sm:w-96 border-gray-500 rounded border-blue-500'
+              className='m-1 text-2xl text-black p-2 w-full border-gray-500 rounded border-blue-500'
             />
           </div>
           <div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center rounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500 w-full">
@@ -208,32 +213,32 @@ const CreateProduct: React.FC = () => {
     {/* Columna lateral */}
     {formInteracted ? (
       Object.values(errors).some((error) => error !== '') ? (
-        <div className='sticky top-0  tw-1/4 mx-auto p-5 bg-gray-600 rounded-md shadow-md text-white'>
-          <p>Please correct the following errors:</p>
+        <div className="sticky top-12  h-auto text-4xl  md:tw-1/2 tw-1/4 mx-auto p-8 bg-black rounded-md shadow-md text-gray-200 ">
+         <p>Please correct the following errors:</p>
           <ul className='sticky top-0 ' >
             {Object.entries(errors).map(([key, value]) => (
               <li key={key}>
-                <span className=" p-4 m-4 p-1 rounded-2xl text-white"> {value ?  "❌ "  + value :  "✅ " + key + ' has been successfully validated' }  </span>
+                <span className=" p-4 m-4 p-1 rounded-2xl text-white"> {value ?  "❌ "  + value :  "✅ " + key.charAt(0).toUpperCase() + key.slice(1) + ' has been successfully validated' }  </span>
               </li>
             ))}
           </ul>
         </div>
       ) : (
-        <div className="sticky top-0  text-black p-3 rounded-md">
+        <div className="sticky top-12  h-auto text-4xl  md:tw-1/2 tw-1/4 mx-auto p-8 bg-black rounded-md shadow-md text-gray-200 ">
+
           <ul>
             {Object.entries(errors).map(([key, value]) => (
               <li key={key}>
-                <span className="text-black-200">✅ {key} has been successfully validated </span>
+                <span className="text-black-200">✅ {key.charAt(0).toUpperCase() + key.slice(1)} has been successfully validated </span>
               </li>
             ))}
           </ul> 
- 
-          <b>Your product is ready to be loaded!</b>
-          <div className="text-green-400 font-bold text-5xl mb-2 text-center rounded-full border-2 border-green-400"> ✅</div>
-        </div>
+            <div className="text-gray-400 text-2xl mt-14 text-center rounded-full "> ✅
+           <b>Your product is ready to be loaded!</b></div>
+          </div>
       )
     ) : (
-      <div className="sticky top-0  tw-1/4 mx-auto p-5 bg-gray-600 rounded-md shadow-md text-white">
+      <div className="sticky top-12  h-auto text-4xl  md:tw-1/2 tw-1/4 mx-auto p-8 bg-black rounded-md shadow-md text-gray-200 ">
         <p>Requirements:</p>
         <ul>
           <li>
@@ -249,7 +254,7 @@ const CreateProduct: React.FC = () => {
             <span className="text-blue-500">Price </span> must be a positive number
           </li>
           <li>
-            <span className="text-blue-500">Website </span> must be a valid URL
+            <span className="text-blue-500">Spect</span> must be a valid Spect
           </li>
               
         </ul>
