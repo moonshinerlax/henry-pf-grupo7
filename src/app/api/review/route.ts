@@ -15,8 +15,6 @@ interface Rating{
 export async function GET(req: NextRequest) {
   const userId = req.nextUrl.searchParams.get("id");
   try {
-    
-
     // Obtén la ruta completa del archivo data.json
     const filePath = path.join(process.cwd(), "data.json");
 
@@ -35,10 +33,8 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    // Filtra las clasificaciones para el usuario específico
-    const userRatings = jsonData.filter((rating : Rating) => rating.userId === userId);
-
-    return NextResponse.json({ ratings: userRatings });
+    
+    return NextResponse.json({ purchases: jsonData });
   } catch (error) {
     console.error(error);
     return NextResponse.json({
