@@ -18,9 +18,9 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: Request) {
     try {
-        const { data } = await req.json()
+        const { id, email } = await req.json()
 
-        const existingUser = await sql`SELECT * FROM users WHERE id = ${data.userId}`;
+        const existingUser = await sql`SELECT * FROM users WHERE id = ${id}`;
 
         if (existingUser.rowCount > 0) {
             return NextResponse.json({
@@ -29,7 +29,9 @@ export async function POST(req: Request) {
           });
         } else {
       await sql`INSERT INTO users (id, email)
-      VALUES (${data.userId}, ${data.userEmail})`
+      VALUES (${id}, ${email})
+      ON CONFLICT (email)
+      DO UPDATE SET id = ${id}`
       console.log('User added')
       return NextResponse.json({ message: "User Added", result: true });
       }

@@ -37,7 +37,7 @@ export default function App({children,
             : ''
         }`}
       >
-                {['/signup', '/signin', '/banned'].includes(pathnames) ? null : <Navbar />}
+                {['/signup', '/signin', '/banned', '/verified'].includes(pathnames) ? null : <Navbar />}
                 <Suspense fallback={<div>Loading...</div>}>
                 <main className="p-4">{children}</main>
                 </Suspense>
