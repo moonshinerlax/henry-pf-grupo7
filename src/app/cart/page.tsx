@@ -95,18 +95,15 @@ export default function CartPage(){
                       </Link>
                     </td>
                     <td className="p-5 text-right">
-                      <select
-                        value={item.qty}
-                        onChange={(e) =>
-                          addToCartHandler(item, item.cart_item_id, Number(e.target.value))
-                        }
-                      >
-                        {[...Array(40).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </select>
+                    <div className="flex justify-between items-center">
+                        <button className="w-1/3 text-xs h-fit shadow-[0_0px_10px_0px_rgba(0,0,0,0.5)] rounded-sm" onClick={() => addToCartHandler(item, item.cart_item_id, item.qty - 1)} disabled={item.qty === 1}>
+                        -
+                        </button>
+                      <span>{item.qty}</span>
+                        <button className="w-1/3 text-xs h-fit shadow-[0_0px_10px_0px_rgba(0,0,0,0.5)] rounded-sm" onClick={() => addToCartHandler(item, item.cart_item_id, item.qty + 1)}>
+                        +
+                        </button>
+                    </div>
                     </td>
                     <td className="p-5 text-right">${item.price}</td>
                     <td className="p-5 text-center">
