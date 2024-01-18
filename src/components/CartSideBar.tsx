@@ -111,20 +111,23 @@ export default function CartSideBar(){
                                         height={100}
                                         className="p-1 rounded-md"></Image>
                                     </Link>
-                                    <select
-                                    className="text-gray-300 bg-transparent border-gray-400 border rounded-md"
-                                    value={item.qty}
-                                    onChange={
-                                      (e) => addToCartHandler(item, item.cart_item_id, Number(e.target.value))
-                                    }>
-                                        {[...Array(stock).keys()].map((x)=>(
-                                            <option
-                                            className="text-gray-300 bg-gray-900 border-gray-400 border rounded-md"
-                                            key={x + 1} value={x + 1}>
-                                                {x + 1}
-                                            </option>
-                                        ))}
-                                    </select>
+                                    <div className="w-full flex items-center justify-evenly">
+                                      <button
+                                        className="w-1/5 text-sm h-fit border border-white rounded-md"
+                                        onClick={() => addToCartHandler(item, item.cart_item_id, item.qty - 1)}
+                                        disabled={item.qty === 1}
+                                      >
+                                        -
+                                      </button>
+                                      <span className="text-gray-300">{item.qty}</span>
+                                      <button
+                                      className="w-1/5 text-sm h-fit border border-white rounded-md"
+                                        onClick={() => addToCartHandler(item, item.cart_item_id, item.qty + 1)}
+                                        disabled={item.qty === stock}
+                                      >
+                                        +
+                                      </button>
+                                    </div>
                                     <button className="default-button mt-2 bg-red-500 text-white rounded-md w-full"
                                     onClick={()=> removeFromCartHandler(item.id ,item.cart_item_id)}>
                                         Delete
