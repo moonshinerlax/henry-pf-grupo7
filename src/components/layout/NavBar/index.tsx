@@ -162,7 +162,7 @@ export default function Navbar() {
                   className={params === item ? "text-red underline" : "null"}>
                     <Link
                       href={item === 'All' ? `/product` : `/product?category=${item}`}
-                      className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
+                      className="underline-offset-4  hover:underline text-neutral-400 hover:text-neutral-300"
                     >
                       {item}
                     </Link>
@@ -175,7 +175,7 @@ export default function Navbar() {
             <SearchBar/>
           </div>
           <div>
-          {userRole === 'org:admin' ? <Link href='/admindashboard' className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300">
+          {userRole === 'org:admin' ? <Link href='/admindashboard' className=" underline-offset-4  hover:underline text-neutral-400 hover:text-neutral-300">
               Admin Dashboard
             </Link> : null}
           </div>

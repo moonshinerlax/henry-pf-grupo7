@@ -53,7 +53,7 @@ export default function Detail({ params }: { params: { id: string } }) {
 
   return (
     <main className="mx-auto max-w-screen-2xl px-4">
-      <section className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
+      <section className="flex flex-col rounded-lg borderp-8 border-neutral-800 bg-black md:p-12 lg:flex-row lg:gap-8">
         <div className="w-1/2 p-16">
           <div className="h-full w-full basis-full lg:basis-4/6">
             <div className="h-96 ">
@@ -87,7 +87,7 @@ export default function Detail({ params }: { params: { id: string } }) {
           </div>
         </div>
         <div className="basis-full lg:basis-2/6">
-          <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
+          <div className="mb-6 flex flex-col border-b pb-6 border-neutral-700">
             <h1 className="mb-2 text-5xl font-medium">{productDetail.model}</h1>
             <h2>{productDetail.category}</h2>
             <AverageRatingStars productId={productDetail.id} />
@@ -125,11 +125,11 @@ export default function Detail({ params }: { params: { id: string } }) {
         </div>
       </section>
       <section>
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
+        <div className="flex flex-col rounded-lg border  p-8 border-neutral-800 bg-black md:p-12  lg:gap-8 ">
           <p>Product Ratings</p>
           <ReviewsList productId={productDetail.id} />
         </div>
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12  lg:gap-8 ">
+        <div className="flex flex-col rounded-lg border p-8 border-neutral-800 bg-black md:p-12  lg:gap-8 ">
           <p>Leave a Feedback</p>
           <ReviewForm productId={productDetail.id} />
         </div>

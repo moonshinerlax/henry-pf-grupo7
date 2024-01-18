@@ -36,6 +36,7 @@ const CheckoutForm: React.FC = () => {
  
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [paymentId, setPaymentId] = useState<string | null>('')
 
   useEffect(() => {
     const clientSecret = new URLSearchParams(window.location.search).get(
@@ -61,6 +62,7 @@ const CheckoutForm: React.FC = () => {
             setMessage("Something went wrong.");
             break;
         }
+        setPaymentId(String(paymentIntent?.id))
       } catch (error) {
         setMessage("Error retrieving payment status.");
       }
@@ -104,6 +106,12 @@ const CheckoutForm: React.FC = () => {
 
   const handlePopupClick = () => {
     if(message === 'Payment succeeded! Thank you for your Purchase!'){
+      // cartItems.map((product)=>{
+      //   fetch("/api/review", {
+      //     method: "POST",
+      //     body: JSON.stringify({paymentId, product.})
+      //   })
+      // })
       fetch("/api/create-payment-intent", {
         method: "PUT",
         body: JSON.stringify({emptypayment, user_id, emptypaymentid})
