@@ -94,7 +94,7 @@ const ReviewForm: React.FC = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ productId, buyId, rating, review }),
+          body: JSON.stringify({ productId, rating, review }),
         });
 
         if (response.ok) {
