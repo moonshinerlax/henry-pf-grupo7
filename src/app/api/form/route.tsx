@@ -18,11 +18,12 @@ export async function GET() {
 export async function POST(req: Request) {
     try {
         const {form}= await req.json();
-      
-      await sql`INSERT INTO products (model, category, image, price, specs)
-      VALUES (${form.model}, ${form.category}, ${form.image}, ${form.price}, ${form.specs})`
+
+      const result =  await sql`INSERT INTO products (model, category, image, price, specs)
+      VALUES (${form.model}, ${form.category}, ${form.image}, ${form.price}, ${form.specs} ) RETURNING *`
       console.log('Producto agregado exitosamente')
-      return NextResponse.json({ message: "Producto Agregado", result: true });
+  
+      return NextResponse.json({ message: "Producto Agregado", result: true, id: result.rows[0].id });
       } catch (error) {
         console.log('error al agregar producto',error)
         return NextResponse.json({ message: "Error al Agregar Producto", result: false });
