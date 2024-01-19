@@ -3,6 +3,8 @@
 import { useUser } from "@clerk/nextjs"
 import Image from "next/image";
 import { useEffect, useState } from "react"
+import ReviewForm from "../RatingReview/ReviewForm";
+import ReviewFromOrders from "../RatingReview/ReviewFromOrders";
 
 interface Product {
     payment_id: string;
@@ -33,7 +35,6 @@ export default function Purchases() {
   
           if (response.ok) {
             const { purchases } = await response.json();
-            console.log(purchases[0].cart.cartItems)
             setProducts(purchases)
           } else {
             console.error(`Failed to fetch purchases. Status: ${response.status}`);
@@ -59,16 +60,18 @@ export default function Purchases() {
                   <th className="p-5 text-left">Product</th>
                   <th className="p-5 text-center">Quantity</th>
                   <th className="p-5 text-right">Price</th>
+                  {/* <th className="p-5 text-center">Review</th> */}
               </tr>
             </thead>
             <tbody>
               {order.cart.cartItems.map((item: CartItem) => (
-                <tr key={item.cart_item_id} className="border-b">
+                <tr key={item.id} className="border-b">
                   <td className="p-5 text-left flex flex-row items-center">
                     <Image className='rounded-lg mr-2' src={item.image} height={50} width={50} alt={item.name} />
                   {item.name}</td>
                   <td className="p-5 text-center">{item.qty}</td>
                   <td className="p-5 text-right">{item.price}</td>
+                  <td className="text-right"><ReviewFromOrders productId={item.id} /></td>
                 </tr>
               ))}
             </tbody>
