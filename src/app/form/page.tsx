@@ -8,6 +8,8 @@ import Image from 'next/image';
 import Swal from 'sweetalert2'
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+
 
 interface Specs {
 property: string;
@@ -44,6 +46,9 @@ const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<E
 
 
 const CreateProduct: FC = () => {
+
+const router = useRouter()
+
 
   const [form, setForm] = useState<Form>({
     model: '',
@@ -129,7 +134,8 @@ const CreateProduct: FC = () => {
         if (!res.ok) {
           throw new Error(res.statusText);
         }
-    
+   const id= (await res.json()).id;
+
         const resetForm = () =>
           setForm({
             model: '',
@@ -147,9 +153,11 @@ const CreateProduct: FC = () => {
           confirmButtonText: 'Ok',
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = `/product/`;
+            // window.location.href = `/product/${id}`;
+            router.push(`/product/${id}`)
           }
         });
+
 
       } catch (error) {
         console.error(error);
