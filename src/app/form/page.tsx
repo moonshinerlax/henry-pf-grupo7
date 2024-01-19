@@ -80,7 +80,7 @@ const CreateProduct: FC = () => {
     setFormInteracted(true);
   };
 
-  const handleSpecsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSpecsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const property = event.target.name as keyof Specs;
     const value = event.target.value;
   
@@ -246,12 +246,13 @@ console.log(form)
           
          <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
         <label htmlFor="specs">Specs</label>
-        <input   name="property" 
-                  type="text"
-                  id="specs"
+        <textarea   
+         onChange={handleSpecsChange}
+        name="property" 
+                     id="specs"
                   value={form.specs.property}
-                  onChange={handleSpecsChange}
-                    className='m-1 text-2xl text-black p-2 w-full sm:w-96 border-gray-500 rounded border-blue-500'
+                 
+                  className=' m-1 text-2xl text-black p-2 w-full h-60 rounded border-blue-500'
                 />
       </div>
        
@@ -270,7 +271,7 @@ console.log(form)
     {/* Columna lateral */}
     {formInteracted ? (
       Object.values(errors).some((error) => error !== '') ? (
-        <div className="sticky top-12  h-auto p-12 text-sm text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-15 bg-black rounded-md shadow-md ">
+        <div className="sticky top-20  h-auto p-12 text-sm text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-15 bg-black rounded-md shadow-md ">
          <p>Please correct the following requirements:</p>
           <ul className='sticky top-12 h-auto ' >
             {Object.entries(errors).map(([key, value]) => (
@@ -295,7 +296,7 @@ console.log(form)
           </div>
       )
     ) : (
-      <div className="sticky top-0.5  h-auto text-base text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-5 bg-black rounded-md shadow-md ">
+      <div className="sticky top-20  h-auto text-base text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-5 bg-black rounded-md shadow-md ">
         <p>Requirements:</p>
         <ul>
           <li className='p-5 '>
