@@ -25,7 +25,6 @@ const CheckoutForm: React.FC = () => {
   const user = useUser()
   const email = user.user?.primaryEmailAddress?.emailAddress
   const name = user.user?.firstName ?? ''
-  const url = '/'
   const emailmessage = compilePurchaseEmail(name, itemsPrice, cartItems)
 
   const emailData = {
@@ -37,6 +36,12 @@ const CheckoutForm: React.FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [paymentId, setPaymentId] = useState<string | null>('')
+
+  const requestBody = {
+    paymentId: paymentId,
+    user_id: user_id,
+    cartItems: {cartItems}
+  };
 
   useEffect(() => {
     const clientSecret = new URLSearchParams(window.location.search).get(
@@ -50,7 +55,7 @@ const CheckoutForm: React.FC = () => {
         const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
         switch (paymentIntent?.status) {
           case "succeeded":
-            setMessage("Payment succeeded! Thank you for your Purchase!");
+            setMessage('Payment succeeded! Thank you for your Purchase!');
             break;
           case "processing":
             setMessage("Your payment is processing.");
@@ -106,12 +111,14 @@ const CheckoutForm: React.FC = () => {
 
   const handlePopupClick = () => {
     if(message === 'Payment succeeded! Thank you for your Purchase!'){
-      // cartItems.map((product)=>{
-      //   fetch("/api/review", {
-      //     method: "POST",
-      //     body: JSON.stringify({paymentId, product.})
-      //   })
-      // })
+      
+      fetch("/api/orders", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'},
+        body: JSON.stringify(requestBody),
+      })
+      
       fetch("/api/create-payment-intent", {
         method: "PUT",
         body: JSON.stringify({emptypayment, user_id, emptypaymentid})
@@ -141,7 +148,8 @@ const CheckoutForm: React.FC = () => {
     </form>
     {message && <div onClick={(e)=>handlePopupClick()} className="fixed inset-0 z-50 flex items-center justify-center backdrop-filter backdrop-blur-lg bg-opacity-75 bg-gray-500" id="payment-message">
       <div className="bg-gray-900 rounded-lg p-8">
-        {message}
+        <div>{message}</div>
+        <div>Please click to continue...</div>
       </div>
     </div>}
     </div>

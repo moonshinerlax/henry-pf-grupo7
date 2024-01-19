@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { addClientSecret, addPaymentIntent, addToCart, addUserID, hideLoading } from "@/redux/slices/cartSlice";
 import { checkUserRole } from "@/app/lib/utils";
 import CartPage from "@/app/cart/page";
+import Purchases from "@/components/purchases/Purchases";
 
 interface Item {
   cart_item_id: number;
@@ -31,13 +32,8 @@ interface CustomPage {
 
 export default function Navbar() {
     const menu = ["All", "Phones", "Tablets", "Laptops", "Desktops", "Software"]
-    const [data, setData] = useState({
-      userId: '',
-      userEmail: ''
-    })
     const searchParams = useSearchParams()
     const params = searchParams.get('category')
-    const  user =  useUser().user?.primaryEmailAddress?.emailAddress
     const id = useUser().user?.id
     const dispatch = useDispatch()
     const email = useUser().user?.primaryEmailAddress?.emailAddress;
@@ -52,6 +48,12 @@ export default function Navbar() {
       }
     };
 
+    useEffect(()=>{
+      dispatch(hideLoading())
+    },[dispatch])
+    
+    
+
     useEffect(() => {
       const fetchUserData = async () => {
         try {
@@ -63,46 +65,14 @@ export default function Navbar() {
             const user = await response.json();
             checkUserStatus(user.users[0]);
           } else {
-            throw new Error("Failed to fetch cart data");
+            throw new Error("Failed to fetch user status");
           }
         } catch (error) {
-          console.error("Error fetching cart data:", error);
+          console.error("Error user status:", error);
         }
       };
       fetchUserData()
-    }, [pathnames, id]);
-
-
-    useEffect(()=>{
-      dispatch(hideLoading())
-    },[dispatch])
-    
-    const reg = async () => {
-      try {
-        let res = await fetch("/api/signup", {
-          method: "POST",
-          body: JSON.stringify({data}),
-        });
-        console.log("success")
-      } catch (error) {
-        console.log('Error adding user:', error);
-      }
-    };
-
-    useEffect(() => {
-      if (id && user) {
-        setData({
-          userId: id,
-          userEmail: user
-        });
-      }
-    }, [id, user]);
-  
-    useEffect(() => {
-      if (data.userId && data.userEmail) {
-        reg();
-      }
-    }, [data]);
+    }, [pathnames, id]);   
 
   useEffect(() => {
     const fetchCartData = async () => {
@@ -180,11 +150,11 @@ export default function Navbar() {
             </Link> : null}
           </div>
           <div>
-            {data.userId ? <UserButton>  
-                 <UserButton.UserProfilePage label="Orders" url="/cart" labelIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            {id ? <UserButton>  
+                 <UserButton.UserProfilePage label="Orders" url="/orders" labelIcon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                                                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                                                                   </svg>}>
-                  <CartPage/>
+                  <Purchases/>
                  </UserButton.UserProfilePage>
               </UserButton>
             : <SignInButton/>}
