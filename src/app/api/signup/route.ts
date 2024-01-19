@@ -3,11 +3,11 @@ import { NextResponse, NextRequest} from "next/server";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
-    const id = searchParams.get('id')
+    const email = searchParams.get('email')
     
     try {
 
-      const {rows: users} = await sql`SELECT * FROM users WHERE id = ${id}`
+      const {rows: users} = await sql`SELECT * FROM users WHERE email = ${email}`
       
       return NextResponse.json({ users });
     } catch (error) {

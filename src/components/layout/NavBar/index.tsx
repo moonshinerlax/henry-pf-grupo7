@@ -57,10 +57,10 @@ export default function Navbar() {
     useEffect(() => {
       const fetchUserData = async () => {
         try {
-          if (!id) {
+          if (!email) {
             return; 
           }
-          const response = await fetch(`/api/signup?id=${id}`);
+          const response = await fetch(`/api/signup?id=${email}`);
           if (response.ok) {
             const user = await response.json();
             checkUserStatus(user.users[0]);
