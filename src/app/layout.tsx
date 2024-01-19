@@ -33,11 +33,6 @@ export default function RootLayout({
         <main>{children}</main>
       </Suspense> */}
       </StoreProvider>
-      <SignedOut>
-            
-            <RedirectToSignIn/>
-            
-          </SignedOut>
       </body>
     </html>
     </ClerkProvider>
