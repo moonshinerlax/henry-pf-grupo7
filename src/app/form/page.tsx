@@ -9,10 +9,11 @@ import Swal from 'sweetalert2'
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation';
+import { ImageConfigContext } from 'next/dist/shared/lib/image-config-context.shared-runtime';
 
 
 interface Specs {
-property: string;
+    [key: string]: any; 
 }
 
 interface Form {
@@ -35,11 +36,10 @@ interface Errors {
 const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<Errors>>) => {
   let newErrors: Errors = {
     model: form.model.trim() === '' ? 'Model cannot be empty' : '',
-    image: form.image ? '' : "Upload an image",
-    category: form.category ?  '' : 'Select a Category',
+    image: form.image ? '' : "upload an Image",
+    category: form.category ?  '' : 'select a Category',
     price: Number(form.price) > 0 ? '' : 'Price must be a positive number',
-   specs: form.specs.property  ? "" :  "Specs must be a valid value",
-
+    specs: Object.keys(form.specs).length > 0 ? "" :  "Specs must not be empty",
   };
   setErrors(newErrors);
 }
@@ -55,7 +55,7 @@ const router = useRouter()
     image: '',
     category: '',
      price: '',
-    specs: {property: ""},
+    specs: {},
   });
 
   const [errors, setErrors] = useState<Errors>({
@@ -85,23 +85,38 @@ const router = useRouter()
     setFormInteracted(true);
   };
 
-  const handleSpecsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const property = event.target.name as keyof Specs;
-    const value = event.target.value;
-  
+  const handleSpecsChange = (newSpecs: { property: string; value: any }) => {
+    
+    
+    const property = newSpecs.property;
+    const value = newSpecs.value;
+        
     setForm((prevForm) => ({
       ...prevForm,
       specs: {
         ...prevForm.specs,
-        [property]: value,
+        [newSpecs.property]: newSpecs.value,
       },
-    }));
-  
+    }));  
     validation({ ...form, specs: { ...form.specs, [property]: value } }, setErrors);
-    setFormInteracted(true);
   };
 
-  
+const [key, setKey] = useState("");
+const [value, setValue] = useState("");
+
+const handleKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setKey(event.target.value);
+};
+
+const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setValue(event.target.value);
+};
+
+const handleAddSpec = () => {
+  handleSpecsChange({ property: key, value: value });
+  setKey("");
+  setValue("");
+};
 
 
   const handleImageUpload = (data: any) => {
@@ -142,13 +157,13 @@ const router = useRouter()
             image: "",
             category: '',
             price: '',
-            specs: {property: ""},
+            specs: {specifications: ""},
           });
         resetForm();
 
         Swal.fire({
-          title: 'Producto creado',
-          html: `Producto creado con éxito`,
+          title: 'Add New Product',
+          html: `Product successfully created!`,
           icon: 'success',
           confirmButtonText: 'Ok',
         }).then((result) => {
@@ -183,22 +198,24 @@ const router = useRouter()
   useEffect(() => {
     AOS.init();
   }, []);
-console.log(form)
+console.log(form.specs)
  return (
   <>
     <div className="flex flex-col sm:flex-row justify-center bg-gray-500 w-full mb-32">
       
       <div className="m-6  mx-4 w-auto sm:mx-10 sm:w-2/3 p-4 bg-black rounded-md shadow-md items-center gap-5 mb-50 text-gray-300 ">
-        <h1 data-aos="flip-right" className="text-2xl text-gray-400 p-20 text-center">New Product</h1>
+        <h1 data-aos="flip-right" className="text-2xl text-gray-300 p-20 text-center"> Add New Product</h1>
         <form onSubmit={handleFormSubmit} className="grid justify-items-center content-evenly gap-y-20">
-          <div data-aos="flip-right" className='flex flex-col items-center gap-8 w-full'> <label htmlFor="model">Name model:</label> 
+         <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
+           <label htmlFor="model">Name model:</label> 
            <input
               name="model"
               type="text"
               id="model"
+              placeholder='Enter a Name Model...'
               value={form.model}
               onChange={handleChange}
-              className=' text-4x1 text-black p-2 w-full border-gray-500 rounded '
+              className='m-1 text-2xl text-black p-2 w-full  border-gray-500 rounded'
             />  
           </div>
           <div data-aos="flip-right" className='flex justify-center w-full'>
@@ -227,6 +244,7 @@ console.log(form)
             <select
               name="category"
               id="category"
+              placeholder='Select a Category'
               value={form.category}
               onChange={handleChange}
               className='text-3xl text-black w-full border-blue-500'  
@@ -245,26 +263,65 @@ console.log(form)
               name="price"
               type="text"
               id="price"
+              placeholder='Type a number for the Price...'
               value={form.price}
               onChange={handleChange}
-              className='m-1 text-2xl text-black p-2 w-full  border-gray-500 rounded border-blue-500'
+              className='m-1 text-2xl text-black p-2 w-full  border-gray-500 rounded'
             />
           </div>
           
-          
-         <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
-        <label htmlFor="specs">Specs</label>
-        <textarea   
-         onChange={handleSpecsChange}
-        name="property" 
-                     id="specs"
-                  value={form.specs.property}
-                 
-                  className=' m-1 text-2xl text-black p-2 w-full h-60 rounded border-blue-500'
-                />
+ <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
+  <label htmlFor="key">Spec:</label>
+  <input
+    onChange={handleKeyChange}
+    name="key"
+    id="key"
+    placeholder='Enter a specificification'
+    value={key}
+    className='m-1 text-2xl text-black p-2 w-full border-blue-500 rounded'
+  />
+
+  <label htmlFor="value">Desciption:</label>
+  <input
+    onChange={handleValueChange}
+    name="value"
+    id="value"
+    placeholder='Enter description'
+    value={value}
+    className='m-1 text-2xl text-black p-2 w-full border-blue-500 rounded'
+  />
+
+<button  type="button" onClick={handleAddSpec} className='m-1 text-2xl text-gray-800 p-2 w-full border-blue-100 bg-blue-300 rounded'>
+    Add Spec
+  </button>
+</div>
+
+<div className='relative mx-auto text-left items-left self-left'>
+{Object.keys(form.specs).length !== 0 ? (
+  <>
+  {form.image && (
+            <div className="flex justify-center w-full">
+              <Image 
+                src={form.image}
+                alt='imagen' 
+                width={20}
+                height={20}
+                className="w-60 h-auto transition-transform rounded-2xl hover:scale-110" 
+                data-aos="flip-right" 
+              />
+            </div>
+          )}
+    <div data-aos="flip-right" className='text-4xl items-left text-left p-3'>Specs:</div>
+    {Object.entries(form.specs).map(([key, value], index) => (
+      <div data-aos="flip-right" key={index} className='text-sm text-right justify-end text-gray-200 p-2 w-full border-blue-500 rounded'>
+        <strong>{key}:</strong> {value}
       </div>
-       
-          <div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center rounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500 w-full">
+    ))}
+  </>
+) : null}
+</div>
+
+   <div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center rounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500 w-full">
             <button 
               type="submit"
               disabled={ Object.values(errors).some((error) => error !== '')}
@@ -279,7 +336,7 @@ console.log(form)
     {/* Columna lateral */}
     {formInteracted ? (
       Object.values(errors).some((error) => error !== '') ? (
-        <div className="sticky top-20  h-auto p-12 text-sm text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-15 bg-black rounded-md shadow-md ">
+        <div className="sticky top-20  h-full p-12 text-sm text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-15 bg-black rounded-md shadow-md ">
          <p>Please correct the following requirements:</p>
           <ul className='sticky top-12 h-auto ' >
             {Object.entries(errors).map(([key, value]) => (
@@ -308,19 +365,19 @@ console.log(form)
         <p>Requirements:</p>
         <ul>
           <li className='p-5 '>
-            <span className="text-blue-500 ">Name model</span>  Model cannot be empty 
+            <span className="text-blue-500 ">Name model:</span> enter a valid model name. 
           </li>
           <li className='p-5 '>
-            <span className="text-blue-500">Image</span> Upload an image 
+            <span className="text-blue-500">Image:</span> add an Image from multiple sources. 
           </li>
           <li className='p-5 '>
-            <span className="text-blue-500">Category</span> Select a Category
+            <span className="text-blue-500">Category:</span> add a category for your created product.
           </li>
           <li className='p-5 '>
-            <span className="text-blue-500">Price </span> must be a positive number
+            <span className="text-blue-500">Price: </span> define the price of the product with a positive number.
           </li>
           <li className='p-5 '>  
-            <span className="text-blue-500">Specs</span> must be a valid Specs
+            <span className="text-blue-500">Specs:</span> detail the Specifications of the created product
           </li>
               
         </ul>
