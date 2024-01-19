@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 
-
 interface Review {
   rating_id: number;
   userId: string;
@@ -17,7 +16,7 @@ const ReviewsList: React.FC<ReviewFormProps> = ({ productId }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
 
   useEffect(() => {
-    fetch(`/api/rating?id=${productId}`)
+    fetch(`/api/review?id=${productId}`)
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data.ratings)) {
@@ -30,9 +29,9 @@ const ReviewsList: React.FC<ReviewFormProps> = ({ productId }) => {
   }, [productId]);
 
   return (
-    <div className="space-y-4" >
+    <div className="space-y-4">
       {reviews.length > 0 ? (
-        reviews.map((review:Review) => (
+        reviews.map((review: Review) => (
           <div key={review.rating_id} className="flex flex-col space-y-2">
             <div className="rating">
               {[...Array(5)].map((_, i) => (
@@ -48,9 +47,7 @@ const ReviewsList: React.FC<ReviewFormProps> = ({ productId }) => {
               ))}
             </div>
             <div>
-              <p className="block text-sm font-medium">
-                {review.review}
-              </p>
+              <p className="block text-sm font-medium">{review.review}</p>
             </div>
           </div>
         ))

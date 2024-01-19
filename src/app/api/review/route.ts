@@ -1,7 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { NextResponse, NextRequest } from "next/server";
-import fs from "fs/promises";
-import path from "path";
+
 
 
 interface Rating{
@@ -12,47 +11,16 @@ interface Rating{
   rating: number;
   review: string;
 }
-// export async function GET(req: NextRequest) {
-//   const userId = req.nextUrl.searchParams.get("id");
-//   try {
-//     // Obtén la ruta completa del archivo data.json
-//     const filePath = path.join(process.cwd(), "data.json");
-
-//     // Lee el contenido del archivo
-//     const dataContent = await fs.readFile(filePath, "utf-8");
-
-//     // Parsea el contenido como JSON
-//     const jsonData = JSON.parse(dataContent);
-
-//     // Obtiene el id de la URL de la solicitud
-    
-//     if (!userId) {
-//       return NextResponse.json({
-//         status: "error",
-//         message: "User ID not provided in the URL",
-//       });
-//     }
-
-    
-//     return NextResponse.json({ purchases: jsonData });
-//   } catch (error) {
-//     console.error(error);
-//     return NextResponse.json({
-//       status: "error",
-//       message: "Ocurrió un error al procesar la solicitud",
-//     });
-//   }
-// }
 
 export async function POST(req: Request) {
   try {
     const { userId, productId, rating, review } = await req.json();
-
     await sql`INSERT INTO Ratings ( user_id, product_id, rating, review)
       VALUES ( ${userId}, ${productId}, ${rating}, ${review})`;
-
+    console.log(userId, productId, rating, review)
     console.log("Reseña agregada exitosamente");
     return NextResponse.json({ message: "Reseña Agregada", result: true });
+    
   } catch (error) {
     console.log("Error al agregar reseña", error);
     return NextResponse.json({
@@ -65,10 +33,12 @@ export async function POST(req: Request) {
 export async function GET(req: NextRequest) {
   try {
     // function isValidUUID(uuid: string): boolean {
-    //   const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-    //   return uuidRegex.test(uuid);}
-    // // Obtiene el id de la URL de la solicitud
-    // const productId = req.nextUrl.searchParams.get("id");
+    //   const uuidRegex =
+    //     /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    //   return uuidRegex.test(uuid);
+    // }
+    // Obtiene el id de la URL de la solicitud
+    const productId = req.nextUrl.searchParams.get("id");
     // if (!productId) {
     //   return NextResponse.json({
     //     status: "error",
@@ -81,11 +51,12 @@ export async function GET(req: NextRequest) {
     //     message: "Invalid Product ID format",
     //   });
     // }
-    const { searchParams } = new URL(req.url)
-    const id = searchParams.get('id')
-    const { rows: ratings } = await sql`SELECT * FROM ratings WHERE user_id = ${id}`
+   
+    const { rows: ratings } =
+      await sql`SELECT * FROM Ratings WHERE product_id = ${productId}`;
 
     return NextResponse.json({ ratings });
+    console.log(ratings)
   } catch (error) {
     console.error(error);
     return NextResponse.json({

@@ -1,11 +1,16 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+import { useSearchParams } from 'next/navigation'
 
-const ReviewForm: React.FC = () => {
+interface ReviewFormProps {
+  productId: string;
+}
+
+const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
+  
   const user = useUser();
   const userId = user.user?.id;
-  
   const [rating, setRating] = useState<number>(0);
   const [review, setReview] = useState<string>("");
   const [errors, setErrors] = useState<{ rating: string; review: string }>({
@@ -17,12 +22,6 @@ const ReviewForm: React.FC = () => {
     review: false,
   });
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
-  const [buyId, setBuyId] = useState<string>("");
-  const [productId, setProductId] = useState<string>("");
-
-  
-  console.log(userId);
-
   const maxLength = 400; // Establece la longitud máxima permitida
   const remainingCharacters = maxLength - review.length;
   const isOverLimit = remainingCharacters < 0;
@@ -33,18 +32,7 @@ const ReviewForm: React.FC = () => {
       setTouched({ ...touched, review: true });
     }
   };
-  useEffect(() => {
-    fetch(`/api/review?id=${userId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (Array.isArray(data.ratings)) {
-          setBuyId(data.ratings.buyId);
-          setProductId(data.ratings.productId);
-        }
-      })
-      .catch((error) => console.error("Error obteniendo las reseñas", error));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
 
   useEffect(() => {
     let errors = { rating: "", review: "" };
@@ -90,15 +78,16 @@ const ReviewForm: React.FC = () => {
     if (!errors.rating && !errors.review) {
       try {
         const response = await fetch("/api/review", {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ productId, rating, review }),
+          body: JSON.stringify({ userId, productId, rating, review }),
         });
 
         if (response.ok) {
           console.log("Reseña enviada");
+          console.log(productId)
           resetForm();
           setSubmitSuccess(true);
         } else {
@@ -180,7 +169,7 @@ const ReviewForm: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitDisabled}
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Leave Feddback
           </button>

@@ -17,7 +17,7 @@ const AverageRatingStars: React.FC<ReviewFormProps> = ({ productId }) => {
   const [averageRating, setAverageRating] = useState<number>(0);
 
   useEffect(() => {
-    fetch(`/api/rating?id=${productId}`)
+    fetch(`/api/review?id=${productId}`)
       .then(response => response.json())
       .then(data => {
         if (Array.isArray(data.ratings) && data.ratings.length > 0) {
