@@ -8,6 +8,8 @@ export const fetchCache = 'force-no-store';
 import FilterbyPriceRange from '@/components/filterPriceRange';
 import { parse } from 'path';
 import AverageRatingStars from '@/components/RatingReview/AverageRating';
+import { Suspense } from 'react';
+
 
 
 
@@ -62,6 +64,7 @@ const data = await fetchData();
 
   return (
     <main className="flex flex-wrap flex-col content-center items-start mx-5">
+      <Suspense fallback={<div>Loading...</div>}>
       <div className='w-full inline-flex justify-between'>
         {searchParams.category ? 
         <div className='gap-2 flex flex-row h-12 items-center border-gray-400 border bg-transparent rounded-md'><h2 className=' text-gray-400'>Category: {searchParams.category}</h2>
@@ -114,7 +117,7 @@ const data = await fetchData();
         : <Link href='/product'><h1>Product not found!</h1>
             </Link>}
         </div>
-       
+        </Suspense>
     </main>
   );
 }

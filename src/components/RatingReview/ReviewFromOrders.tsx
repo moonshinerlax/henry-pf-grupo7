@@ -59,6 +59,7 @@ const ReviewFromOrders: React.FC<ReviewFormProps> = ({ productId }) => {
       console.error("El usuario no está autenticado");
       return;
     }
+    
     // Si no hay errores, procesa el formulario
     if (alreadyReview.length === 0) {
       try {
@@ -103,34 +104,7 @@ const ReviewFromOrders: React.FC<ReviewFormProps> = ({ productId }) => {
     }
   };
 
-
-  const updateReview = async () => {
-    if (!userId) {
-      console.error("El usuario no está autenticado");
-      return;
-    }
-      try {
-        // const response = await fetch("/api/review", {
-        //   method: "PUT",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({ ratingId, rating, review }),
-        // });
-        const response = true
-        if (response) {
-          console.log("Reseña actualizada")
-          console.log(rating, ratingId, review)
-          setSubmitSuccess(true);
-          setTimeout(()=>{setSubmitSuccess(false)}, 1000)
-        } else {
-          console.error("Error actualizando la reseña");
-        }
-      } catch (error) {
-        console.error("Error de red:", error);
-      }
-  };
-  const isSubmitDisabled = !!errors.rating || !!errors.review;
+  const isSubmitDisabled = rating === 0;
 
   return (
     <>
@@ -194,7 +168,7 @@ const ReviewFromOrders: React.FC<ReviewFormProps> = ({ productId }) => {
         </div> */}
         {/* {errors.rating && <p>{errors.rating}</p>}
         {errors.review && <p>{errors.review}</p>} */}
-        <div className="flex space-x-4">
+        {isSubmitDisabled ? null : <div className="flex space-x-4">
           {alreadyReview.length > 0 ?
           <button className="inline-flex py-2 px-4 justify-center items-center h-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           type="submit"
@@ -209,7 +183,7 @@ const ReviewFromOrders: React.FC<ReviewFormProps> = ({ productId }) => {
           >
             Submit
           </button>}
-        </div>
+        </div>}
       </form>}
     </>
   );
