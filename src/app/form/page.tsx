@@ -9,6 +9,7 @@ import Swal from 'sweetalert2'
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation';
+import { ImageConfigContext } from 'next/dist/shared/lib/image-config-context.shared-runtime';
 
 
 interface Specs {
@@ -197,7 +198,7 @@ const handleAddSpec = () => {
   useEffect(() => {
     AOS.init();
   }, []);
-console.log(form)
+console.log(form.specs)
  return (
   <>
     <div className="flex flex-col sm:flex-row justify-center bg-gray-500 w-full mb-32">
@@ -270,7 +271,7 @@ console.log(form)
           </div>
           
  <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
-       <label htmlFor="key">Spec</label>
+  <label htmlFor="key">Spec:</label>
   <input
     onChange={handleKeyChange}
     name="key"
@@ -280,7 +281,7 @@ console.log(form)
     className='m-1 text-2xl text-black p-2 w-full border-blue-500 rounded'
   />
 
-  <label htmlFor="value">Desciption</label>
+  <label htmlFor="value">Desciption:</label>
   <input
     onChange={handleValueChange}
     name="value"
@@ -294,18 +295,33 @@ console.log(form)
     Add Spec
   </button>
 </div>
-<div>
-<div data-aos="flip-right" className='text-6xl p-3  flex-initial'  >Specs:</div>
-  {Object.entries(form.specs).map(([key, value], index) => (
-    <>
- 
-    <div data-aos="flip-right"  key={index} className='m-1 text-2xl text-gray-200 p-2 w-full border-blue-500 rounded'>
-      <strong  >{key}:</strong> {value}
-    </div>
-    </>
-  ))}
+
+<div className='relative mx-auto text-left items-left self-left'>
+{Object.keys(form.specs).length !== 0 ? (
+  <>
+  {form.image && (
+            <div className="flex justify-center w-full">
+              <Image 
+                src={form.image}
+                alt='imagen' 
+                width={20}
+                height={20}
+                className="w-60 h-auto transition-transform rounded-2xl hover:scale-110" 
+                data-aos="flip-right" 
+              />
+            </div>
+          )}
+    <div data-aos="flip-right" className='text-4xl items-left text-left p-3'>Specs:</div>
+    {Object.entries(form.specs).map(([key, value], index) => (
+      <div data-aos="flip-right" key={index} className='text-sm text-right justify-end text-gray-200 p-2 w-full border-blue-500 rounded'>
+        <strong>{key}:</strong> {value}
+      </div>
+    ))}
+  </>
+) : null}
 </div>
-          <div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center rounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500 w-full">
+
+   <div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center rounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500 w-full">
             <button 
               type="submit"
               disabled={ Object.values(errors).some((error) => error !== '')}
