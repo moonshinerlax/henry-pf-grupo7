@@ -2,7 +2,7 @@ import { compileWelcomeEmail } from "../../components/siteEmails/WelcomeEmail"
 
 export default async function sendEMail(userName: string, email: string) {
     const myaccount = typeof window !== 'undefined' ? `${window.location.origin}/` : '';
-  const products = typeof window !== 'undefined' ? `${window.location.origin}/products` : '';
+  const products = typeof window !== 'undefined' ? `${window.location.origin}/product` : '';
     const emailmessage = compileWelcomeEmail(userName, myaccount, products)
     const emailData = {
             subject: `Welcome ${userName} to CodeWave Central Shop!`,
