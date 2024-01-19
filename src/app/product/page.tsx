@@ -9,7 +9,7 @@ import FilterbyPriceRange from '@/components/filterPriceRange';
 import { parse } from 'path';
 import AverageRatingStars from '@/components/RatingReview/AverageRating';
 import { Suspense } from 'react';
-import Loading from '@/components/layout/Skeleton/LoadingSke';
+
 
 
 
@@ -64,7 +64,7 @@ const data = await fetchData();
 
   return (
     <main className="flex flex-wrap flex-col content-center items-start mx-5">
-      <Suspense fallback={<Loading/>}>
+      <Suspense fallback={<div>Loading...</div>}>
       <div className='w-full inline-flex justify-between'>
         {searchParams.category ? 
         <div className='gap-2 flex flex-row h-12 items-center border-gray-400 border bg-transparent rounded-md'><h2 className=' text-gray-400'>Category: {searchParams.category}</h2>
