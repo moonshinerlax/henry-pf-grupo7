@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 
 
 interface Specs {
-  specifications: string;
+    [key: string]: any; 
 }
 
 interface Form {
@@ -38,7 +38,7 @@ const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<E
     image: form.image ? '' : "upload an Image",
     category: form.category ?  '' : 'select a Category',
     price: Number(form.price) > 0 ? '' : 'Price must be a positive number',
-   specs: form.specs.specifications  ? "" :  "Specs must be a valid value",
+    specs: Object.keys(form.specs).length > 0 ? "" :  "Specs must not be empty",
   };
   setErrors(newErrors);
 }
@@ -54,7 +54,7 @@ const router = useRouter()
     image: '',
     category: '',
      price: '',
-    specs: {specifications: ""},
+    specs: {},
   });
 
   const [errors, setErrors] = useState<Errors>({
@@ -84,23 +84,38 @@ const router = useRouter()
     setFormInteracted(true);
   };
 
-  const handleSpecsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const property = event.target.name as keyof Specs;
-    const value = event.target.value;
-  
+  const handleSpecsChange = (newSpecs: { property: string; value: any }) => {
+    
+    
+    const property = newSpecs.property;
+    const value = newSpecs.value;
+        
     setForm((prevForm) => ({
       ...prevForm,
       specs: {
         ...prevForm.specs,
-        [property]: value,
+        [newSpecs.property]: newSpecs.value,
       },
-    }));
-  
+    }));  
     validation({ ...form, specs: { ...form.specs, [property]: value } }, setErrors);
-    setFormInteracted(true);
   };
 
-  
+const [key, setKey] = useState("");
+const [value, setValue] = useState("");
+
+const handleKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setKey(event.target.value);
+};
+
+const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setValue(event.target.value);
+};
+
+const handleAddSpec = () => {
+  handleSpecsChange({ property: key, value: value });
+  setKey("");
+  setValue("");
+};
 
 
   const handleImageUpload = (data: any) => {
@@ -254,19 +269,42 @@ console.log(form)
             />
           </div>
           
-          
-         <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
-        <label htmlFor="specifications">Specs</label>
-        <textarea   
-                 onChange={handleSpecsChange}
-                  name="specifications" 
-                   id="specifications"
-                    placeholder='Enter the Specifications of the product here...'
-                  value={form.specs.specifications}
-                                   className=' m-1 text-2xl text-black p-2 w-full h-60 rounded border-blue-500'
-                />
-      </div>
-       
+ <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
+       <label htmlFor="key">Spec</label>
+  <input
+    onChange={handleKeyChange}
+    name="key"
+    id="key"
+    placeholder='Enter a specificification'
+    value={key}
+    className='m-1 text-2xl text-black p-2 w-full border-blue-500 rounded'
+  />
+
+  <label htmlFor="value">Desciption</label>
+  <input
+    onChange={handleValueChange}
+    name="value"
+    id="value"
+    placeholder='Enter description'
+    value={value}
+    className='m-1 text-2xl text-black p-2 w-full border-blue-500 rounded'
+  />
+
+<button  type="button" onClick={handleAddSpec} className='m-1 text-2xl text-gray-800 p-2 w-full border-blue-100 bg-blue-300 rounded'>
+    Add Spec
+  </button>
+</div>
+<div>
+<div data-aos="flip-right" className='text-6xl p-3  flex-initial'  >Specs:</div>
+  {Object.entries(form.specs).map(([key, value], index) => (
+    <>
+ 
+    <div data-aos="flip-right"  key={index} className='m-1 text-2xl text-gray-200 p-2 w-full border-blue-500 rounded'>
+      <strong  >{key}:</strong> {value}
+    </div>
+    </>
+  ))}
+</div>
           <div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center rounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500 w-full">
             <button 
               type="submit"
@@ -282,7 +320,7 @@ console.log(form)
     {/* Columna lateral */}
     {formInteracted ? (
       Object.values(errors).some((error) => error !== '') ? (
-        <div className="sticky top-20  h-auto p-12 text-sm text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-15 bg-black rounded-md shadow-md ">
+        <div className="sticky top-20  h-full p-12 text-sm text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-15 bg-black rounded-md shadow-md ">
          <p>Please correct the following requirements:</p>
           <ul className='sticky top-12 h-auto ' >
             {Object.entries(errors).map(([key, value]) => (
