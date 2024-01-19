@@ -37,6 +37,12 @@ const CheckoutForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [paymentId, setPaymentId] = useState<string | null>('')
 
+  const requestBody = {
+    paymentId: paymentId,
+    user_id: user_id,
+    cartItems: {cartItems}
+  };
+
   useEffect(() => {
     const clientSecret = new URLSearchParams(window.location.search).get(
       "payment_intent_client_secret"
@@ -106,10 +112,12 @@ const CheckoutForm: React.FC = () => {
   const handlePopupClick = () => {
     if(message === 'Payment succeeded! Thank you for your Purchase!'){
       
-        fetch("/api/orders", {
-          method: "POST",
-          body: JSON.stringify({paymentId, cartItems, user_id})
-        })
+      fetch("/api/orders", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'},
+        body: JSON.stringify(requestBody),
+      })
       
       fetch("/api/create-payment-intent", {
         method: "PUT",

@@ -1,43 +1,38 @@
-import { sql } from "@vercel/postgres";
+import { QueryResultRow, sql } from "@vercel/postgres";
 import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
-    const email = searchParams.get('email')
+    const id = searchParams.get('id')
     
     try {
-
-      const {rows: users} = await sql`SELECT * FROM users WHERE email = ${email}`
-      const user_id = users[0].id
-
-      const { rows: cartItems } = await sql`
-        SELECT * FROM cart_items WHERE user_id = ${user_id};
+      const { rows: purchases } = await sql`
+        SELECT * FROM purchases WHERE user_id = ${id};
       `;
 
-      return NextResponse.json({ cartItems, users });
+      return NextResponse.json({ purchases });
     } catch (error) {
       console.error('Error fetching cart items:', error);
       return NextResponse.json({ message: 'Error fetching cart items' }, { status: 500 });
     }}
   
     export async function POST(req: Request) {
-      const { paymentId, cart_items, user_id } = await req.json();
+      const { paymentId, cartItems, user_id } = await req.json();
       
       try {
         
-        const { rowCount } = await sql`
-          INSERT INTO purchases (payment_id, user_id, cart)
-          VALUES (${paymentId}, ${user_id}, ${cart_items}
-          ON CONFLICT (paymentId)
-          DO UPDATE SET cart = ${cart_items}`;
+        const { rowCount } = await sql<QueryResultRow>`
+        INSERT INTO purchases (payment_id, user_id, cart)
+        VALUES (${paymentId}, ${user_id}, ${cartItems})
+        `
     
         if (rowCount > 0) {
-          return NextResponse.json({ message: "Purchase registed", result: true });
+          return NextResponse.json({ message: 'Purchase register succesfully', result: true });
         } else {
           return NextResponse.json({ message: "Failed to register purchase", result: false });
         }
       } catch (e) {
-        return NextResponse.json({ message: "Failed to register purchase", result: false });
+        return NextResponse.json({ message: "Failed to register purchase", cartItems, result: false });
       }
     }
 
