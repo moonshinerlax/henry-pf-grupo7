@@ -1,17 +1,24 @@
+
 'use client'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { CldUploadButton } from 'next-cloudinary';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Image from 'next/image';
+import Swal from 'sweetalert2'
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation'
 
+interface Specs {
+property: string;
+}
 
 interface Form {
   model: string;
   category: string;
   image: string;
   price: string;
-  website: string;
+  specs: Specs;
   }
 
 interface Errors {
@@ -19,8 +26,9 @@ interface Errors {
   category: string;
   image: string;
   price: string;
-  website: string;
+  specs: string;
 }
+
 
 const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<Errors>>) => {
   let newErrors: Errors = {
@@ -28,31 +36,40 @@ const validation = (form: Form, setErrors: React.Dispatch<React.SetStateAction<E
     image: form.image ? '' : "Upload an image",
     category: form.category ?  '' : 'Select a Category',
     price: Number(form.price) > 0 ? '' : 'Price must be a positive number',
-    website: /^(http|https):\/\/[^ "]+$/.test(form.website) ? '' : 'Website must be a valid URL',
+   specs: form.specs.property  ? "" :  "Specs must be a valid value",
+
   };
   setErrors(newErrors);
 }
 
-const CreateProduct: React.FC = () => {
+
+const CreateProduct: FC = () => {
+
   const [form, setForm] = useState<Form>({
     model: '',
     image: '',
     category: '',
      price: '',
-    website: '',
+    specs: {property: ""},
   });
+
   const [errors, setErrors] = useState<Errors>({
     model: '',
     image: '',
     category: '',
     price: '',
-    website: '',
+    specs: "",
   });
+
   const [formInteracted, setFormInteracted] = useState(false);
 
+
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
+   
     const property = event.target.name;
     const value = event.target.value;
+
+    
 
     setForm((prevForm) => ({
       ...prevForm,
@@ -63,6 +80,24 @@ const CreateProduct: React.FC = () => {
     setFormInteracted(true);
   };
 
+  const handleSpecsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const property = event.target.name as keyof Specs;
+    const value = event.target.value;
+  
+    setForm((prevForm) => ({
+      ...prevForm,
+      specs: {
+        ...prevForm.specs,
+        [property]: value,
+      },
+    }));
+  
+    validation({ ...form, specs: { ...form.specs, [property]: value } }, setErrors);
+    setFormInteracted(true);
+  };
+
+  
+
 
   const handleImageUpload = (data: any) => {
   
@@ -72,69 +107,95 @@ const CreateProduct: React.FC = () => {
          image: info.secure_url,
         }))
 
-                validation({ ...form, image: info.secure_url }, setErrors);
-             console.log("url", info.secure_url)
-        setFormInteracted(true); 
+      validation({ ...form, image: info.secure_url }, setErrors);
+    setFormInteracted(true); 
    }
 
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     validation(form, setErrors);
-
+  
     const hasErrors = Object.values(errors).some((error) => error !== '');
-
+  
     if (!hasErrors) {
       try {
         let res = await fetch("/api/form", {
           method: "POST",
           body: JSON.stringify({ form }),
         }); 
-
+  
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+    
         const resetForm = () =>
           setForm({
             model: '',
             image: "",
             category: '',
-             price: '',
-            website: '',
+            price: '',
+            specs: {property: ""},
           });
         resetForm();
-        window.alert("Product succesfully added!")
+
+        Swal.fire({
+          title: 'Producto creado',
+          html: `Producto creado con éxito`,
+          icon: 'success',
+          confirmButtonText: 'Ok',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = `/product/`;
+          }
+        });
+
       } catch (error) {
-        window.alert("Error! Product not added")
+        console.error(error);
+        Swal.fire({
+          title: "Error!",
+          text: "Product not added",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
       }
     } else {
       console.log(errors);
-      alert('Please correct the information');
+      Swal.fire({
+        title: "Error!",
+        text: 'Please correct the information',
+        icon: "error",
+        confirmButtonText: "OK",
+
+      } );
     }
   };
+  
   useEffect(() => {
     AOS.init();
   }, []);
-
+console.log(form)
  return (
   <>
-    <div className="flex flex-col sm:flex-row justify-center bg-gray-500 w-full">
+    <div className="flex flex-col sm:flex-row justify-center bg-gray-500 w-full mb-32">
       
-      <div className="m-6 text-white w-4 mx-4 w-auto sm:mx-10 sm:w-2/3 p-4 bg-gray-800 rounded-md shadow-md items-center gap-5 mb-5 text-black">
-        <h1 data-aos="flip-right" className="text-6xl text-gray-100 p-8 text-center">New Product</h1>
+      <div className="m-6  mx-4 w-auto sm:mx-10 sm:w-2/3 p-4 bg-black rounded-md shadow-md items-center gap-5 mb-50 text-gray-300 ">
+        <h1 data-aos="flip-right" className="text-2xl text-gray-400 p-20 text-center">New Product</h1>
         <form onSubmit={handleFormSubmit} className="grid justify-items-center content-evenly gap-y-20">
-          <div data-aos="flip-right" className='flex flex-col items-center gap-8 w-full'>
-            <label htmlFor="model">Name model:</label> 
-            <input
+          <div data-aos="flip-right" className='flex flex-col items-center gap-8 w-full'> <label htmlFor="model">Name model:</label> 
+           <input
               name="model"
               type="text"
               id="model"
               value={form.model}
               onChange={handleChange}
-              className='text-4x1 text-black p-2 w-full sm:w-96 border-gray-500 rounded border-blue-500'
+              className=' text-4x1 text-black p-2 w-full border-gray-500 rounded '
             />  
           </div>
           <div data-aos="flip-right" className='flex justify-center w-full'>
             <CldUploadButton 
-              className='w-full border-blue-500 text-4xl rounded border-2 p-8 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
+              className='w-full border-blue-500 text-normal rounded border-2 p-8 cursor-pointer transition duration-300 hover:bg-blue-500 hover:text-white hover:border-transparent'
               uploadPreset="zwtk1tj5"
               onUpload={handleImageUpload}
             >
@@ -146,9 +207,9 @@ const CreateProduct: React.FC = () => {
               <Image 
                 src={form.image}
                 alt='imagen' 
-                width={400}
-                height={400}
-                className="w-full h-auto transition-transform hover:scale-110" 
+                width={200}
+                height={200}
+                className="w-60 h-auto transition-transform rounded-2xl hover:scale-110" 
                 data-aos="flip-right" 
               />
             </div>
@@ -178,20 +239,23 @@ const CreateProduct: React.FC = () => {
               id="price"
               value={form.price}
               onChange={handleChange}
-              className='m-1 text-2xl text-black p-2 w-full sm:w-96 border-gray-500 rounded border-blue-500'
+              className='m-1 text-2xl text-black p-2 w-full  border-gray-500 rounded border-blue-500'
             />
           </div>
-          <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
-            <label htmlFor="website">Website:</label>
-            <input
-              name="website"
-              type="text"
-              id="website"
-              value={form.website}
-              onChange={handleChange}
-              className='m-1 text-2xl text-black p-2 w-full sm:w-96 border-gray-500 rounded border-blue-500'
-            />
-          </div>
+          
+          
+         <div data-aos="flip-right" className='flex flex-col items-center gap-2 w-full'>
+        <label htmlFor="specs">Specs</label>
+        <textarea   
+         onChange={handleSpecsChange}
+        name="property" 
+                     id="specs"
+                  value={form.specs.property}
+                 
+                  className=' m-1 text-2xl text-black p-2 w-full h-60 rounded border-blue-500'
+                />
+      </div>
+       
           <div data-aos="flip-right" className="bg-blue-500 text-black p-10 justify-center rounded-md cursor-pointer transition duration-500 hover:bg-white hover:text-blue-500 w-full">
             <button 
               type="submit"
@@ -204,69 +268,58 @@ const CreateProduct: React.FC = () => {
         </form>
       </div>
       <div className="w-full sm:w-2/4 mx-auto p-5 bg-gray-300 shadow-md text-black">
-        {/* Columna lateral */}
     {/* Columna lateral */}
     {formInteracted ? (
       Object.values(errors).some((error) => error !== '') ? (
-        <div className='sticky top-0  tw-1/4 mx-auto p-5 bg-gray-600 rounded-md shadow-md text-white'>
-          <p>Please correct the following errors:</p>
-          <ul className='sticky top-0 ' >
+        <div className="sticky top-20  h-auto p-12 text-sm text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-15 bg-black rounded-md shadow-md ">
+         <p>Please correct the following requirements:</p>
+          <ul className='sticky top-12 h-auto ' >
             {Object.entries(errors).map(([key, value]) => (
-              <li key={key}>
-                <span className=" p-4 m-4 p-1 rounded-2xl text-white"> {value ?  "❌ "  + value :  "✅ " + key + ' has been successfully validated' }  </span>
+              <li className= "p-5" key={key}>
+                <span className=" rounded-md shadow-md "> {value ?  "❌ "  + value :  "✅ " + key.charAt(0).toUpperCase() + key.slice(1) + ' has been successfully validated' }  </span>
               </li>
             ))}
           </ul>
         </div>
       ) : (
-        <div className="sticky top-0  text-black p-3 rounded-md">
+        <div className="sticky top-12  h-auto text-sm  md:tw-1/2 tw-1/4 mx-auto p-8 bg-black rounded-md shadow-md text-gray-400 ">
+
           <ul>
             {Object.entries(errors).map(([key, value]) => (
-              <li key={key}>
-                <span className="text-black-200">✅ {key} has been successfully validated </span>
+              <li className="p-5" key={key}>
+                <span className="text-gray-400">✅ {key.charAt(0).toUpperCase() + key.slice(1)} has been successfully validated </span>
               </li>
             ))}
           </ul> 
- 
-          <b>Your product is ready to be loaded!</b>
-          <div className="text-green-400 font-bold text-5xl mb-2 text-center rounded-full border-2 border-green-400"> ✅</div>
-        </div>
+            <div className="text-gray-200 p-5  text-sm rounded-full "> ✅
+           <b>Your product is ready to be loaded!</b></div>
+          </div>
       )
     ) : (
-      <div className="sticky top-0  tw-1/4 mx-auto p-5 bg-gray-600 rounded-md shadow-md text-white">
+      <div className="sticky top-20  h-auto text-base text-gray-400 md:tw-1/2 tw-1/4 mx-auto p-5 bg-black rounded-md shadow-md ">
         <p>Requirements:</p>
         <ul>
-          <li>
-            <span className="text-blue-500">Name model</span>  Model cannot be empty 
+          <li className='p-5 '>
+            <span className="text-blue-500 ">Name model</span>  Model cannot be empty 
           </li>
-          <li>
+          <li className='p-5 '>
             <span className="text-blue-500">Image</span> Upload an image 
           </li>
-          <li>
+          <li className='p-5 '>
             <span className="text-blue-500">Category</span> Select a Category
           </li>
-          <li>
+          <li className='p-5 '>
             <span className="text-blue-500">Price </span> must be a positive number
           </li>
-          <li>
-            <span className="text-blue-500">Website </span> must be a valid URL
+          <li className='p-5 '>  
+            <span className="text-blue-500">Specs</span> must be a valid Specs
           </li>
               
         </ul>
 
       </div>
     )}
-     {form.image ? (
-            <div className="fixed right-16 bottom-4  ">
-              <Image 
-                src={form.image}
-                alt='imagen' 
-                width={150}
-                height={100}
-                className="h-full transition-transform hover:scale-110 sm:opacity-10 opacity-0 z-negative pointer-events-none"
-              />
-            </div>): <div> </div> }
-  </div>
+      </div>
 
         
 </div>
