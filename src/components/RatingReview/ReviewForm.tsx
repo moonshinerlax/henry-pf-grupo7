@@ -140,7 +140,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
           })}
         </div>
         <div>
-          <label className="block text-sm font-medium "></label>
+          <label className="block text-sm font-medium"></label>
           <textarea
             value={review}
             maxLength={400}
@@ -152,7 +152,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ productId }) => {
               }
             }}
             rows={4}
-            className="mt-1 block w-full shadow-sm bg-gray-200 rounded-md  sm:text-sm"
+            className="mt-1 text-gray-900 block w-full shadow-sm bg-gray-200 rounded-md  sm:text-sm"
             placeholder="Feedback"
           /></div>
           <div className="flex text-sm text-right">
