@@ -1,6 +1,6 @@
 import Handlebars from "handlebars"
 
-export const WelcomeEmail = `
+export const welcomeEmail =`
 <!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
@@ -324,14 +324,13 @@ export const WelcomeEmail = `
 	</table><!-- End -->
 </body>
 
-</html>
-`
+</html>`
 
-export function compileWelcomeEmail(userName: string, url: string, products: any){
-    const template = Handlebars.compile(WelcomeEmail)
+export function compileWelcomeEmail(userName: string, url: string, products: string){
+    const template = Handlebars.compile(welcomeEmail)
     const htmlBody = template({
       userName: userName,
-      url: url,
+      myaccount: url,
       products: products
     })
     return htmlBody

@@ -75,17 +75,14 @@ export const AddToCart: React.FC<AddToCartProps> = ({
       {stock > 0 ? (
         <div className="my-6 flex justify-between ">
           <div>Qty</div>
-          <div>
-            <select
-              value={qty}
-              onChange={(e) => setQty(Number(e.target.value))}
-            >
-              {[...Array(stock).keys()].map((x) => (
-                <option key={x + 1} value={x + 1}>
-                  {x + 1}
-                </option>
-              ))}
-            </select>{" "}
+          <div className="w-1/3 flex justify-between items-center">
+            <button className="w-1/3 text-xs h-fit border border-white rounded-sm" onClick={() => setQty(qty - 1)} disabled={qty === 1}>
+              -
+            </button>
+            <span>{qty}</span>
+            <button className="w-1/3 text-xs h-fit border border-white rounded-sm" onClick={() => setQty(qty + 1)} disabled={qty === stock}>
+              +
+            </button>
           </div>
         </div>
       ) : (

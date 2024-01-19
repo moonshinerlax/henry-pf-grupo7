@@ -12,37 +12,37 @@ interface Rating{
   rating: number;
   review: string;
 }
-export async function GET(req: NextRequest) {
-  const userId = req.nextUrl.searchParams.get("id");
-  try {
-    // Obtén la ruta completa del archivo data.json
-    const filePath = path.join(process.cwd(), "data.json");
+// export async function GET(req: NextRequest) {
+//   const userId = req.nextUrl.searchParams.get("id");
+//   try {
+//     // Obtén la ruta completa del archivo data.json
+//     const filePath = path.join(process.cwd(), "data.json");
 
-    // Lee el contenido del archivo
-    const dataContent = await fs.readFile(filePath, "utf-8");
+//     // Lee el contenido del archivo
+//     const dataContent = await fs.readFile(filePath, "utf-8");
 
-    // Parsea el contenido como JSON
-    const jsonData = JSON.parse(dataContent);
+//     // Parsea el contenido como JSON
+//     const jsonData = JSON.parse(dataContent);
 
-    // Obtiene el id de la URL de la solicitud
+//     // Obtiene el id de la URL de la solicitud
     
-    if (!userId) {
-      return NextResponse.json({
-        status: "error",
-        message: "User ID not provided in the URL",
-      });
-    }
+//     if (!userId) {
+//       return NextResponse.json({
+//         status: "error",
+//         message: "User ID not provided in the URL",
+//       });
+//     }
 
     
-    return NextResponse.json({ purchases: jsonData });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({
-      status: "error",
-      message: "Ocurrió un error al procesar la solicitud",
-    });
-  }
-}
+//     return NextResponse.json({ purchases: jsonData });
+//   } catch (error) {
+//     console.error(error);
+//     return NextResponse.json({
+//       status: "error",
+//       message: "Ocurrió un error al procesar la solicitud",
+//     });
+//   }
+// }
 
 export async function POST(req: Request) {
   try {
@@ -62,37 +62,38 @@ export async function POST(req: Request) {
   }
 }
 
-// export async function GET(req: NextRequest) {
-//   try {
-//     function isValidUUID(uuid: string): boolean {
-//       const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-//       return uuidRegex.test(uuid);}
-//     // Obtiene el id de la URL de la solicitud
-//     const userId = req.nextUrl.searchParams.get("id");
-//     if (!userId) {
-//       return NextResponse.json({
-//         status: "error",
-//         message: "User ID not provided in the URL",
-//       });
-//     }
-//     if (!isValidUUID(userId)) {
-//       return NextResponse.json({
-//         status: "error",
-//         message: "Invalid User ID format",
-//       });
-//     }
-//     const { rows: ratings } =
-//       await sql`SELECT * FROM Ratings WHERE user_id = ${userId}`;
+export async function GET(req: NextRequest) {
+  try {
+    // function isValidUUID(uuid: string): boolean {
+    //   const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+    //   return uuidRegex.test(uuid);}
+    // // Obtiene el id de la URL de la solicitud
+    // const productId = req.nextUrl.searchParams.get("id");
+    // if (!productId) {
+    //   return NextResponse.json({
+    //     status: "error",
+    //     message: "Product ID not provided in the URL",
+    //   });
+    // }
+    // if (!isValidUUID(productId)) {
+    //   return NextResponse.json({
+    //     status: "error",
+    //     message: "Invalid Product ID format",
+    //   });
+    // }
+    const { searchParams } = new URL(req.url)
+    const id = searchParams.get('id')
+    const { rows: ratings } = await sql`SELECT * FROM ratings WHERE user_id = ${id}`
 
-//     return NextResponse.json({ ratings });
-//   } catch (error) {
-//     console.error(error);
-//     return NextResponse.json({
-//       status: "error",
-//       message: "Ocurrió un error al procesar la solicitud",
-//     });
-//   }
-// }
+    return NextResponse.json({ ratings });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({
+      status: "error",
+      message: "Ocurrió un error al procesar la solicitud",
+    });
+  }
+}
 
 export async function PUT(req: Request) {
   try {
