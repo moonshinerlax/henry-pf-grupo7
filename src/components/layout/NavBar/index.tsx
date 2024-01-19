@@ -48,6 +48,22 @@ export default function Navbar() {
       }
     };
 
+    const updateUser = async (user: any)=>{
+      if(user.id !== id ){
+        try {
+          let res = await fetch("/api/validateuser", {
+            method: "PUT",
+            body: JSON.stringify({ email, id }),
+          });
+          
+          return console.log('User Updated')  
+           
+        } catch (error) {
+          console.log('error', error)
+        }       
+      }
+    }
+
     useEffect(()=>{
       dispatch(hideLoading())
     },[dispatch])
@@ -64,6 +80,7 @@ export default function Navbar() {
           if (response.ok) {
             const user = await response.json();
             checkUserStatus(user.users[0]);
+            updateUser(user.users[0])
           } else {
             throw new Error("Failed to fetch user status");
           }
@@ -72,6 +89,7 @@ export default function Navbar() {
         }
       };
       fetchUserData()
+      
     }, [pathnames, id]);   
 
   useEffect(() => {
