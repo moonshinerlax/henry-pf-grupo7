@@ -201,7 +201,7 @@ const handleAddSpec = () => {
 console.log(form.specs)
  return (
   <>
-    <div className="flex flex-col sm:flex-row justify-center bg-gray-500 w-full mb-32">
+    <div className="flex flex-col sm:flex-row justify-center bg-gray-500 w-full mb-36">
       
       <div className="m-6  mx-4 w-auto sm:mx-10 sm:w-2/3 p-4 bg-black rounded-md shadow-md items-center gap-5 mb-50 text-gray-300 ">
         <h1 data-aos="flip-right" className="text-2xl text-gray-300 p-20 text-center"> Add New Product</h1>
